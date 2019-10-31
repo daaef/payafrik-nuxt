@@ -3,6 +3,7 @@
     <p>AFK Token Balance</p>
     <h6 class="token-balance">468.00</h6>
     <div class="underline"></div>
+    <nuxt-link to="token-purchase" class="token-purchase"> <i class="ti-server"></i> Buy tokens</nuxt-link>
     <button id="transferButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="transfer"> Transfer tokens <i class="ti-exchange-vertical mr-1"></i></button>
     <div class="dropdown-menu" aria-labelledby="transferButton">
         <a class="dropdown-item" href="#"><i class="ti-share mr-2"></i>To user</a>
@@ -113,6 +114,15 @@ h6.token-balance{
   color:#F9B330!important;
   font-weight:700;
   font-size:2em;
+}
+
+a.token-purchase{
+  color:#F9B330;
+}
+
+a.token-purchase:hover{
+  color:#fff;
+  text-decoration: none;
 }
 
 a.nav-closer{
