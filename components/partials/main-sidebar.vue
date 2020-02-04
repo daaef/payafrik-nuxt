@@ -3,7 +3,7 @@
     <p>AFK Token Balance</p>
     <h6 class="token-balance">468.00</h6>
     <div class="underline"></div>
-    <nuxt-link to="token-purchase" class="token-purchase"> <i class="ti-server"></i> Buy tokens</nuxt-link>
+    <nuxt-link to="token-purchase" class="token-purchase"> <i class="ti-server"></i> Buy tokens</nuxt-link><br>
     <button id="transferButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="transfer"> Transfer tokens <i class="ti-exchange-vertical mr-1"></i></button>
     <div class="dropdown-menu" aria-labelledby="transferButton">
         <a class="dropdown-item" href="#"><i class="ti-share mr-2"></i>To user</a>
@@ -21,8 +21,8 @@
     </nav>
     <h6 class="sidebar-heading text-uppercase shadowed-box">Other Services</h6>
     <nav>
-      <a class="navigation">Utilities</a>
-      <a class="navigation">Mart</a>
+      <!-- <a class="navigation">Utilities</a> -->
+      <nuxt-link to="/user-area/mart" active-class="active" class="navigation">Mart</nuxt-link>
       <a class="navigation">Logistics</a>
       <a class="navigation">Loans</a>
       <a class="navigation">Investments</a>

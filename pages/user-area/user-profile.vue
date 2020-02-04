@@ -50,7 +50,10 @@
                         </div>
                         <div class="col-md-6">
                             <label>Date of Birth</label>
-                            <input type="text" v-model="dob" placeholder="Your date of birth">
+                            <!-- <input type="text" v-model="dob" placeholder="Your date of birth"> -->
+                            <md-datepicker v-model="dob">
+                                <label>Select date of birth</label>
+                            </md-datepicker>
                         </div>
                         <!-- <div class="col-md-9"></div> -->
                         <div class="col-md-3 mt-3"><button class="success-btn" disabled>Update Details</button></div>
@@ -324,6 +327,7 @@ export default {
     button.greyed-btn{
         font-weight:500;
         background-color: #f1f1f1;
+        width: inherit!important;
     }
 
     .input-file + label {

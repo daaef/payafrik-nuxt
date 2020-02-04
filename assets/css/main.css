@@ -77,6 +77,14 @@ p.form-tip{
     box-shadow: 3px 3px 15px #00000052;
 }
 
+.wrapper{
+    padding:20px
+}
+
+.border-light{
+    border: 1px solid #e9e9e9 !important;
+}
+
 .underline{
     width:30px;
     height:2px;
@@ -159,6 +167,10 @@ button.greyed-btn{
 button.greyed-btn:hover{
     color:#2c2b2bde;
     background-color: transparent;
+}
+
+.text-grey{
+    color: #999!important;
 }
 
 .dashboard-card{

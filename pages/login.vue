@@ -88,10 +88,10 @@ export default {
                     // token: "gAAAAABdrjkaSqp5f1doEwEYR1Wzg3Kb5R_DfN000-8w5uyWiREdLZXlAPx0pv1Yk6NETHtZeNMaqTFY1XFPGKkge93khnhJIZRFK3MMufv1nKSA0-4e9Lw50ytodnND38yxCA0dC86LgAqRl6kQgXD3xS2zaVqx6whBuVhSRatbDkX2uiy4hC5eMdnTx8sl__pCJoEJ0UipEs69axBq_IceLASSOYaBl-VkfPyv-m-PNH4k6neEgg3eRHkgKqq04fvOk3IMsj6sNzar3O-9FM7pxXNIE2WufIDTgA3qsFUch9jkKrcnt_FBzyF0K3oxmpYQ8Bp1JasD"
                     // username: "johndoe"
 
-                     this.$cookies.set('userdetails', userDetails, {
-                        path: '/',
-                        maxAge: 60 * 60 * 24 * 7
-                    })
+                this.$cookies.set('userdetails', userDetails, {
+                    path: '/',
+                    maxAge: 60 * 60 * 24 * 7
+                })
                
                 // this.authenticate(signInResponse)
                 this.$router.push('../user-area/dashboard')

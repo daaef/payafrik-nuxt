@@ -1,8 +1,10 @@
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   env: {
-    baseUrl: process.env.BASE_URL || 'http://ec2-18-207-212-141.compute-1.amazonaws.com/'
+    baseUrl: process.env.BASE_URL || 'https://api.payafrik.io/',
+    interswitchBaseUrl: 'http://localhost:5000/v1/api/interswitch/'
+    // baseUrl: process.env.BASE_URL || 'http://ec2-18-207-212-141.compute-1.amazonaws.com/'
   },
   /*
   ** Headers of the page
@@ -75,6 +77,10 @@ export default {
     // Doc: https://bootstrap-vue.js.org/docs/
     // 'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
+    ['nuxt-vue-material', {
+      // theme: 'default-light',
+      components: ['MdDrawer', 'MdRadio', 'MdMenu', 'MdContent', 'MdList', 'MdButton', 'MdToolbar', 'MdDatepicker', 'MdTabs', 'MdCard']
+    }],
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/toast',

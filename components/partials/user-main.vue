@@ -6,7 +6,7 @@
           <div class="dashboard-card big shadowed-box afk">
             <div class="overlay">
               <img style="width:30px; margin-bottom:10px;" src="../../assets/img/logo.svg">
-              <p>Africkoin Wallet</p>
+              <p>Afrikoin Wallet</p>
               <h6>{{userDetails.balance}}</h6>
               <div class="afk-functions">                
                 <a @click="openModal('afkTransferModal')" id="transfer-button"> Send to user <i class="ti-arrow-right"></i></a><br>
@@ -159,7 +159,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="afkTransferModaTitle">Transfer Africkoin to a user</h5>
+            <h5 class="modal-title" id="afkTransferModaTitle">Transfer Afrikoin to a user</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
