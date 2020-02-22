@@ -219,6 +219,7 @@ export default {
         },
         
         async uploadDoc(){
+            this.uploadingDoc = true
             let formData = new FormData();
             formData.append('file', this.uploadedFile);
 
@@ -229,19 +230,21 @@ export default {
 
             try{
                 const uploaded = await this.$axios.$post(this.baseUrl+'auth/kyc/' + this.documentType + '/' + this.documentSide + '/', formData, {headers})
-                 this.$toast.success('File uploaded successfully!')
-                 this.uploadedFile = ''
-                 this.image = ''
-                 this.fileName = ''
-                 this.getUserDetails()
+                this.$toast.success('File uploaded successfully!')
+                this.uploadedFile = ''
+                this.image = ''
+                this.fileName = ''
+                this.getUserDetails()
+                this.uploadingDoc = false
             }catch(e){
                 this.$toast.error(e.response.data.detail)
                 this.importingWallet = false
                 console.log(e.response)
+                this.uploadingDoc = false;
             }
         },
 
-        async updateProfile() {
+    async updateProfile() {
         this.processing = true;
         let payload = {
             firstname: this.username,

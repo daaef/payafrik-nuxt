@@ -26,7 +26,7 @@
                                 </div><p>
                                 {{category.categorydescription}}
                                 </p>
-                                <nuxt-link :to="{ params: { categoryId: category.categoryid }}">See Billers</nuxt-link>
+                                <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: category.categoryid }}">See Billers</nuxt-link>
                                 
                             </div>
                         </div>

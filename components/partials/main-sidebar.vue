@@ -15,17 +15,17 @@
     <nav>
       <nuxt-link to="/user-area/dashboard" active-class="active" class="navigation">Dashboard</nuxt-link>
       <nuxt-link to="/user-area/transactions" active-class="active" class="navigation">Transactions</nuxt-link>
-      <a class="navigation">Payouts</a>
-      <a class="navigation">Wallet</a>
-      <a class="navigation">Chats</a>
+      <nuxt-link to="/user-area/payouts" active-class="active" class="navigation">Payouts</nuxt-link>
+      <nuxt-link to="/user-area/wallet" active-class="active" class="navigation">Wallets</nuxt-link>      
+      <nuxt-link to="/user-area/chats" active-class="active" class="navigation">Chats</nuxt-link>
     </nav>
     <h6 class="sidebar-heading text-uppercase shadowed-box">Other Services</h6>
     <nav>
       <!-- <a class="navigation">Utilities</a> -->
       <nuxt-link to="/user-area/mart" active-class="active" class="navigation">Mart</nuxt-link>
-      <a class="navigation">Logistics</a>
-      <a class="navigation">Loans</a>
-      <a class="navigation">Investments</a>
+      <nuxt-link to="/user-area/logistics" active-class="active" class="navigation">Logistics</nuxt-link>
+      <nuxt-link to="/user-area/loans" active-class="active" class="navigation">Loans</nuxt-link>
+      <nuxt-link to="/user-area/chats" active-class="active" class="navigation">Investments</nuxt-link>
     </nav>
     <h6 class="sidebar-heading text-uppercase shadowed-box">Support</h6>
     <nav>

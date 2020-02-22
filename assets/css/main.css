@@ -85,6 +85,11 @@ p.form-tip{
     border: 1px solid #e9e9e9 !important;
 }
 
+img.empty-state{
+    width:30%;
+    margin:auto;
+}
+
 .underline{
     width:30px;
     height:2px;

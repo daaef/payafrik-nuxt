@@ -66,28 +66,6 @@ export default {
                         kyc_status: signInResponse.user.kyc_status,    
                     }
 
-                    // avatar: ""
-                    // balance: "183.0000"
-                    // btc_wallet: "1Esmueaw9TKkWRstTcZNWADitwXb88TMsL"
-                    // dob: null
-                    // email: "johndoe@gmail.com"
-                    // eos_wallet: "eos_wallet"
-                    // eth_wallet: "0xACa094e28ae76AcCa3d77651b5B79Fb50E5721F1"
-                    // first_name: ""
-                    // gender: ""
-                    // id: 7
-                    // kyc_doc_number: ""
-                    // kyc_doc_type: "DRIVING-LICENCE"
-                    // kyc_document_back: null
-                    // kyc_document_front: "users/johndoe/1571695566.png"
-                    // kyc_selfie: null
-                    // kyc_status: "PENDING-DOC-APPROVAL"
-                    // last_name: ""
-                    // phone: "23408063245678"
-                    // timestamp: 1571698970.463651
-                    // token: "gAAAAABdrjkaSqp5f1doEwEYR1Wzg3Kb5R_DfN000-8w5uyWiREdLZXlAPx0pv1Yk6NETHtZeNMaqTFY1XFPGKkge93khnhJIZRFK3MMufv1nKSA0-4e9Lw50ytodnND38yxCA0dC86LgAqRl6kQgXD3xS2zaVqx6whBuVhSRatbDkX2uiy4hC5eMdnTx8sl__pCJoEJ0UipEs69axBq_IceLASSOYaBl-VkfPyv-m-PNH4k6neEgg3eRHkgKqq04fvOk3IMsj6sNzar3O-9FM7pxXNIE2WufIDTgA3qsFUch9jkKrcnt_FBzyF0K3oxmpYQ8Bp1JasD"
-                    // username: "johndoe"
-
                 this.$cookies.set('userdetails', userDetails, {
                     path: '/',
                     maxAge: 60 * 60 * 24 * 7
