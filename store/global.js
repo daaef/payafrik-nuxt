@@ -948,7 +948,8 @@ export const state = () => ({
   sidebarClosed: true,
   chatBoxClosed: true,
   isAuthenticated: false,
-  authenticatedUser: {}
+  authenticatedUser: {},
+  activeBiller: {}
 })
 
 export const mutations = {
@@ -973,5 +974,9 @@ export const mutations = {
   authenticateUser (state, userDetails) {
     state.isAuthenticated = true
     state.authenticatedUser = userDetails
+  },
+  setActiveBiller (state, biller){
+    console.log('in store: ', biller)
+    state.activeBiller = biller
   }
 }

@@ -75,7 +75,7 @@ export default {
                 this.$router.push('../user-area/dashboard')
                 this.processing = false
             }catch(e){
-                this.$toast.error(e.response.data.error)
+                this.$toast.error(JSON.stringify(e.response.data.error))
                 this.processing = false
                 console.log(e.response)
             }

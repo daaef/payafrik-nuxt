@@ -35,6 +35,8 @@ export default {
 <style scoped>
 .section{
     background-color:#1f3d74;
+    background: url('../assets/img/blockchain-bg.jpg') no-repeat center center;
+    background-size:cover;
     padding:35px;
 }
 i.ti-check-box{

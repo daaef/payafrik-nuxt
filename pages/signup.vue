@@ -7,19 +7,20 @@
                         <a href="https://payafrik.io"><img class="logo" src="../assets/img/logo.png"></a>
                         <div class="login-container shadowed-box">
                             <h6 class="font-weight-bold">SIGNUP</h6>
-                            <input type="text" v-model="username" placeholder="Create a username" v-bind:class="formErrors.usernameError === true ? 'has-error' : ''">
-
+                            <input type="text" v-model="firstName" placeholder="Your first name" v-bind:class="formErrors.firstNameError === true ? 'has-error' : ''">
+                            <input type="text" v-model="lastName" placeholder="Your last name" v-bind:class="formErrors.lastNameError === true ? 'has-error' : ''">
+                            <!-- <input type="text" v-model="username" placeholder="Create a username" v-bind:class="formErrors.usernameError === true ? 'has-error' : ''"> -->
                             <div class="row">
                                 <div class="col-4" style="padding-right:0; border-top-right-radius:0px; border-bottom-right-radius:0px">
                                     <select v-model="countryCode">
-                                        <option v-for="code in countryCodes" :value="code.code" :key="code.code">{{code.code}} - {{code.name}}</option>
+                                        <option v-for="code in countryCodes" :value="code.code" :key="code.name">{{code.code}} - {{code.name}}</option>
                                     </select>
                                 </div>
                                 <div class="col-8" style="padding-left:0; border-top-left-radius:0px; border-bottom-left-radius:0px">
                                     <input type="text" style="border-left:1px solid #e3e3e3" v-model="phone" placeholder="Your phone number" v-bind:class="formErrors.phoneError === true ? 'has-error' : ''">
                                 </div>
                             </div>
-                            <input type="email" v-model="email" placeholder="Your email address" v-bind:class="formErrors.emailError === true ? 'has-error' : ''">
+                            <!-- <input type="email" v-model="email" placeholder="Your email address" v-bind:class="formErrors.emailError === true ? 'has-error' : ''"> -->
                             <input type="password" v-on:input="calculatePasswordStrength()" v-bind:class="formErrors.passwordError === true ? 'has-error' : ''" v-model="password1" placeholder="Your password">
                             <div class="password-meter">
                                 <div v-bind:style="{width: passwordScore}" v-bind:class="charAdded === true ? strengthClass : ''" class="password-strength"></div>
@@ -50,6 +51,8 @@ export default {
           password1:'',
           password2:'',
           email:'',
+          firstName: '',
+          lastName: '',
           strengthClass: 'weak',
           passwordScore: '0%',
           charAdded: false,
@@ -57,6 +60,8 @@ export default {
           username: '',
           phone: '',
           formErrors: {
+              firstNameError: false,
+              lastNameError: false,
               passwordError:false,
               usernameError:false,
               emailError:false,
@@ -75,7 +80,7 @@ mounted() {
     console.log(this.countryCodes)
 },
   methods: {
-      calculatePasswordStrength() {
+    calculatePasswordStrength() {
         let points = 0;
         if(this.password1.length > 0){
             this.charAdded = true
@@ -98,14 +103,13 @@ mounted() {
                 points += 10
             }else{
                 if (character == character.toUpperCase()) {
-                   points += 10
+                points += 10
                 }
             }
             i++;
         }
         if(this.password1.length > 8){
             points += 20
-            console.log(points)
         }
 
         // assign class
@@ -117,49 +121,70 @@ mounted() {
             this.strengthClass = 'strong'
         }
         this.passwordScore = points + '%'
-      },
+    },
 
-       async signUp() {
+    async signUp() {
         this.processing = true;
-        let payload = {
-            username: this.username,
-            phone: this.countryCode + this.phone,
-            password: this.password1,
-            email: this.email
-        }   
-
-        console.log(payload)
 
         if(this.password1 !== this.password2){
             this.formErrors.passwordError = true
             this.$toast.error('Make sure both password match')
+            this.processing = false;
             return
         }
 
-        if(this.username === ''){
-            this.formErrors.usernameError = true
-            this.processing = false
-            return
-        } else if (this.email === ''){
-            this.formErrors.emailError = true
-            this.processing = false
-            return
-        } else if (this.phone === ''){
+        // if(this.username === ''){
+        //     this.formErrors.usernameError = true
+        //     this.processing = false
+        //     return
+        // } 
+        // else if (this.email === ''){
+        //     this.formErrors.emailError = true
+        //     this.processing = false
+        //     return
+        // } 
+        else if (this.phone === ''){
             this.formErrors.phoneError = true
             this.processing = false;
             return
         }
+        else if (this.firstName === ''){
+            this.formErrors.firstNameError = true
+            this.processing = false;
+            return
+        }
+        else if (this.lastName === ''){
+            this.formErrors.lastNameError = true
+            this.processing = false;
+            return
+        }
+
+        let payload = {
+            first_name: this.firstName,
+            last_name: this.lastName,
+            // username: this.username,
+            phone: this.countryCode + this.phone,
+            password: this.password1,
+            // email: this.email
+        }   
+        console.log(payload)
+
+        const headers = {
+        'Content-Type': 'application/json',
+        'X-PFK-DT': 'B',
+        };
         
         try{
-            const signupResponse = await this.$axios.$post(this.baseUrl+'auth/accounts/signup/', payload)
+            const signupResponse = await this.$axios.$post(this.baseUrl+'auth/accounts/signup/', payload, {headers})
             console.log('Signup Response', signupResponse)
-            this.$router.push('../signup-success')
+            this.$router.push('../confirmation')
 
         } catch(e){
-            this.$toast.error(e.response.data.detail)
+            console.log(JSON.stringify(e))
+            this.$toast.error(e.message)
             this.processing = false
         }
-      }
+    }
   }
 }
 </script>

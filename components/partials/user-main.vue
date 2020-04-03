@@ -7,9 +7,10 @@
             <div class="overlay">
               <img style="width:30px; margin-bottom:10px;" src="../../assets/img/logo.svg">
               <p>Afrikoin Wallet</p>
-              <h6>{{userDetails.balance}}</h6>
+              <!-- <h6>{{userDetails.balance}}</h6> -->
+              <h6>0</h6>
               <div class="afk-functions">                
-                <a @click="openModal('afkTransferModal')" id="transfer-button"> Send to user <i class="ti-arrow-right"></i></a><br>
+                <a href id="transfer-button"> Send to user <i class="ti-arrow-right"></i></a><br>
                 <a href> Send to wallet <i class="ti-arrow-right"></i></a><br>
                 <a href> Receive from wallet <i class="ti-arrow-right"></i></a><br>
                 <nuxt-link to="./coin-purchase"> Purchase Coin <i class="ti-arrow-right"></i></nuxt-link>
@@ -329,6 +330,7 @@ export default {
         const importResponse = await this.$axios.$put(this.baseUrl+'auth/user/import-wallets/', payload, {headers})
         if(importResponse.success === 'updated'){
           this.$toast.success("Wallet imported successfully!")
+          // this.getBtcWalletBalance();
           this.closeModal('walletImportModal')
           this.getUserDetails()
           // switch (this.toImport){
@@ -395,8 +397,9 @@ export default {
       };
 
       try{
-        const updatedUserDetails = await this.$axios.$get(this.baseUrl+'auth/accounts/' + this.userDetails.id + '/', {headers})
+        const updatedUserDetails = await this.$axios.$get(this.baseUrl+'auth/user/profile/', {headers})
         updatedUserDetails.token = this.userDetails.token
+        console.log('User ==>', updatedUserDetails)
         this.authenticate(
           updatedUserDetails
         )

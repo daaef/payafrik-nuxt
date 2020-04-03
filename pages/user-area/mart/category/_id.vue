@@ -32,8 +32,8 @@
                         <p>
                         CATEGORY: {{biller.categoryname}}
                         </p>
-                        <!-- <a>See Payment Items</a> -->
-                        <nuxt-link :to="{ name: 'user-area-mart-biller-id', params: { id: biller.billerid }}">See Payment Items</nuxt-link>
+                        <a @click='setBillerAndNavigate(biller)'>See Payment Items</a>
+                        <!-- <nuxt-link :to="{ name: 'user-area-mart-biller-id', params: { id: biller.billerid }}">See Payment Items</nuxt-link> -->
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-
+import { mapMutations } from 'vuex'
 export default {
     components: {},
     data(){
@@ -73,6 +73,23 @@ export default {
                 this.loadingBillers = false
                 console.log(e)
             }
+        },
+
+        ...mapMutations({
+            toggleChatBox: 'global/setActiveBiller',
+        }),
+
+        setBillerAndNavigate (biller) {
+            this.$store.commit('global/setActiveBiller', biller);
+            console.log('working here...')
+            this.$router.push(
+                {
+                    name: 'user-area-mart-biller-id', 
+                    params: { 
+                        id: biller.billerid 
+                    }
+                }
+            )
         },
 
 

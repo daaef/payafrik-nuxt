@@ -1,12 +1,12 @@
 <template>
   <div class="sidebar" v-bind:class="sidebarClosed === true ? 'closed' : ''">
     <p>AFK Token Balance</p>
-    <h6 class="token-balance">468.00</h6>
+    <h6 class="token-balance">{{+userDetails.balance}}</h6>
     <div class="underline"></div>
     <nuxt-link to="token-purchase" class="token-purchase"> <i class="ti-server"></i> Buy tokens</nuxt-link><br>
     <button id="transferButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="transfer"> Transfer tokens <i class="ti-exchange-vertical mr-1"></i></button>
     <div class="dropdown-menu" aria-labelledby="transferButton">
-        <a class="dropdown-item" href="#"><i class="ti-share mr-2"></i>To user</a>
+        <a class="dropdown-item" @click="openModal('afkTransferModal')"><i class="ti-share mr-2"></i>To user</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item"><i class="ti-wallet mr-2"></i>To Wallet</a>
     </div>
@@ -33,6 +33,47 @@
       <a class="navigation">Documentation</a>
     </nav>
     <a @click="closeSideBar()" class="nav-closer"><i class="fa fa-times"></i></a>
+
+
+    <!-- AFK Transfer Modal -->
+    <div class="modal fade" id="afkTransferModal" tabindex="-1" role="dialog" aria-labelledby="afkTransferModal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="afkTransferModaTitle">Transfer Afrikoin to a user</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Recipient username</label>
+                  <input v-model="userTransferAfk" type="text" placeholder="The user you are transferring to">
+                  <label>Amount</label>
+                  <input v-model="afkAmountToTransfer" type="number" placeholder="How much are you transferring?">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4 offset-md-4">
+                  <button type="button" class="greyed-btn" data-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-md-4">
+                  <button class="success-btn" v-if="!transferringAfk" @click="transferAfk()" type="button">Transfer</button>
+                  <button class="success-btn" v-if="transferringAfk" disabled><i class="fa fa-circle-notch fa-spin"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -41,7 +82,12 @@ import { mapMutations } from 'vuex'
 export default {
   components: {},
   data(){
-    return {}
+    return {
+      userTransferAfk: '',
+      afkAmountToTransfer: 0,
+      transferringAfk: false,
+      
+    }
   },
   computed: {
     sidebarClosed () {
@@ -52,6 +98,12 @@ export default {
     }
   },
   methods:{
+    openModal(modalId) {
+      $('#' + modalId).modal('show')    
+    },
+    closeModal(modalId) {
+      $('#' + modalId).modal('hide')    
+    },
     closeSideBar () {
       this.$store.commit('global/toggleSidebar')
     },

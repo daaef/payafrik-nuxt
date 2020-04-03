@@ -6,13 +6,13 @@
                     <div class="text-center">
                         <img class="logo" src="../../assets/img/logo.png">
                         <div class="login-container shadowed-box">
-                            <p><i class="ti-check-box"></i> Account confirmed successfully</p>
-                            <h6 class="font-weight-bold">PLEASE PROVIDE BASIC INFORMATION TO PROCEED</h6>
-                            <input type="text" placeholder="First name">
-                            <input type="text" placeholder="Last name">
-                            <input type="text" placeholder="Phone number">
-                            <input type="text" placeholder="Create a username">
-                            <!-- <input type="password" placeholder="Your password"> -->
+                            <!-- <p><i class="ti-check-box"></i> Account confirmed successfully</p> -->
+                            <h6 class="font-weight-bold">PLEASE VERIFY YOUR PHONE NUMBER TO PROCEED</h6>
+
+                            <input type="text" placeholder="Your activation code (Sent via sms)">
+                            <input type="text" placeholder="Your username">
+                            <input type="password" placeholder="Your password">
+
                             <button class="login">Proceed to your dashboard</button>
                         </div>
                     </div>
@@ -34,6 +34,8 @@ export default {
 
 .section{
     background-color:#1f3d74;
+    background: url('../../assets/img/blockchain-bg.jpg') no-repeat center center;
+    background-size:cover;
     padding:35px;
 }
 img.logo{

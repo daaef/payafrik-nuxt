@@ -3,8 +3,9 @@ export default {
   mode: 'spa',
   env: {
     baseUrl: process.env.BASE_URL || 'https://api.payafrik.io/',
-    interswitchBaseUrl: 'http://localhost:5000/v1/api/interswitch/'
+    interswitchBaseUrl: 'http://ec2-user@ec2-3-16-42-184.us-east-2.compute.amazonaws.com:5000/v1/api/interswitch/'
     // baseUrl: process.env.BASE_URL || 'http://ec2-18-207-212-141.compute-1.amazonaws.com/'
+    // interswitchBaseUrl: 'http://localhost:5000/v1/api/interswitch/'
   },
   /*
   ** Headers of the page
@@ -88,7 +89,7 @@ export default {
   ],
   toast: {
     position: 'top-center',
-    duration: 1500,
+    duration: 3000,
     iconPack: 'fontawesome',
     closeOnSwipe: true,
     singleton: true
