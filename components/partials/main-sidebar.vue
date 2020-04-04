@@ -3,7 +3,8 @@
     <p>AFK Token Balance</p>
     <h6 class="token-balance">{{+userDetails.balance}}</h6>
     <div class="underline"></div>
-    <nuxt-link to="token-purchase" class="token-purchase"> <i class="ti-server"></i> Buy tokens</nuxt-link><br>
+    <nuxt-link to="token-purchase" class="token-purchase"> <i class="ti-server"></i> Buy tokens</nuxt-link>
+    <nuxt-link to="token-purchase" class="token-purchase"> <i class="ti-wallet"></i> Withdraw tokens</nuxt-link><br>
     <button id="transferButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="transfer"> Transfer tokens <i class="ti-exchange-vertical mr-1"></i></button>
     <div class="dropdown-menu" aria-labelledby="transferButton">
         <a class="dropdown-item" @click="openModal('afkTransferModal')"><i class="ti-share mr-2"></i>To user</a>

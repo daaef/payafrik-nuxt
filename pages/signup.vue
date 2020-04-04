@@ -21,7 +21,26 @@
                                 </div>
                             </div>
                             <!-- <input type="email" v-model="email" placeholder="Your email address" v-bind:class="formErrors.emailError === true ? 'has-error' : ''"> -->
-                            <input type="password" v-on:input="calculatePasswordStrength()" v-bind:class="formErrors.passwordError === true ? 'has-error' : ''" v-model="password1" placeholder="Your password">
+                            <!-- <input type="password" v-on:input="calculatePasswordStrength()" v-bind:class="formErrors.passwordError === true ? 'has-error' : ''" v-model="password1" placeholder="Your password"> -->
+                            <div class="password-container">
+                                <input
+                                    v-if="!viewPassword"
+                                    v-model="password1"
+                                    type="password"
+                                    :class="formErrors.passwordError === true ? 'has-error' : ''"
+                                    placeholder="Create your password"
+                                    @input="calculatePasswordStrength()"
+                                >
+                                <input
+                                    v-if="viewPassword"
+                                    v-model="password1"
+                                    type="text"
+                                    :class="formErrors.passwordError === true ? 'has-error' : ''"
+                                    placeholder="Your password"
+                                    @input="calculatePasswordStrength()"
+                                >
+                                <a class="password-toggle-switch" @click="toggleViewPassword()"><i :class="viewPassword === true ? 'far fa-lg fa-eye-slash' : 'far fa-lg fa-eye'" /></a>
+                            </div>
                             <div class="password-meter">
                                 <div v-bind:style="{width: passwordScore}" v-bind:class="charAdded === true ? strengthClass : ''" class="password-strength"></div>
                             </div>
@@ -68,6 +87,7 @@ export default {
               phoneError: false
           },
           processing: false,
+            viewPassword: false,
           countryCode: '+234'
       }
   },  
@@ -80,6 +100,9 @@ mounted() {
     console.log(this.countryCodes)
 },
   methods: {
+    toggleViewPassword () {
+      this.viewPassword = !this.viewPassword
+    },
     calculatePasswordStrength() {
         let points = 0;
         if(this.password1.length > 0){
@@ -262,5 +285,17 @@ h6{
 }
 .medium{
     background-color:#ff8800;
+}
+
+.password-container{
+    position: relative;
+}
+
+a.password-toggle-switch{
+    position: absolute;
+    top:22px;
+    right:15px;
+    z-index:999;
+    color:#666;
 }
 </style>

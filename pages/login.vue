@@ -10,8 +10,24 @@
                             Your account has been confirmed. You can now login
                          <p>
                             <h6 class="font-weight-bold">LOG IN TO YOUR PAYAFRIK DASHBOARD</h6>
-                            <input type="text" v-model='username' placeholder="Your username">
-                            <input type="password" v-model='password' placeholder="Your password">
+                            <input type="text" v-model='username' placeholder="Your registered phone number">
+                            <p class="form-tip">Please add your phone code (eg: +234)</p>
+                            <!-- <input type="password" v-model='password' placeholder="Your password"> -->
+                            <div class="password-container">
+                                <input
+                                    v-if="!viewPassword"
+                                    v-model="password"
+                                    type="password"
+                                    placeholder="Your password"
+                                >
+                                <input
+                                    v-if="viewPassword"
+                                    v-model="password"
+                                    type="text"
+                                    placeholder="Your password"
+                                >
+                                <a class="password-toggle-switch" @click="toggleViewPassword()"><i :class="viewPassword === true ? 'far fa-lg fa-eye-slash' : 'far fa-lg fa-eye'" /></a>
+                            </div>
                             <button class="login" v-if="!processing" @click="signIn()">Login to your account</button>
                             <button class="login" v-if="processing" disabled><i class="fa fa-circle-notch fa-spin"></i></button>
                         </div>
@@ -36,10 +52,14 @@ export default {
             password: '',
             processing: false,
             baseUrl: process.env.baseUrl,
-            confirmationStatus: 'false'
+            confirmationStatus: 'false',
+            viewPassword: false
         }
     },
     methods: {
+        toggleViewPassword () {
+          this.viewPassword = !this.viewPassword
+        },
         async signIn() {
             let payload = {
                 username: this.username,
@@ -76,6 +96,7 @@ export default {
                 this.processing = false
             }catch(e){
                 this.$toast.error(JSON.stringify(e.response.data.error))
+                
                 this.processing = false
                 console.log(e.response)
             }
@@ -151,5 +172,16 @@ a.hover{
 }
 h6{
     font-size:0.8em;
+}
+.password-container{
+    position: relative;
+}
+
+a.password-toggle-switch{
+    position: absolute;
+    top:22px;
+    right:15px;
+    z-index:999;
+    color:#666;
 }
 </style>
