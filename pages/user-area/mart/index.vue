@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 
 export default {
     components: {},
@@ -116,7 +117,13 @@ export default {
             }
         },
 
-
+    closeSideBar () {
+        this.$store.commit('global/closeSidebar')
+    },
+    ...mapMutations({
+        toggleSidebar: 'global/toggleSidebar',
+        closeSideBar: 'global/closeSidebar'
+    })
     },
     beforeMount() {
         this.getBillerCategories()

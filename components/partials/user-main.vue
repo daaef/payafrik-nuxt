@@ -63,53 +63,53 @@
         <div class="col-lg-7">
 
           <div class="utitlities">
-            <h6 class="text-uppercase">UTILITIES</h6>
+            <h6 class="text-uppercase">PURCHASES</h6>
             <div class="underline"></div>
             <div class="row">
-              <div class="col-md-4">
+              <nuxt-link to="/user-area/mart/category/3" class="col-md-4">
                 <div class="utility dashboard-card small shadowed-box">
-                  <i class="ti-mobile"></i>
+                  <i class="ti-mobile fa-2x"></i>
                   <i class="ti-mobile floating-icon"></i>
                  <p> Mobile Topup</p>
                 </div>
-              </div>
-              <div class="col-md-4">
+              </nuxt-link>
+              <nuxt-link to="/user-area/mart/category/5" class="col-md-4">
                 <div class="utility dashboard-card small shadowed-box">
-                  <i class="ti-world"></i>
+                  <i class="ti-world fa-2x"></i>
                   <i class="ti-world floating-icon"></i>
                   <p>Data Subscription</p>
                 </div>
-              </div>
-              <div class="col-md-4">
+              </nuxt-link>
+              <nuxt-link to="/user-area/mart/category/1" class="col-md-4">
                 <div class="utility dashboard-card small shadowed-box">
-                  <i class="ti-light-bulb"></i>
+                  <i class="ti-light-bulb fa-2x"></i>
                   <i class="ti-light-bulb floating-icon"></i>
-                  <p>Electricity</p>
+                  <p>Utitlities</p>
                 </div>
-              </div>
-              <div class="col-md-4">
+              </nuxt-link>
+              <nuxt-link to="/user-area/mart/category/2" class="col-md-4">
                 <div class="utility dashboard-card small shadowed-box">
                   <i class="ti-desktop"></i>
                   <i class="ti-desktop floating-icon"></i>
                   <p>Cable TV</p>
                 </div>
-              </div>
-              <div class="col-md-4">
+              </nuxt-link>
+              <nuxt-link to="/user-area/mart/category/13" class="col-md-4">
                 <div class="utility dashboard-card small shadowed-box">
-                  <i class="ti-layout-grid2"></i>
+                  <i class="ti-layout-grid2 fa-2x"></i>
                   <i class="ti-layout-grid2 floating-icon"></i>
-                  <p>Water</p>
+                  <p>Online Shopping</p>
                 </div>
-              </div>
-              <div class="col-md-4">
+              </nuxt-link>
+              <nuxt-link to="/user-area/mart/category/8" class="col-md-4">
                 <div class="utility dashboard-card small shadowed-box">
                   <i class="ti-money floating-icon"></i>
-                  <i class="ti-money"></i>
-                  <p>Betting</p>
+                  <i class="ti-money fa-2x"></i>
+                  <p>Financial Services</p>
                 </div>
-              </div>
+              </nuxt-link>
               <div class="col-lg-12 mt-3">
-                <a href> See all utitlities <i class="ti-arrow-right"></i></a>
+                <nuxt-link to="/user-area/mart" href> Go to mart <i class="ti-arrow-right"></i></nuxt-link>
               </div>
             </div>
           </div>
@@ -119,35 +119,33 @@
             <h6 class="text-uppercase">RECENT TRANSACTIONS</h6>
             <div class="underline"></div>
 
-            <ul class="list-table header-row row not-for-mobile">
-              <li class="col-md-1"></li>
-              <li class="col-md-7">Transaction</li>
-              <li class="col-md-3">Date</li>
-            </ul>
+            <div v-if="fetchingTransactions" class="text-center">
+              <i class="fa fa-circle-notch fa-spin mt-5"></i>
+            </div>
 
-            <ul class="list-table body-row row">
-              <li class="col-md-1"><i class="fa fa-circle text-success small"></i></li>
-              <li class="col-md-7"><strong>N5000</strong> Airtel 1GB Data bundle</li>
-              <li class="col-md-3">Oct 11, 2019</li>
-            </ul>
-            <ul class="list-table body-row row">
-              <li class="col-md-1"><i class="fa fa-circle text-success small"></i></li>
-              <li class="col-md-7"><strong>N5000</strong> Airtel 1GB Data bundle</li>
-              <li class="col-md-3">Oct 11, 2019</li>
-            </ul>
-            <ul class="list-table body-row row">
-              <li class="col-md-1"><i class="fa fa-circle text-danger small"></i></li>
-              <li class="col-md-7"><strong>N5000</strong> Airtel 1GB Data bundle</li>
-              <li class="col-md-3">Oct 11, 2019</li>
-            </ul>
-            <ul class="list-table body-row row">
-              <li class="col-md-1"><i class="fa fa-circle text-warning small"></i></li>
-              <li class="col-md-7"><strong>N5000</strong> Airtel 1GB Data bundle</li>
-              <li class="col-md-3">Oct 11, 2019</li>
-            </ul>
+            <div v-if="!fetchingTransactions"> 
+              <div v-if="userTransactions.length > 0">
+                <ul class="list-table header-row row not-for-mobile">
+                  <li class="col-md-1"></li>
+                  <li class="col-md-7">Transaction</li>
+                  <li class="col-md-3">Date</li>
+                </ul>
+
+                <ul v-for="transaction of userTransactions" :key="transaction.id" class="list-table body-row row">
+                  <li class="col-md-1"><i class="fa fa-circle small" v-bind:class="transaction.status === 'SUCCESSFUL' ? 'text-success' : 'text-danger'"></i></li>
+                  <li class="col-md-6"><strong>{{+transaction.sent_amount}}</strong> tokens to {{transaction.receiver}}</li>
+                  <li class="col-md-4">{{new Date (transaction.created).toDateString()}}</li>
+                </ul>
+              </div>
+              
+              <div v-if="userTransactions.length === 0">
+                <p>No transactions found for this user</p>
+              </div>
+
+            </div>
 
             <div class="col-md-12 mt-3 clear">
-              <a href> See all transactions <i class="ti-arrow-right"></i></a>
+              <nuxt-link to="/user-area/transactions"> See all transactions <i class="ti-arrow-right"></i></nuxt-link>
             </div>
 
           </div>
@@ -270,7 +268,9 @@ export default {
           key: 'EOS',
           name: 'EOS'
         }
-      ]
+      ],
+      userTransactions: [],
+      fetchingTransactions: false
     }
   },
   computed: {
@@ -400,6 +400,7 @@ export default {
         const updatedUserDetails = await this.$axios.$get(this.baseUrl+'auth/user/profile/', {headers})
         updatedUserDetails.token = this.userDetails.token
         console.log('User ==>', updatedUserDetails)
+        this.getUserTransactions()
         this.authenticate(
           updatedUserDetails
         )
@@ -454,6 +455,37 @@ export default {
       this.afkAmountToTransfer = ''
       this.transferringAfk = false
       // xmlHttp.send(null);
+    },
+    async getUserTransactions () {
+      this.fetchingTransactions = true
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': this.userDetails.token,
+      };
+
+      try{
+
+        const userTransactionsResponse = await this.$axios.$get(this.baseUrl+'transactions/transactions/', {headers})
+        console.log('User transactions ==>', userTransactionsResponse)
+       
+        if (userTransactionsResponse.results.length > 4){
+          for(let i = 0; i < 4; i++ ){
+            this.userTransactions.push(userTransactionsResponse.results[i])
+          }
+        } else {
+          this.userTransactions = userTransactionsResponse.results
+        }
+        console.log('user trans =========> ', this.userTransactions)
+        //  this.userTransactions.forEach((item, index) => {
+        //   item.formattedDate = item.created.getDate()
+        // })
+        this.fetchingTransactions = false
+
+      }catch(e){
+          this.$toast.error(e.response)
+          console.log(e.response)
+          this.userTransactions = false
+      }
     },
     checkWallets(){
       if(this.userDetails.eth_wallet !== ''){
@@ -540,6 +572,13 @@ p.crypto-key{
   top:0;
   right:0;
   color:#53535315;
+}
+a.col-md-4{
+  text-decoration: none !important;
+}
+a.col-md-4 i, a.col-md-4 p{
+  color:#202020;
+  text-decoration: none;
 }
 @media only screen and (max-width: 990px) {
   .transactions{

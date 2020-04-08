@@ -57,7 +57,7 @@ export default {
     openTransferModal() {
       $('#afkTransferModal').modal('show')    
     },
-        async transferAfk() {
+    async transferAfk() {
       this.transferringAfk = true
       const payload = {
         "recipient": this.userTransferAfk,

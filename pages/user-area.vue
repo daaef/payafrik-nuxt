@@ -36,6 +36,8 @@
 import MainSidebar from '~/components/partials/main-sidebar.vue'
 import Header from '~/components/partials/header.vue'
 import UserMain from '~/components/partials/user-main.vue'
+import AfkTransferModal from '~/components/partials/afk-transfer-modal.vue'
+
 import { mapMutations } from 'vuex'
 
 export default {

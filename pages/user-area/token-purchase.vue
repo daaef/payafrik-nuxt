@@ -124,11 +124,18 @@ export default {
     authenticate (user) {
       this.$store.commit('global/authenticateUser', user)
     },
+    closeSideBar () {
+      this.$store.commit('global/closeSidebar')
+    },
+
     ...mapMutations({
-      authenticate: 'global/authenticateUser'
+      authenticate: 'global/authenticateUser',
+      closeSideBar: 'global/closeSidebar'
     }),
+
   },
   beforeMount(){
+    this.closeSideBar()
     this.getUserDetails()
   }
 }

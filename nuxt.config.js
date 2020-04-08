@@ -4,7 +4,6 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'https://api.payafrik.io/',
     interswitchBaseUrl: 'https://payafrik.immanuel.com.ng/v1/api/interswitch/'
-    // baseUrl: process.env.BASE_URL || 'http://ec2-18-207-212-141.compute-1.amazonaws.com/'
     // interswitchBaseUrl: 'http://localhost:5000/v1/api/interswitch/'
   },
   /*

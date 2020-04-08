@@ -10,6 +10,33 @@
         </div>
     </section>
 </template>
+<script>
+import { mapMutations } from 'vuex'
+
+export default {
+    components: {
+    },
+    data(){
+        return {}
+    },
+    computed: {},
+    methods: {
+        closeSideBar () {
+        this.$store.commit('global/closeSidebar')
+        },
+        ...mapMutations({
+        toggleSidebar: 'global/toggleSidebar',
+        closeSideBar: 'global/closeSidebar'
+        })
+    },
+    mounted(){
+        },
+    beforeMount() {
+        this.closeSideBar()
+    }
+    
+}
+</script>
 <style scoped>
 img{
     width: 80%;

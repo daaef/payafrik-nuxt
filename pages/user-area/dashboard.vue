@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import UserMain from '~/components/partials/user-main.vue'
 
 export default {
@@ -15,8 +16,20 @@ export default {
         return {}
     },
     computed: {},
-    methods: {},
-    beforeMount() {}
+    methods: {
+        closeSideBar () {
+        this.$store.commit('global/closeSidebar')
+        },
+        ...mapMutations({
+        toggleSidebar: 'global/toggleSidebar',
+        closeSideBar: 'global/closeSidebar'
+        })
+    },
+    mounted(){
+        },
+    beforeMount() {
+        this.closeSideBar()
+    }
     
 }
 </script>

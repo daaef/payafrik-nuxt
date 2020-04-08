@@ -194,6 +194,7 @@ export default {
             this.activeItem = {};
             this.paymentSuccess = false;
             this.paymentFailed = false;
+            this.makingPayment = false;
             $('#' + modalId).modal('hide')    
         },
 
@@ -275,7 +276,11 @@ export default {
             } catch(e){
                 console.log(e.response)
                 this.paymentFailed = true
-                this.$toast.error(e.response.data.name + ': ' + e.response.data.message)
+                if(e.response.data.name) {
+                    this.$toast.error(e.response.data.name + ': ' + e.response.data.message)
+                } else {
+                    this.$toast.error(e.response.data.message)
+                }
                 this.makingPayment = false
             }
         },

@@ -968,6 +968,9 @@ export const mutations = {
   toggleSidebar (state) {
     state.sidebarClosed = !state.sidebarClosed
   },
+  closeSidebar (state) {
+    state.sidebarClosed = true
+  },
   toggleChatBox (state) {
     state.chatBoxClosed = !state.chatBoxClosed
   },

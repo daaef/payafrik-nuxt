@@ -285,11 +285,16 @@ export default {
       }
     },
 
+    closeSideBar () {
+        this.$store.commit('global/closeSidebar')
+    },
+
     authenticate (user) {
-      this.$store.commit('global/authenticateUser', user)
+        this.$store.commit('global/authenticateUser', user)
     },
     ...mapMutations({
-      authenticate: 'global/authenticateUser'
+        authenticate: 'global/authenticateUser',
+        closeSideBar: 'global/closeSidebar'
     }),
     },
     beforeMount() {
@@ -299,6 +304,7 @@ export default {
         this.firstname = this.userDetails.firstname
         this.lastname = this.userDetails.lastname
         this.dob = this.userDetails.dob
+        this.closeSideBar()
     }
     
 }
