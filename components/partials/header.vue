@@ -10,8 +10,8 @@
                 <div class="col-md-3">
                     <div class="user-box shadowed-box flex-display">
                         <i class="ti-bell"></i>
-                        <!-- <div class="profile-picture" v-bind:style="{ backgroundImage: 'url(' + profileImage + ')' }" ></div> -->
-                        <div class="profile-picture" style="" ></div>
+                        <div v-if="userDetails.avatar !== ''" class="profile-picture" v-bind:style="{ backgroundImage: 'url(' + userDetails.avatar + ')' }" ></div>
+                        <div v-if="userDetails.avatar === ''" class="profile-picture" style="" ></div>
                         <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{userDetails.username}}
                         </a>
@@ -56,7 +56,7 @@ export default {
     // }),
     signOut(){
         this.$cookies.removeAll()
-        this.$router.push('../login')
+        this.$router.push('/login')
     }
   }
 }
@@ -108,6 +108,7 @@ img.logo{
     border-radius:50%;
     border: 2px solid #F9B330;
     background: url('../../assets/img/placeholder-profile.jpg') no-repeat center center; 
+    background: url('https://img.icons8.com/ultraviolet/40/000000/user-male-circle.png') no-repeat center center; 
     background-size:cover;
 }
 

@@ -173,7 +173,8 @@ export default {
       this.transferringAfk = true
       const payload = {
         "recipient": this.userTransferAfk,
-        "requested_amount": this.afkAmountToTransfer
+        "requested_amount": this.afkAmountToTransfer,
+        "wallet": "AFK"
       }
 
       console.log('transfer payload:' ,payload)
@@ -199,7 +200,7 @@ export default {
               this.afkAmountToTransfer = ''
               this.transferringAfk = false
       }
-      xmlHttp.open("POST", this.baseUrl+'transactions/transactions/send-afk/', true); // true for asynchronous 
+      xmlHttp.open("POST", this.baseUrl+'transactions/transactions/send/', true); // true for asynchronous 
       xmlHttp.setRequestHeader("Authorization", this.userDetails.token);
       xmlHttp.setRequestHeader("Content-Type", "application/json");
       xmlHttp.send(JSON.stringify(payload));

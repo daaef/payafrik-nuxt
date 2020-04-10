@@ -75,12 +75,51 @@
                     <!-- </div> -->
 
                     <hr>
+
+                    <p v-if="userDetails.kyc_status === 'PENDING-DOC-UPLOAD'">
+                        You need to upload your KYC Documents, please click on the "Add Document" button above to get started.
+                    </p>
+                    <p v-if="userDetails.kyc_status === 'PENDING-DOC-APPROVAL'">
+                        Your uploaded documents are pending approval. You will be notified once approved.
+                    </p>
                     <div class="row mt-4" v-if="userDetails.kyc_selfie !== ''">
                         <div class="col-md-12">
-                            <img :src="baseUrl + userDetails.kyc_selfie" />
+                            <img :src="userDetails.kyc_selfie" />
                         </div>
                         <div class="col-md-12">
                             <p class="mt-1">KYC Selfie</p>
+                        </div>
+                    </div>
+                    <div class="row mt-4" v-if="userDetails.kyc_passport_page1 !== ''">
+                        <div class="col-md-12">
+                            <img :src="userDetails.kyc_passport_page1" />
+                        </div>
+                        <div class="col-md-12">
+                            <p class="mt-1">KYC International Passport (Front)</p>
+                        </div>
+                    </div>
+                    <div class="row mt-4" v-if="userDetails.kyc_passport_page2 !== ''">
+                        <div class="col-md-12">
+                            <img :src="userDetails.kyc_passport_page2" />
+                        </div>
+                        <div class="col-md-12">
+                            <p class="mt-1">KYC International Passport (Front)</p>
+                        </div>
+                    </div>
+                    <div class="row mt-4" v-if="userDetails.kyc_id_front !== ''">
+                        <div class="col-md-12">
+                            <img :src="userDetails.kyc_id_front" />
+                        </div>
+                        <div class="col-md-12">
+                            <p class="mt-1">KYC Regulatory ID (Front)</p>
+                        </div>
+                    </div>
+                    <div class="row mt-4" v-if="userDetails.kyc_id_back !== ''">
+                        <div class="col-md-12">
+                            <img :src="userDetails.kyc_id_back" />
+                        </div>
+                        <div class="col-md-12">
+                            <p class="mt-1">KYC Regulatory ID (Back)</p>
                         </div>
                     </div>
                     <!-- <div class="row mt-4" v-if="userDetails.kyc_selfie !== ''">
@@ -113,18 +152,18 @@
                                     <label>Document Type</label>
                                     <select v-model="documentType" placeholder="Select document type">
                                         <option value="">-- Select document type --</option>
-                                        <option value="DRIVING-LICENCE">Drivers License</option>
-                                        <option value="national-id">National ID Card</option>
+                                        <!-- <option value="DRIVING-LICENCE">Drivers License</option> -->
+                                        <option value="id">Govt Regulatory ID Card</option>
                                         <option value="passport">International Passport</option>
-                                        <option value="birth-certificate">Birth Certificate</option>
+                                        <!-- <option value="birth-certificate">Birth Certificate</option> -->
                                         <option value="KYC-SELFIE">KYC Selfie/Passport photo</option>
                                     </select>
 
                                     <label>Document Side</label>
                                     <select v-model="documentSide" placeholder="Select document type">
                                         <option value="">-- Select side --</option>
-                                        <option value="front">Front</option>
-                                        <option value="back">Back</option>
+                                        <option value="FRONT">Front</option>
+                                        <option value="BACK">Back</option>
                                     </select>
                                     <!-- <input type="text" placeholder="Your assigned import code"> -->
                                         <p class="form-tip mb-3">Select a document to upload</p>
