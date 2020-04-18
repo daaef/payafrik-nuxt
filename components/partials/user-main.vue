@@ -24,17 +24,18 @@
             <div class="overlay">
               <i class="crypto-logo fab fa-bitcoin"></i>
               <p>Bitcoin Wallet</p>
-              <!-- <a v-if="userDetails.btc_wallet === ''" @click="startImport('BTC')"> Import BTC wallet <i class="ti-arrow-right"></i></a>
-              <span v-else> 
-                <p>{{userDetails.btc_wallet}}</p>
-                <h6>0.0000</h6>
-              </span> -->
               <span class="text-ellipsis"> 
                 <p class="crypto-key">{{userDetails.btc_wallet}}</p>
-                <p v-if="gettingBtcBalance" class="crypto-key">getting BTC ballance...</p>
-                <h6 v-else>{{btcBalance}}</h6>
+                <!-- <p v-if="gettingBtcBalance" class="crypto-key">getting BTC ballance...</!-->
+                <h6>{{userDetails.btc_balance}}</h6>
               </span>
-              <a @click="startImport('BTC')"> Import BTC wallet <i class="ti-arrow-right"></i></a>
+              <div class="afk-functions">                
+                <a href id="transfer-button"> Send to user <i class="ti-arrow-right"></i></a><br>
+                <a href> Send to wallet <i class="ti-arrow-right"></i></a><br>
+                <a href> Receive from wallet <i class="ti-arrow-right"></i></a><br>
+                <!-- <nuxt-link to="./coin-purchase"> Purchase Coin <i class="ti-arrow-right"></i></!-->
+              </div>
+              <!-- <a @click="startImport('BTC')"> Import BTC wallet <i class="ti-arrow-right"></i></a> -->
             </div>
           </div>
         </div>
@@ -43,17 +44,19 @@
             <div class="overlay">
               <i class="crypto-logo fab fa-ethereum"></i>
               <p>Ethereum Wallet</p>
-              <!-- <a v-if="userDetails.eth_wallet === ''" @click="startImport('ETH')"> Import ETH wallet <i class="ti-arrow-right"></i></a>
-              <span v-else> 
-                <p>{{userDetails.eth_wallet}}</p>
-                <h6>{{ethBalance}}</h6>
-              </span> -->
               <span class="text-ellipsis"> 
                 <p class="crypto-key">{{userDetails.eth_wallet}}</p>
-                <p v-if="gettingEthBalance" class="crypto-key">getting ETH ballance...</p>
-                <h6 v-else>{{ethBalance}}</h6>
+                <!-- <p v-if="gettingEthBalance" class="crypto-key">getting ETH ballance...</!-->
+                <h6>{{userDetails.eth_balance}}</h6>
               </span>
-              <a @click="startImport('ETH')"> Import ETH wallet <i class="ti-arrow-right"></i></a>
+              <!-- <a @click="startImport('ETH')"> Import ETH wallet <i class="ti-arrow-right"></i></a> -->
+
+              <div class="afk-functions">                
+                <a href id="transfer-button"> Send to user <i class="ti-arrow-right"></i></a><br>
+                <a href> Send to wallet <i class="ti-arrow-right"></i></a><br>
+                <a href> Receive from wallet <i class="ti-arrow-right"></i></a><br>
+                <!-- <nuxt-link to="./coin-purchase"> Purchase Coin <i class="ti-arrow-right"></i></nuxt-link> -->
+              </div>
             </div>
           </div>
         </div>
@@ -154,7 +157,7 @@
     </div>
 
     <!-- AFK Transfer Modal -->
-    <div class="modal fade" id="afkTransferModal" tabindex="-1" role="dialog" aria-labelledby="afkTransferModal" aria-hidden="true">
+    <!-- <div class="modal fade" id="afkTransferModal" tabindex="-1" role="dialog" aria-labelledby="afkTransferModal" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -190,7 +193,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Wallet Import Modal -->
     <div class="modal fade" id="walletImportModal" tabindex="-1" role="dialog" aria-labelledby="walletImportModal" aria-hidden="true">
@@ -419,43 +422,43 @@ export default {
     }),
 
 
-    async transferAfk() {
-      let self = this
-      this.transferringAfk = true
-      const payload = {
-        "recipient": this.userTransferAfk,
-        "requested_amount": this.afkAmountToTransfer
-      }
+    // async transferAfk() {
+    //   let self = this
+    //   this.transferringAfk = true
+    //   const payload = {
+    //     "recipient": this.userTransferAfk,
+    //     "requested_amount": this.afkAmountToTransfer
+    //   }
 
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': this.userDetails.token,
-      }
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.onreadystatechange = function() { 
-          if (xmlHttp.readyState === 4 && xmlHttp.status === 202)
-              self.$toast.success('Transfer successful!')
-              this.userTransferAfk = 0
-              this.afkAmountToTransfer = ''
-              this.transferringAfk = false
-              self.getUserDetails()
-              self.closeModal('afkTransferModal')
-              console.log('successful')
-          if (xmlHttp.readyState === 4 && xmlHttp.status !== 202)
-              self.$toast.error('Transfer failed! Please check username or try later.')
-              this.userTransferAfk = 0
-              this.afkAmountToTransfer = ''
-              this.transferringAfk = false
-      }
-      xmlHttp.open("POST", this.baseUrl+'transactions/transactions/send-afk/', true); // true for asynchronous 
-      xmlHttp.setRequestHeader("Authorization", this.userDetails.token);
-      xmlHttp.setRequestHeader("Content-Type", "application/json");
-      xmlHttp.send(JSON.stringify(payload));
-      this.userTransferAfk = 0
-      this.afkAmountToTransfer = ''
-      this.transferringAfk = false
-      // xmlHttp.send(null);
-    },
+    //   const headers = {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': this.userDetails.token,
+    //   }
+    //   var xmlHttp = new XMLHttpRequest();
+    //   xmlHttp.onreadystatechange = function() { 
+    //       if (xmlHttp.readyState === 4 && xmlHttp.status === 202)
+    //           self.$toast.success('Transfer successful!')
+    //           this.userTransferAfk = 0
+    //           this.afkAmountToTransfer = ''
+    //           this.transferringAfk = false
+    //           self.getUserDetails()
+    //           self.closeModal('afkTransferModal')
+    //           console.log('successful')
+    //       if (xmlHttp.readyState === 4 && xmlHttp.status !== 202)
+    //           self.$toast.error('Transfer failed! Please check username or try later.')
+    //           this.userTransferAfk = 0
+    //           this.afkAmountToTransfer = ''
+    //           this.transferringAfk = false
+    //   }
+    //   xmlHttp.open("POST", this.baseUrl+'transactions/transactions/send-afk/', true); // true for asynchronous 
+    //   xmlHttp.setRequestHeader("Authorization", this.userDetails.token);
+    //   xmlHttp.setRequestHeader("Content-Type", "application/json");
+    //   xmlHttp.send(JSON.stringify(payload));
+    //   this.userTransferAfk = 0
+    //   this.afkAmountToTransfer = ''
+    //   this.transferringAfk = false
+    //   // xmlHttp.send(null);
+    // },
     async getUserTransactions () {
       this.fetchingTransactions = true
       const headers = {
@@ -500,8 +503,8 @@ export default {
   },
 
   beforeMount(){
-    this.getUserDetails(),
-    this.checkWallets()
+    this.getUserDetails()
+    // this.checkWallets()
   }
 }
 </script>

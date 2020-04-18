@@ -15,14 +15,14 @@
       </div>
     </div>
 
-    <div class="dropdown">
-      <button id="transferButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="transfer"> Transfer tokens <i class="ti-exchange-vertical mr-1"></i></button>
-      <div class="dropdown-menu" aria-labelledby="transferButton">
-          <a class="dropdown-item" @click="openModal('afkTransferModal')"><i class="ti-share mr-2"></i>To user</a>
+    <!-- <div class="dropdown"> -->
+      <button id="transferButton"  @click="openModal('afkTransferModal')" class="transfer"> Transfer tokens <i class="ti-exchange-vertical mr-1"></i></button>
+      <!-- <div class="dropdown-menu" aria-labelledby="transferButton">
+          <a class="dropdown-item"><i class="ti-share mr-2"></i>To user</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item"><i class="ti-wallet mr-2"></i>To Wallet</a>
       </div>
-    </div>
+    </div> -->
     <p class="mb-4">Rank: #14</p>
     <h6 class="sidebar-heading text-uppercase shadowed-box">Your business</h6>
     <nav>
@@ -62,8 +62,8 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-12">
-                  <label>Recipient username</label>
-                  <input v-model="userTransferAfk" type="text" placeholder="The user you are transferring to">
+                  <label>Recipient phone number</label>
+                  <input v-model="userTransferAfk" type="text" placeholder="The phone number user you are transferring to">
                   <label>Amount</label>
                   <input v-model="afkAmountToTransfer" type="number" placeholder="How much are you transferring?">
                 </div>
@@ -77,7 +77,7 @@
                   <button type="button" class="greyed-btn" data-dismiss="modal">Cancel</button>
                 </div>
                 <div class="col-md-4">
-                  <button class="success-btn" v-if="!transferringAfk" @click="transferAfk()" type="button">Transfer</button>
+                  <button class="success-btn" v-if="!transferringAfk" @click="sendTokens()" type="button">Transfer</button>
                   <button class="success-btn" v-if="transferringAfk" disabled><i class="fa fa-circle-notch fa-spin"></i></button>
                 </div>
               </div>
@@ -177,13 +177,11 @@ export default {
         "wallet": "AFK"
       }
 
-      console.log('transfer payload:' ,payload)
       const headers = {
         'Content-Type': 'application/json',
         'Authorization': this.userDetails.token,
       }
 
-      console.log('THe headers ==>', headers)
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.onreadystatechange = function() { 
           if (xmlHttp.readyState === 4 && xmlHttp.status === 202)
@@ -209,6 +207,31 @@ export default {
       this.transferringAfk = false
       // xmlHttp.send(null);
     },
+    async sendTokens(){
+      this.transferringAfk = true
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': this.userDetails.token,
+      };
+      const payload = {
+        "recipient": this.userTransferAfk,
+        "requested_amount": this.afkAmountToTransfer,
+        "wallet": "AFK"
+      }
+      try{
+        this.transferringAfk = false
+        const transferResponse = await this.$axios.$post(this.baseUrl+'transactions/transactions/send/', payload, {headers})
+        this.$toast.success(transferResponse.success)
+        this.closeModal('afkTransferModal')
+        this.getUserDetails()
+        
+      }catch(e){
+        this.transferringAfk = false
+          // this.$toast.error(e.response.data.detail)
+          // this.importingWallet = false
+          console.log(e)
+      }
+    },
     async getUserDetails(){
       const headers = {
         'Content-Type': 'application/json',
@@ -220,21 +243,21 @@ export default {
         // updatedUserDetails.token = this.userDetails.token
         console.log('User ==>', updatedUserDetails)
         const userDetailsUpdated = 
-                    {
-                        username: updatedUserDetails.username,
-                        token:  this.userDetails.token,
-                        email: updatedUserDetails.email,
-                        phone: updatedUserDetails.phone,
-                        balance: +updatedUserDetails.balance,
-                        id: updatedUserDetails.id,
-                        eos_wallet: updatedUserDetails.eos_wallet,
-                        btc_wallet: updatedUserDetails.btc_wallet,
-                        eth_wallet: updatedUserDetails.eth_wallet,
-                        kyc_doc_type: updatedUserDetails.kyc_doc_type,
-                        kyc_document_front: updatedUserDetails.kyc_document_front,
-                        kyc_selfie: updatedUserDetails.kyc_selfie,
-                        kyc_status: updatedUserDetails.kyc_status,    
-                    }
+          {
+              username: updatedUserDetails.username,
+              token:  this.userDetails.token,
+              email: updatedUserDetails.email,
+              phone: updatedUserDetails.phone,
+              balance: +updatedUserDetails.balance,
+              id: updatedUserDetails.id,
+              eos_wallet: updatedUserDetails.eos_wallet,
+              btc_wallet: updatedUserDetails.btc_wallet,
+              eth_wallet: updatedUserDetails.eth_wallet,
+              kyc_doc_type: updatedUserDetails.kyc_doc_type,
+              kyc_document_front: updatedUserDetails.kyc_document_front,
+              kyc_selfie: updatedUserDetails.kyc_selfie,
+              kyc_status: updatedUserDetails.kyc_status,    
+          }
         this.authenticate(
           updatedUserDetails
         )
