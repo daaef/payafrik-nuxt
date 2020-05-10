@@ -43,7 +43,15 @@ export default {
         integrity: 'sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl',
         crossorigin: 'anonymous',
         type: 'text/javascript'
+      },
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js',
+        type: 'text/javascript'
       }
+      // {
+      //   src: 'static/js/script.js',
+      //   type: 'text/javascript'
+      // }
     ]
   },
   /*
@@ -55,6 +63,7 @@ export default {
   */
   css: [
     '~/assets/css/main.css',
+    '~/assets/css/normalize.css',
     '~/assets/css/themify-icons.css',
     '~/assets/css/font-awesome/all.css'
   ],
@@ -62,6 +71,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/vue-datepicker', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -116,6 +126,12 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+      config.module.rules.push({
+        test: /\.modernizrrc\.js$/,
+        use: { loader: 'webpack-modernizr-loader' }
+      })
+
+      config.resolve.alias['modernizr'] = '/.modernizrrc.js'
     }
   }
 }

@@ -948,6 +948,8 @@ export const state = () => ({
   sidebarClosed: true,
   chatBoxClosed: true,
   isAuthenticated: false,
+  tokenModalActive: false,
+  tokenWithdrawalModalActive: false,
   authenticatedUser: {},
   activeBiller: {}
 })
@@ -967,6 +969,12 @@ export const mutations = {
   },
   toggleSidebar (state) {
     state.sidebarClosed = !state.sidebarClosed
+  },
+  toggleTokenModal (state) {
+    state.tokenModalActive = !state.tokenModalActive  
+  },
+  toggleTokenWithdrawalModal (state) {
+    state.tokenWithdrawalModalActive = !state.tokenWithdrawalModalActive  
   },
   closeSidebar (state) {
     state.sidebarClosed = true

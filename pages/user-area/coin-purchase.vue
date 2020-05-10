@@ -1,14 +1,88 @@
 <template>
     <section>
-       <!-- <div class="hero section"> -->
-    <!-- <div class="overlay flex-display"> -->
-      <div class="container">
+
+       <!-- MAIN BODY -->
+        <div class="container mainbody centerVert">
+          <!-- <div class="paddingTop20"></div> -->
+          <!-- DASHBODY -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row purchaseCard centerCol">
+                <div class="col-md-4 removepadding">
+                  <img src="../../assets/img/takeoff.png" alt="" />
+                </div>
+                <div class="col-md-8">
+                  <div class="formContent">
+                    <p class="formTitle">Purchase AfriKoin</p>
+                    <div class="divider">
+                      <div class="yellow-dash"></div>
+                      <div class="thin-line"></div>
+                    </div>
+                    <p class="desc">
+                      You can use AFK tokens to carry out transactions on this
+                      platform from purchasing utilities to other items in our
+                      mart. you can also transfer them to your AFK mastercard
+                      and make payments on physical machines or withdraw from an
+                      ATM.
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="amountHolder">
+                          <p class="info">BALANCE</p>
+                          <p class="amount">22.00</p>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="amountHolder">
+                          <p class="info">PREPAID</p>
+                          <p class="amount">0.00</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="divider">
+                      <div class="yellow-dash"></div>
+                      <div class="thin-line"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="formbutton">
+                          <paystack
+                            :amount="amount"
+                            :email="email"
+                            :paystackkey="paystackkey"
+                            :reference="reference"
+                            :callback="callback"
+                            :close="close"
+                            :embed="false"
+                             class="yellowText text-uppercase"
+                          >
+                            > Buy with Cash
+                          </paystack>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="formbutton">
+                          <!-- <p class="yellowText">> BUY WITH CRYPTO</p> -->
+                          <a class="yellowText text-uppercase" target="_blank"
+                            href="https://commerce.coinbase.com/checkout/0bb96b95-c8bc-42bd-b1b7-a67a48f4357b">
+                            <span>> Buy with Crypto</span>
+                          </a>
+                          <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807"></script>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- <div class="container">
         <div class="row">
           <div class="col-md-8 offset-md-2 text-center">
             <div class="hero-content flex-display">
               <div>
                 <h4 class="mb-2">Purchase Afrikoin</h4>
-                <!-- <div class="underline"></div> -->
                 <p>
                   You can buy any quantity of Afrikoin repeatedly, orders will be summarized and displayed in the PrePaid field.
                   After the transaction is processed, the coins are transferred to the balance sheet.
@@ -40,12 +114,7 @@
                       Buy with Cash
                     </paystack>
                   </div>
-                  <!-- <div class="col-md-4">
-                    <button class="bitcoin"><i class="fab fa-bitcoin mr-2"></i>Buy with Bitcoin</button>
-                  </div>
-                  <div class="col-md-4">
-                    <button class="eth"><i class="fab fa-ethereum mr-2"></i>Buy with Ethereum</button>
-                  </div> -->
+
 
                   <div class="col-md-4">
                     <a class="buy-with-crypto bitcoin"
@@ -59,10 +128,9 @@
               </div>
             </div>
           </div>
-        </div>
-      <!-- </div> -->
-    <!-- </div> -->
-  </div>
+        </div> -->
+
+  <!-- </div> -->
     </section>
 </template>
 

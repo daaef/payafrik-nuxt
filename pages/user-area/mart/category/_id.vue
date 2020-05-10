@@ -1,5 +1,50 @@
 <template>
-    <section>
+    <div>
+    <!-- MAIN BODY -->
+        <div  v-if="!loadingBillers && billers.length > 0"  class="container paddingTop50 mainbody">
+          <div class="headerTitle">
+            <nuxt-link to="/user-area/mart"><img src="../../../../assets/img/back.png" alt="" /></nuxt-link>
+            <p class="mainTitle">{{billers[0].categoryname}} Billers</p>
+          </div>
+          <div class="dividerdark"></div>
+          <div class="paddingTop20"></div>
+          <!-- DASHBODY -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div v-for="biller of billers" v-bind:key="biller.billerid" class="col-md-4">
+                    <div class="billercard">
+                      <div class="cardrow">
+                        <div class="imgHolder">
+                          <!-- <img src="./img/9mobile.jpeg" alt="" /> -->
+                        </div>
+                        <div class="content">
+                          <p>{{biller.billername}}</p>
+                          <p class="cat">Category: {{biller.categoryname}}</p>
+                          <div class="pay">
+                            <a @click='setBillerAndNavigate(biller)'>See Payment Items</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <!-- END DASHBODY -->
+        </div>
+        <div v-if="!loadingBillers && billers.length === 0" class="text-center mt-5">
+            <img class="empty-state" src="../../../../assets/img/no_data.svg">
+            <p class="text-grey">Sorry! No billers found for this category</p>
+        </div>
+        <div v-if="loadingBillers" class="text-center mt-5">
+            <i class="fas fa-circle-notch fa-spin fa-lg text-grey mb-3"></i>
+            <p class="text-grey">Loading billers...</p>
+        </div>
+    </div>
+        <!-- END MAIN BODY -->
+    <!-- <section>
        <div class="container">
 
             <div class="row mb-3">
@@ -33,13 +78,12 @@
                         CATEGORY: {{biller.categoryname}}
                         </p>
                         <a @click='setBillerAndNavigate(biller)'>See Payment Items</a>
-                        <!-- <nuxt-link :to="{ name: 'user-area-mart-biller-id', params: { id: biller.billerid }}">See Payment Items</nuxt-link> -->
                     </div>
                 </div>
             </div>
 
        </div>
-    </section>
+    </section> -->
 </template>
 
 <script>
@@ -101,11 +145,14 @@ export default {
 </script>
 
 <style scoped>
- p{
+ /* p{
      color:#1a1919 !important;
  }
  .md-title h6{
      color:#332c2c;
      font-weight:500;
+ } */
+ .imgHolder{
+     min-height: 100px;
  }
 </style>

@@ -1,5 +1,157 @@
 <template>
-    <div class="header flex-display">
+  <header>
+    <nav>
+      <div class="balance">
+        <img src="../../assets/img/logo.png" class="mobile-logo" alt="logo" />
+        <span>AfriToken:</span>
+        <h3>{{ +userDetails.balance }}</h3>
+      </div>
+      <ul class="nav-links">
+        <li class="mr-32">
+          <a href="#" @click="toggleTokenModal()">
+            <img class="mr-8" src="../../assets/img/plus.png" alt="plus" />
+            BUY TOKEN
+          </a>
+        </li>
+        <li class="mr-32">
+          <a href="#" @click="toggleWithdrawalModal()">
+            <img class="mr-8" src="../../assets/img/wallet.png" alt="wallet" />
+            WITHDRAW
+          </a>
+        </li>
+        <li>
+          <a href="#" data-link-class="transfer-token-active">
+            <img
+              class="mr-8"
+              src="../../assets/img/transfer.png"
+              alt="transfer"
+            />
+            TRANSFER AFRITOKEN
+          </a>
+        </li>
+      </ul>
+      <div class="user-account">
+        <a href="#">
+          <img class="mr-12" src="../../assets/img/user.png" alt="user icon" />
+          <span>{{ userDetails.username }}</span>
+        </a>
+      </div>
+      <input type="checkbox" class="navigation__checkbox" id="navi-toggle" />
+
+      <label for="navi-toggle" class="navigation__button">
+        <span class="navigation__icon">&nbsp;</span>
+      </label>
+      <div class="nav-dropdown">
+        <div class="balance">
+          <span>AfriToken:</span>
+          <h3>2,500.24</h3>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="#" data-link-class="buy-token-active">
+              <img class="mr-8" src="../../assets/img/plus.png" alt="plus" />
+              BUY TOKEN
+            </a>
+          </li>
+          <li>
+            <a href="#" data-link-class="withdraw-active">
+              <img
+                class="mr-8"
+                src="../../assets/img/wallet.png"
+                alt="wallet"
+              />
+              WITHDRAW
+            </a>
+          </li>
+          <li>
+            <a href="#" data-link-class="transfer-token-active">
+              <img
+                class="mr-8"
+                src="../../assets/img/transfer.png"
+                alt="transfer"
+              />
+              TRANSFER AFRITOKEN
+            </a>
+          </li>
+          <li class="active">
+            <a href="#" class=" mt-8">
+              <img class="mr-8" src="../../assets/img/home.png" alt="" />
+              HOME
+            </a>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img class="mr-8" src="../../assets/img/side-wallet.png" alt="" />
+              WALLET
+            </a>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img class="mr-8" src="../../assets/img/mart.png" alt="" />
+              MART
+            </a>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img
+                class="mr-8"
+                src="../../assets/img/side-exchange.png"
+                alt=""
+              />
+              EXCHANGE
+            </a>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img class="mr-8" src="../../assets/img/chat.png" alt="" />
+              CHAT
+            </a>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img class="mr-8" src="../../assets/img/setting.png" alt="" />
+              SETTING
+            </a>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img class="mr-8" src="../../assets/img/exit.png" alt="" />
+              EXIT
+            </a>
+          </li>
+        </ul>
+        <div class="user-account">
+          <a href="#">
+            <img
+              class="mr-12"
+              src="../../assets/img/user.png"
+              alt="user icon"
+            />
+            <span>{{ userDetails.username }}</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- <div class="fixedNav">
+        <div class="logo">
+        <img src="../../assets/img/logo-.png" alt="" />
+        </div>
+
+        <div class="aside">
+        <div class="avatar">
+            <div v-if="userDetails.avatar !== ''" class="profile-picture" v-bind:style="{ backgroundImage: 'url(' + userDetails.avatar + ')' }" ></div>
+            <div v-if="userDetails.avatar === ''" class="profile-picture" style="" ></div>
+        </div>
+        <img
+            @click="openMenu()"
+            id="navbutton"
+            src="../../assets/img/menu-2.png"
+            alt=""
+        />
+        </div>
+    </div> -->
+  <!-- <div class="header flex-display">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -24,46 +176,86 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations } from "vuex";
 // import { mapState } from 'vuex'
 
 export default {
   components: {},
-  data(){
-      return{
-        // userDetails: this.$cookies.get('user-details'),
-        profileImage: '../../assets/img/placeholder-profile.jpg'
-      }
+  data() {
+    return {
+      // userDetails: this.$cookies.get('user-details'),
+      profileImage: "../../assets/img/placeholder-profile.jpg"
+    };
   },
   computed: {
-    sidebarClosed () {
-      return this.$store.state.global.sidebarClosed
+    tokenModalActive() {
+      return this.$store.state.global.tokenModalActive;
     },
-    userDetails () {
-        return this.$store.state.global.authenticatedUser
+    tokenWithdrawalModalActive() {
+      return this.$store.state.global.tokenWithdrawalModalActive;
     },
+    sidebarClosed() {
+      return this.$store.state.global.sidebarClosed;
+    },
+    userDetails() {
+      return this.$store.state.global.authenticatedUser;
+    }
   },
   methods: {
-    openSideBar () {
-      this.$store.commit('global/toggleSidebar')
+    openSideBar() {
+      this.$store.commit("global/toggleSidebar");
     },
     // ...mapMutations({
     //   toggleSidebar: 'global/toggleSidebar'
     // }),
-    signOut(){
-        this.$cookies.removeAll()
-        this.$router.push('/login')
-    }
+    signOut() {
+      this.$cookies.removeAll();
+      this.$router.push("/login");
+    },
+
+    openMenu() {
+      let sidebar = document.querySelector(".sidebar_bg");
+      sidebar.style.display = "block";
+    },
+
+    toggleTokenModal() {
+      this.$store.commit("global/toggleTokenModal");
+    },
+
+    toggleWithdrawalModal() {
+      this.$store.commit("global/toggleTokenWithdrawalModal");
+    },
+
+    ...mapMutations({
+      toggleTokenModal: "global/toggleTokenModal" ,
+      toggleWithdrawalModal: "global/toggleTokenWithdrawalModal"
+    }),
   }
-}
+};
 </script>
 
-<style>
-.header{
+<style scoped>
+ul.nav-links li a{
+    color:#fff !important;
+    text-decoration: none !important;
+}
+/* .profile-picture {
+  height: 40px;
+  min-width: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 2px solid #f9b330;
+  background: url("../../assets/img/placeholder-profile.jpg") no-repeat center
+    center;
+  background: url("https://img.icons8.com/ultraviolet/40/000000/user-male-circle.png")
+    no-repeat center center;
+  background-size: cover;
+} */
+/* .header{
     height:80px;
     padding: 5px 0;
 }
@@ -156,5 +348,5 @@ a.nav-toggler{
     .header{
         padding:5px;
     }
-}
+} */
 </style>

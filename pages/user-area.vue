@@ -1,178 +1,238 @@
 <template>
-    <section>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2 no-padding">
-                    <MainSidebar />
-                </div>
-                <div class="col-lg-10 no-padding">
-                    <Header />
-                    <!-- <router-view/> -->
-                   <nuxt-child/>
-                    <!-- <UserMain /> -->
-                </div>
-            </div>
-        </div>
-        <a @click="toggleChatBox()" class="chat-bubble">
-            <i v-if="chatBoxClosed === true" class="ti-comments"></i>
-            <i v-if="chatBoxClosed === false" class="fa fa-times"></i>
+  <div class="my-canvas">
+    
+
+    <!-- <div class="withdraw--page--transfer--modals"> -->
+      <WithdrawToken />
+      <BuyToken />
+      <!-- <section class="withdraw--modal">
+        <a href="#" class="modal-close">
+          <img src="../assets/img/close.png" alt="" />
         </a>
-        <div v-if="chatBoxClosed === false" class="chat-box animated fadeInUp">
-            <!-- <input type="text" placeholder="Username"> -->
-            <div class="chat"></div>
-            <div class="row">
-                <div class="col-10" style="padding-right:0">
-                    <input type="text" placeholder="Type your message">
-                </div>
-                <div class="col-2" style="padding-left:0">
-                    <button><i class="fa fa-arrow-right"></i></button>
-                </div>
+        <div class="modal-content">
+          <div class="main-modal">
+            <div class="modal-title">
+              <h3 class="light text-center">WITHDRAW</h3>
+              <h3 class="am-type">token</h3>
             </div>
+            <div class="token-details">
+              <p class="highlight">AVAILABLE TOKEN</p>
+              <h1>2,500.24</h1>
+              <p class="light">1 AFK TOKEN = 1.00 NGN</p>
+            </div>
+            <div class="account--smart-card">
+              <div class="bank--account">
+                <h1 class="form-title text-right am-type c-white">
+                  to Bank Account
+                </h1>
+                <form>
+                  <div>
+                    <img src="../assets/img/bank.png" alt="" />
+                    <input
+                      id="bank"
+                      type="text"
+                      placeholder="The bank you are transferring to"
+                    />
+                    <label for="bank">Bank</label>
+                  </div>
+                  <div class="mt-20">
+                    <img src="../assets/img/recipient.png" alt="" />
+                    <input
+                      id="recipient"
+                      type="text"
+                      placeholder="The phone number of the user you are transferring to"
+                    />
+                    <label for="recipient"
+                      >Recipients
+                      <span class="c-white">Phone number</span></label
+                    >
+                  </div>
+                  <div class="mt-20">
+                    <img src="../assets/img/tokenam.png" alt="" />
+                    <input
+                      id="token"
+                      type="text"
+                      placeholder="How much you want to transfer"
+                    />
+                    <label for="token"
+                      >Token <span class="c-white">Amount</span></label
+                    >
+                  </div>
+                  <div class="text-right sub--btn--holder">
+                    <div class="sub-button mt-20">
+                      <button>WITHDRAW TO BANK</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="smart--card">
+                <h1 class="form-title text-left am-type c-white">
+                  to smart Card
+                </h1>
+                <form>
+                  <div>
+                    <img src="../assets/img/user_name.png" alt="" />
+                    <input
+                      id="uname"
+                      type="text"
+                      placeholder="The user you are transferring to"
+                    />
+                    <label for="uname"
+                      >Users <span class="c-white">Name</span></label
+                    >
+                  </div>
+                  <div class="mt-20">
+                    <img src="../assets/img/recipcard.png" alt="" />
+                    <input
+                      id="recsma"
+                      type="text"
+                      placeholder="The card number of the user you are transferring to"
+                    />
+                    <label for="recsma"
+                      >Recipients
+                      <span class="c-white">Card number</span></label
+                    >
+                  </div>
+                  <div class="mt-20">
+                    <img src="../assets/img/tokensmartam.png" alt="" />
+                    <input
+                      id="tokam"
+                      type="text"
+                      placeholder="How much you want to transfer"
+                    />
+                    <label for="tokam"
+                      >Token <span class="c-white">Amount</span></label
+                    >
+                  </div>
+                  <div class="sub-button mt-20">
+                    <button>WITHDRAW TO CARD</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </section> -->
+      <section class="main-content">
+        <MainSidebar />
+        <main>
+         <Header />
+         <router-view />
+        </main>
+      </section>
+      <section class="transfer--modal">
+        <a href="#" class="modal-close">
+          <img src="../assets/img/close.png" alt="" />
+        </a>
+        <div class="modal-content">
+          <div class="main-modal">
+            <div class="modal-title">
+              <h3 class="light text-center">TRANSFER</h3>
+              <h3 class="am-type">token</h3>
+            </div>
+            <div class="token-details">
+              <p class="highlight">AVAILABLE TOKEN</p>
+              <h1>2,500.24</h1>
+              <p class="light">1 AFK TOKEN = 1.00 NGN</p>
+            </div>
+            <div class="transfer--info flex flex-center">
+              <form class="text-center">
+                <div class="mt-20">
+                  <img src="../assets/img/recipient.png" alt="" />
+                  <input
+                    id="rec-phone"
+                    type="text"
+                    placeholder="The phone number of the user you are transferring to"
+                  />
+                  <label for="rec-phone"
+                    >Recipients <span class="c-white">Phone number</span></label
+                  >
+                </div>
+                <div class="mt-20">
+                  <img src="../assets/img/tokenam.png" alt="" />
+                  <input
+                    id="token-am"
+                    type="text"
+                    placeholder="How much you want to transfer"
+                  />
+                  <label for="token-am"
+                    >Token <span class="c-white">Amount</span></label
+                  >
+                </div>
+                <div class="text-right sub--btn--holder w-100">
+                  <div class="sub-button mt-20 w-100">
+                    <button class="w-100">TRANSFER</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  <!-- </div> -->
 </template>
 
 <script>
-import MainSidebar from '~/components/partials/main-sidebar.vue'
-import Header from '~/components/partials/header.vue'
-import UserMain from '~/components/partials/user-main.vue'
-import AfkTransferModal from '~/components/partials/afk-transfer-modal.vue'
+import MainSidebar from "~/components/partials/main-sidebar.vue";
+import Header from "~/components/partials/header.vue";
+import UserMain from "~/components/partials/user-main.vue";
+import AfkTransferModal from "~/components/partials/afk-transfer-modal.vue";
+import BuyToken from "~/components/partials/buy-token.vue";
+import WithdrawToken from "~/components/partials/withdraw-token.vue";
 
-import { mapMutations } from 'vuex'
+import { mapMutations } from "vuex";
 
 export default {
-    components: {
-        MainSidebar,
-        Header,
-        UserMain
+  components: {
+    MainSidebar,
+    Header,
+    UserMain,
+    BuyToken,
+    WithdrawToken
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    chatBoxClosed() {
+      return this.$store.state.global.chatBoxClosed;
     },
-    data(){
-        return {
-
-        }
-    },
-    computed: {
-        chatBoxClosed () {
-            return this.$store.state.global.chatBoxClosed
-        },
-        isAuthenticated () {
-            return this.$store.state.global.isAuthenticated
-        },
-    },
-    methods: {
-        toggleChatBox () {
-            this.$store.commit('global/toggleChatBox')
-        },
-        ...mapMutations({
-            toggleChatBox: 'global/toggleChatBox',
-            toggleSidebar: 'global/authenticateUser'
-        }),
-
-        authenticate (user) {
-            this.$store.commit('global/authenticateUser', user)
-        },
-        checkLoginStatus() {
-            console.log(this.$cookies.get('userdetails'))
-            if(!this.$cookies.get('userdetails'))
-            {
-                this.$cookies.removeAll()
-                this.$router.push('../login')
-            } else {
-                this.authenticate( this.$cookies.get('userdetails') )
-            }
-        }
-    },
-    beforeMount() {
-        this.checkLoginStatus()
+    isAuthenticated() {
+      return this.$store.state.global.isAuthenticated;
     }
-    
-}
+  },
+  methods: {
+    toggleChatBox() {
+      this.$store.commit("global/toggleChatBox");
+    },
+    ...mapMutations({
+      toggleChatBox: "global/toggleChatBox",
+      toggleSidebar: "global/authenticateUser"
+    }),
+
+    authenticate(user) {
+      this.$store.commit("global/authenticateUser", user);
+    },
+    checkLoginStatus() {
+      console.log(this.$cookies.get("userdetails"));
+      if (!this.$cookies.get("userdetails")) {
+        this.$cookies.removeAll();
+        this.$router.push("../login");
+      } else {
+        this.authenticate(this.$cookies.get("userdetails"));
+      }
+    }
+  },
+  beforeMount() {
+    this.checkLoginStatus();
+  }
+};
 </script>
 
 <style scoped>
-    section{
-        width:100%;
-        min-height:100vh;
-        height:inherit;
-    }
-    .no-padding{
-        padding:0!important;
-    }
-
-    a.chat-bubble{
-        text-align:center;
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        width:50px;
-        min-width:50px;
-        height:50px;
-        min-height:50px;
-        border-radius: 50px;
-        background-color: #F9B330;
-        border: 2px solid #f1d8a8;
-        color:#2e2d2d;
-        font-size: 1em;
-        position:fixed;
-        bottom:20px;
-        left:15%;
-        z-index: 999;
-        box-shadow: 2px 2px 10px #00000093
-    }
-    a.chat-bubble:hover{
-        box-shadow: 2px 2px 10px #00000074;
-        background-color: #e4a124;
-    }
-    .chat-box{
-        width: 25%;
-        height: 400px;
-        position: fixed;
-        bottom: 70px;
-        left: 18%;
-        box-shadow: 2px 2px 20px #0000002a;
-        border-radius: 5px;
-        background-color:#fff;
-        padding: 10px;
-    }
-    .chat{
-        width: 100%;
-        height:320px;
-        background: url('../assets/img/support.svg') no-repeat center center;
-        background-size:50%;
-        opacity: 0.1;
-    }
-
-    .chat-box button{
-        background-color: #2e2d2d;
-        color:#ffffffdc;
-    }
-
-    .chat-box button:hover{
-        background-color: #cac7c7dc;
-        color:#2e2d2d;
-    }
-
-    @media only screen and (max-width: 990px) {
-         a.chat-bubble{
-            left:5%;
-         }
-        .chat-box{
-            width: 40%;
-            left: 10%;
-        }
-    }
-    @media only screen and (max-width: 768px) {
-        a.chat-bubble{
-            left:1%;
-        }
-        .chat-box{
-            width: 50%;
-            left: 5%;
-        }
-    }
-    @media only screen and (max-width: 768px) {
-        .chat-box{
-            width: 90%;
-        }
-    }
+a {
+  color: #fff;
+  text-decoration: none !important;
+}
 </style>

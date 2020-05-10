@@ -1,5 +1,137 @@
 <template>
-    <section>
+  <section class="dash-body">
+    <div>
+      <div class="welcome-text">
+        <div class="text-center">
+          <p class="w-100 c-white">payafrik</p>
+          <h1 class="w-100 c-white am-type mt-0 mb-0">Mart</h1>
+        </div>
+      </div>
+      <ul class="card-links">
+        <li class="link-card mt-20">
+          <nuxt-link  :to="{ name: 'user-area-mart-category-id', params: { id: 1 }}">
+            <div class="imge">
+              <img src="../../../assets/img/bills.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Pay your bills for utilities &amp; services
+            </p>
+            <p class="higlight text-center">Utilities</p>
+          </nuxt-link>
+        </li>
+        <li class="link-card mt-20">
+          <nuxt-link  :to="{ name: 'user-area-mart-category-id', params: { id: 2 }}">
+            <div class="imge">
+              <img src="../../../assets/img/purse.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Pay your cable TV bills here
+            </p>
+            <p class="higlight text-center">Cable TV</p>
+          </nuxt-link>
+        </li>
+        <li class="link-card mt-20">
+          <nuxt-link  :to="{ name: 'user-area-mart-category-id', params: { id: 3 }}">
+            <div class="imge">
+              <img src="../../../assets/img/mobile-recharge.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Recharge your mobile devices
+            </p>
+            <p class="higlight text-center">Mobile Recharge</p>
+          </nuxt-link>
+        </li>
+        <li class="link-card mt-20">
+          <nuxt-link  :to="{ name: 'user-area-mart-category-id', params: { id: 41 }}">
+            <div class="imge">
+              <img src="../../../assets/img/betting.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Recharge your betting accounts
+            </p>
+            <p class="higlight text-center">Betting &amp; Lottery</p>
+          </nuxt-link>
+        </li>
+        <li class="link-card mt-20">
+          <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: 11 }}">
+            <div class="imge">
+              <img src="../../../assets/img/travels.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Airline tickets &amp; hotel reservations
+            </p>
+            <p class="higlight text-center">Travel &amp; Hotels</p>
+          </nuxt-link>
+        </li>
+        <li class="link-card mt-20">
+          <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: 13 }}">
+            <div class="imge">
+              <img src="../../../assets/img/online-shop.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Airline Tickets &amp; Hotel reservations
+            </p>
+            <p class="higlight text-center">Online Shopping</p>
+          </nuxt-link>
+        </li>
+        <li class="link-card mt-20">
+          <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: 33 }}">
+            <div class="imge">
+              <img src="../../../assets/img/school.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Pay your school &amp; Exam Fees
+            </p>
+            <p class="higlight text-center">School &amp; Exam Fees</p>
+          </nuxt-link>
+        </li>
+        <li class="link-card mt-20">
+          <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: 61 }}">
+            <div class="imge">
+              <img src="../../../assets/img/loan.png" alt="purse" />
+            </div>
+            <p class="desc c-white text-center mb-8">
+              Gain access to credit &amp; Loan Agencies
+            </p>
+            <p class="higlight text-center">Credit & Loans</p>
+          </nuxt-link>
+        </li>
+      </ul>
+      <div class="mt-20 btn-meidum m-0-auto">
+        <a href="#" class="btn dashed">
+          + Show more
+        </a>
+      </div>
+    </div>
+    <!-- MAIN BODY -->
+    <!-- <div class="container paddingTop50 mainbody">
+          <p class="mainTitle">Categories</p>
+          <div class="dividerdark"></div> -->
+    <!-- DASHBODY -->
+    <!-- <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div v-for="category of billerCategories" v-bind:key="category.categoryid" class="col-md-4">
+                  <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: category.categoryid }}">
+                      <div class="categorycard">
+                      <div class="base">
+                        <p>{{category.categoryname}}</p>
+                        <div class="divider"></div>
+                        <p class="desc">{{category.categorydescription}} ></p>
+                      </div>
+                      <div class="iconHolder">
+                      </div>
+                    </div>
+                  </nuxt-link>
+                </div>
+
+              </div>
+            </div>
+          </div> -->
+    <!-- END DASHBODY -->
+    <!-- </div> -->
+    <!-- END MAIN BODY -->
+    <!-- <section>
         <div class="container">
             <md-tabs class="mt-4">
                 <md-tab id="tab-home" md-label="Service Categories">
@@ -65,84 +197,88 @@
                 </md-tab>
             </md-tabs>
         </div>
-    </section>
+    </!-->
+  </section>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations } from "vuex";
 
 export default {
-    components: {},
-    data(){
-        return {
-            baseUrl: process.env.baseUrl,
-            interswitchBaseUrl: process.env.interswitchBaseUrl,
-            loadingCategories:false,
-            loadingBillers: true,
-            billerCategories:[],
-            billers:[]
+  components: {},
+  data() {
+    return {
+      baseUrl: process.env.baseUrl,
+      interswitchBaseUrl: process.env.interswitchBaseUrl,
+      loadingCategories: false,
+      loadingBillers: true,
+      billerCategories: [],
+      billers: []
+    };
+  },
+  computed: {},
+  methods: {
+    async getBillerCategories() {
+      this.loadingCategories = true;
+      try {
+        const categoriesResponse = await this.$axios.$get(
+          this.interswitchBaseUrl + "categories"
+        );
+        console.log(categoriesResponse);
+        if (categoriesResponse.status === true) {
+          this.billerCategories = categoriesResponse.data;
         }
+        this.loadingCategories = false;
+      } catch (e) {
+        // this.$toast.error(e.response.data.error)
+        this.loadingCategories = false;
+        console.log(e);
+      }
     },
-    computed: {},
-    methods: {
-       async getBillerCategories(){
-            this.loadingCategories = true;
-            try{
-                const categoriesResponse = await this.$axios.$get(this.interswitchBaseUrl+'categories')
-                console.log(categoriesResponse)
-                if(categoriesResponse.status === true){
-                    this.billerCategories = categoriesResponse.data
-                }
-                this.loadingCategories = false
-            }catch(e){
-                // this.$toast.error(e.response.data.error)
-                this.loadingCategories = false
-                console.log(e)
-            }
-        },
 
-        async getAllBillers() {
-            this.loadingBillers = true;
-            try{
-                const billersResponse = await this.$axios.$get(this.interswitchBaseUrl+'billers')
-                console.log(billersResponse)
-                if(billersResponse.status === true){
-                    this.billers = billersResponse.data
-                }
-                this.loadingBillers = false
-            }catch(e){
-                // this.$toast.error(e.response.data.error)
-                this.loadingBillers = false
-                console.log(e)
-            }
-        },
+    async getAllBillers() {
+      this.loadingBillers = true;
+      try {
+        const billersResponse = await this.$axios.$get(
+          this.interswitchBaseUrl + "billers"
+        );
+        console.log(billersResponse);
+        if (billersResponse.status === true) {
+          this.billers = billersResponse.data;
+        }
+        this.loadingBillers = false;
+      } catch (e) {
+        // this.$toast.error(e.response.data.error)
+        this.loadingBillers = false;
+        console.log(e);
+      }
+    },
 
-    closeSideBar () {
-        this.$store.commit('global/closeSidebar')
+    closeSideBar() {
+      this.$store.commit("global/closeSidebar");
     },
     ...mapMutations({
-        toggleSidebar: 'global/toggleSidebar',
-        closeSideBar: 'global/closeSidebar'
+      toggleSidebar: "global/toggleSidebar",
+      closeSideBar: "global/closeSidebar"
     })
-    },
-    beforeMount() {
-        this.getBillerCategories()
-        this.getAllBillers()
-    }
-}
+  },
+  beforeMount() {
+    this.getBillerCategories();
+    // this.getAllBillers()
+  }
+};
 </script>
 
 <style scoped>
- p{
+/* p{
      color:#1a1919 !important;
- }
- button {
-     width:unset;
- }
+ } */
+/* button {
+  width: unset;
+}
 
-.md-title h6{
-     color:#332c2c;
-     font-weight:500;
- }
- 
+.md-title h6 {
+  color: #332c2c;
+  font-weight: 500;
+} */
 </style>
