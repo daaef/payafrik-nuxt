@@ -98,10 +98,30 @@
         </li>
       </ul>
       <div class="mt-20 btn-meidum m-0-auto">
-        <a href="#" class="btn dashed">
+        <a v-if="!loadingCategories" @click="getBillerCategories()" class="btn dashed">
           + Show more
         </a>
+        <a v-if="loadingCategories" class="btn dashed">
+          <i class="fas fa-circle-notch fa-spin"></i>
+        </a>
       </div>
+
+      <div class="container" v-if="moreLoaded">
+        <ul class="card-links row">
+          <li v-for="category of billerCategories" :key="category.categoryId" class="col-md-6">
+            <div class="link-card no-img mt-20 w-100">
+              <i class="fas fa-angle-right c-white fa-2x"></i>
+              <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: category.categoryid }}">
+                <p class="higlight">{{category.categoryname}}</p>
+                <p class="desc c-white mb-8">
+                  {{category.categorydescription}}
+                </p>
+              </nuxt-link>
+            </div>
+          </li>
+        </ul>
+      </div>
+
     </div>
     <!-- MAIN BODY -->
     <!-- <div class="container paddingTop50 mainbody">
@@ -213,7 +233,8 @@ export default {
       loadingCategories: false,
       loadingBillers: true,
       billerCategories: [],
-      billers: []
+      billers: [],
+      moreLoaded:false
     };
   },
   computed: {},
@@ -227,6 +248,7 @@ export default {
         console.log(categoriesResponse);
         if (categoriesResponse.status === true) {
           this.billerCategories = categoriesResponse.data;
+          this.moreLoaded = true;
         }
         this.loadingCategories = false;
       } catch (e) {
@@ -263,22 +285,36 @@ export default {
     })
   },
   beforeMount() {
-    this.getBillerCategories();
+    // this.getBillerCategories();
     // this.getAllBillers()
   }
 };
 </script>
 
 <style scoped>
-/* p{
-     color:#1a1919 !important;
- } */
-/* button {
-  width: unset;
+.link-card.no-img{
+  position:relative;
+  width: 90%;
+  margin: auto;
 }
 
-.md-title h6 {
-  color: #332c2c;
-  font-weight: 500;
-} */
+.link-card.no-img i{
+  position: absolute;
+  top:40px;
+  right:20px;
+  color:#f0c32fb8;
+}
+ .card-links .link-card.no-img:hover:after {
+    content: "";
+    height: 20px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: unset!important;
+    opacity: 0.3;
+    background-size: 100% 100%;
+    background-position: bottom left;
+    background-repeat: no-repeat;
+  }
 </style>

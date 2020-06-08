@@ -950,8 +950,13 @@ export const state = () => ({
   isAuthenticated: false,
   tokenModalActive: false,
   tokenWithdrawalModalActive: false,
+  canvasClass: '',
+  activeWalletModal: '',
+  activeCurrency: 'afk',
   authenticatedUser: {},
-  activeBiller: {}
+  activeBiller: {},
+  btcData: {},
+  ethData: {}
 })
 
 export const mutations = {
@@ -972,9 +977,33 @@ export const mutations = {
   },
   toggleTokenModal (state) {
     state.tokenModalActive = !state.tokenModalActive  
+    if(state.tokenModalActive) {
+      state.canvasClass = 'buy-token-active'
+    }
   },
   toggleTokenWithdrawalModal (state) {
     state.tokenWithdrawalModalActive = !state.tokenWithdrawalModalActive  
+    if(state.tokenWithdrawalModalActive) {
+      state.canvasClass = 'withdraw-active'
+    }
+  },
+  loadBTCData (state, data) {
+    state.btcData = data
+  },
+  loadEthData (state, data) {
+    state.ethData = data
+  },
+  openFunctionModal (state, data) {
+    state.canvasClass = data.class
+    if (data.wallet && data.wallet !== ''){
+      state.activeWalletModal = data.wallet
+    }
+    if (data.currency && data.currency !== ''){
+      state.activeCurrency = data.currency
+    }
+  },
+  closeFunctionModal (state) {
+    state.canvasClass = null
   },
   closeSidebar (state) {
     state.sidebarClosed = true

@@ -1,6 +1,6 @@
 <template>
-  <div class="buy--token--modal" :class="[tokenModalActive ? 'active' : '']">
-    <a @click="toggleTokenModal()" class="modal-close">
+  <div class="buy--token--modal">
+    <a @click="closeFunctionModal()" class="modal-close">
       <img src="../../assets/img/close.png" alt="" />
     </a>
     <div class="modal-content">
@@ -12,7 +12,7 @@
           </div>
           <div class="token-details">
             <p class="highlight">AVAILABLE TOKEN</p>
-            <h1>2,500.24</h1>
+            <h1>{{ +userDetails.balance }}</h1>
             <p class="light">1 AFK TOKEN = 1.00 NGN</p>
           </div>
           <div class="token--description">
@@ -80,6 +80,9 @@ export default {
     tokenModalActive() {
       return this.$store.state.global.tokenModalActive;
     },
+    userDetails() {
+      return this.$store.state.global.authenticatedUser;
+    },
     reference() {
       let text = "";
       let possible =
@@ -103,21 +106,23 @@ export default {
       let sidebar = document.querySelector(".sidebar_bg");
       sidebar.style.display = "block";
     },
-    toggleTokenModal() {
-      this.$store.commit("global/toggleTokenModal");
+    closeFunctionModal() {
+      this.$store.commit("global/closeFunctionModal");
     },
     ...mapMutations({
-      toggleChatBox: "global/toggleTokenModal"
+      toggleChatBox: "global/toggleTokenModal",
+      closeFunctionModal: "global/closeFunctionModal"
+
     })
   }
 };
 </script>
 
 <style scoped>
-.buy--token--modal.active {
+/* .buy--token--modal.active {
   margin-top: 0px !important;
   background-color: #131c4b !important;
-}
+} */
 .modal-close {
   cursor: pointer;
 }

@@ -30,7 +30,7 @@
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link to="exchange" active-class="active-link">
+            <nuxt-link to="/user-area/exchange" active-class="active-link">
               <img
                 class="mr-20"
                 src="../../assets/img/side-exchange.png"
@@ -39,11 +39,17 @@
               Exchange
             </nuxt-link>
           </li>
-          <li>
+          <!-- <li>
             <a href="">
               <img class="mr-20" src="../../assets/img/chat.png" alt="" />
               Chat
             </a>
+          </li> -->
+          <li>
+            <nuxt-link to="/user-area/transactions" active-class="active-link">
+              <img class="mr-20" src="../../assets/img/mart.png" alt="" />
+              Transactions
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -561,6 +567,7 @@ export default {
 ul li a{
   color:#fff !important;
   text-decoration: none !important;
+  cursor: pointer!important;
 }
 
 aside ul li{

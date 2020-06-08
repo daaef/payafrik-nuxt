@@ -1,9 +1,11 @@
 <template>
   <section
-    class="withdraw--modal"
-    :class="[tokenWithdrawalModalActive ? 'active' : '']"
-  >
-    <a @click="toggleTokenWithdrawalModal" class="float-right">
+    class="withdraw--modal">
+
+   <!-- <section
+    class="withdraw--modal" :class="[tokenWithdrawalModalActive ? 'withdraw-active' : '']"
+  > -->
+    <a @click="closeFunctionModal()" class="float-right">
       <img src="../../assets/img/close.png" alt="" />
     </a>
     <div class="modal-content">
@@ -14,7 +16,7 @@
         </div>
         <div class="token-details">
           <p class="highlight">AVAILABLE TOKEN</p>
-          <h1>2,500.24</h1>
+          <h1>{{ +userDetails.balance }}</h1>
           <p class="light">1 AFK TOKEN = 1.00 NGN</p>
         </div>
         <div class="account--smart-card">
@@ -120,6 +122,9 @@ export default {
   computed: {
     tokenWithdrawalModalActive() {
       return this.$store.state.global.tokenWithdrawalModalActive;
+    },
+    userDetails() {
+      return this.$store.state.global.authenticatedUser;
     }
   },
   methods: {
@@ -131,31 +136,19 @@ export default {
     toggleTokenWithdrawalModal() {
       this.$store.commit("global/toggleTokenWithdrawalModal");
     },
+    closeFunctionModal() {
+      this.$store.commit("global/closeFunctionModal");
+    },
     ...mapMutations({
-      toggleChatBox: "global/toggleTokenModal"
+      toggleChatBox: "global/toggleTokenModal",
+      closeFunctionModal: "global/closeFunctionModal"
+
     })
   }
 };
 </script>
 
 <style>
-.withdraw--modal {
-  margin-left: -100% !important;
-  width: 100% !important; 
-  position: fixed;
-  top: 0;
-  z-index: 999;
-}
-
-.withdraw--modal.active {
-  margin-left: 0px !important;
-  background-color: #131c4b !important;
-  width: 100% !important;
-  overflow:scroll;
-  height: inherit;
-}
-
-
 .modal-close {
   cursor: pointer;
 }

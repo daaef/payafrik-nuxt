@@ -72,6 +72,8 @@ export default {
   */
   plugins: [
     { src: '~/plugins/vue-datepicker', ssr: false },
+    { src: '~/plugins/numeral' },
+
   ],
   /*
   ** Nuxt.js dev-modules

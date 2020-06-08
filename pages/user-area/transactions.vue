@@ -1,5 +1,123 @@
 <template>
-  <section>
+  <section class="dash-body">
+    <div class="utrans--content">
+      <div class="w-100">
+        <div class="welcome-text">
+          <div class="text-center">
+            <p class="w-100 c-white">user</p>
+            <h1 class="w-100 c-white am-type mt-0 mb-0">Transactions</h1>
+          </div>
+        </div>
+        <!-- <form> -->
+        <div class="row trans--grid mt-20 w-100 flex-between">
+          <div>
+            <input
+              type="text"
+              v-model="filters.transactionStatus"
+              class="normal--input"
+              placeholder="Status"
+            />
+          </div>
+          <div>
+            <input
+              type="date"
+              v-model="filters.minDate"
+              class="normal--input"
+              placeholder="Date From"
+            />
+          </div>
+          <div>
+            <input
+              type="date"
+              v-model="filters.maxDate"
+              class="normal--input"
+              placeholder="Date To"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              v-model="filters.receiver"
+              class="normal--input"
+              placeholder="Filter by Receiver"
+            />
+          </div>
+          <div>
+            <input
+              type="submit"
+              @click="applyFilters()"
+              class="normal--input"
+              value="Apply"
+            />
+          </div>
+        </div>
+        <!-- </form> -->
+        <div class="mt-20">
+          <div class="text-right c-dim-white">
+            Showing {{ transfers.length }} of {{ transfersPagination.totalRecords }}
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Transaction</th>
+                <th>Memo/Remarks</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="transaction of transfers" :key="transaction.id">
+                <td>{{ transaction.id }}</td>
+                <td class="status">{{ transaction.status }}</td>
+                <td>
+                  <strong>{{ +transaction.sent_amount }}</strong> tokens to
+                  {{ transaction.receiver }}
+                </td>
+                <td>{{ transaction.memo }}</td>
+                <td>{{ new Date(transaction.created).toDateString() }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div
+            v-if="
+              transfersPagination.totalRecords >
+                transfersPagination.itemsPerPage
+            "
+            class="pagination mt-3 mb-5"
+          >
+              <div class="row ml-1">
+                <div class="col-md-3">
+                  <button
+                    class="w-100"
+                    type="submit"
+                    @click="getUserTransactions(previousPageUrl)"
+                    :disabled="
+                      previousPageUrl === '' || previousPageUrl === null
+                    "
+                  >
+                    <i class="fa fa-angle-double-left" /> Previous Page
+                  </button>
+                </div>
+                <div class="col-md-6 text-center"></div>
+                <div class="col-md-3 text-right ">
+                  <button
+                    class="w-100"
+                    :disabled="nextPageUrl === '' || nextPageUrl === null"
+                    type="submit"
+                    @click="getUserTransactions(nextPageUrl)"
+                  >
+                    Next Page <i class="fa fa-angle-double-right" />
+                  </button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- <section>
     <div class="container">
       <div class="row mb-3 mt-4">
         <div class="col-md-6">
@@ -13,22 +131,16 @@
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-4">
-          <!-- <input
-            type="text"
-            placeholder="Filter by receiver"
-            class="pull-right"
-          /> -->
+
         </div>
 
         <div class="col-md-12">
-          <!-- <input type="text" placeholder="Filter by receiver" class="pull-right"> -->
           <div class="container">
             <div class="row">
               <div class="col-md-3 text-right">
                 <p class="mt-4">Filters:</p>
               </div>
               <div class="col-md-2" style="padding: 5px !important">
-                <!-- <input v-model="filters.receiver" type="text" placeholder="Filter by receiver" class=""> -->
                 <select v-model="filters.transactionStatus">
                   <option value="">Status</option>
                   <option value="FAILED">Failed</option>
@@ -131,7 +243,6 @@
               </button>
             </div>
             <div class="col-md-6 text-center">
-              <!-- <button :disabled="transfers.length >= transfersPagination.totalRecords" type="submit" @click="changePage('next')"> Load more records <i class="fa fa-angle-double-down ml-3" /></button> -->
             </div>
             <div class="col-md-3">
               <button
@@ -147,7 +258,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 </template>
 
 <script>
@@ -206,19 +317,29 @@ export default {
         return;
       }
 
+      // let url =
+      //   this.baseUrl +
+      //   "transactions/transactions?status=" +
+      //   this.filters.transactionStatus +
+      //   "&min_date=" +
+      //   this.formatDate(this.filters.minDate) +
+      //   "&max_date=" +
+      //   this.formatDate(this.filters.maxDate) +
+      //   "&receiver=" +
+      //   this.filters.receiver;
       let url =
         this.baseUrl +
         "transactions/transactions?status=" +
         this.filters.transactionStatus +
         "&min_date=" +
-        this.formatDate(this.filters.minDate) +
+        this.filters.minDate +
         "&max_date=" +
-        this.formatDate(this.filters.maxDate) +
+        this.filters.maxDate +
         "&receiver=" +
         this.filters.receiver;
       // status=SUCCESSFUL&min_date=2020-03-22&receiver=shalomz
 
-      //   console.log("THE FILTERS ====> ", url);
+      // console.log("THE FILTERS ====> ", url);
       this.getUserTransactions(url);
     },
 
@@ -231,7 +352,7 @@ export default {
       this.getUserTransactions();
     },
     async getUserTransactions(url) {
-      this.transfers = []
+      this.transfers = [];
       this.loadingTransfers = true;
       const headers = {
         "Content-Type": "application/json",
@@ -258,8 +379,8 @@ export default {
         this.transfers = userTransactionsResponse.results;
         this.loadingTransfers = false;
       } catch (e) {
-        this.$toast.error(e.response);
-        console.log(e.response);
+        this.$toast.error(e.response.data.detail);
+        console.log(e.response.data.detail);
         this.loadingTransfers = false;
       }
     },
@@ -301,15 +422,12 @@ export default {
   },
   beforeMount() {
     this.getUserTransactions(this.baseUrl + "transactions/transactions");
-    this.getUserPurchases();
+    // this.getUserPurchases();
   }
 };
 </script>
 
 <style scoped>
-p {
-  color: #1a1919 !important;
-}
 button {
   width: unset;
 }
@@ -323,5 +441,24 @@ button {
   width: 100% !important;
   position: relative;
   overflow: hidden;
+}
+
+td {
+  color: #ffffffe5 !important;
+  padding: 5px;
+}
+
+td.status {
+  /* max-width: 50px !important; */
+  text-transform: lowercase;
+}
+
+.pagination button {
+  background: #0c0a3c;
+    color: #ffffff99;
+    /* border: solid 1px #f9921b; */
+    padding: 15px;
+    cursor: pointer;
+    border:none;
 }
 </style>

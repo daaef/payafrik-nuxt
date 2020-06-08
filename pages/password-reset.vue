@@ -55,119 +55,122 @@
               <img src="img/close.png" alt="" />
             </a> -->
             <div class="auth--content">
-              <div class="w-100">
-                <form class="w-100">
-                  <div class="flex flex-between flex-col flex-middle w-100">
-                    <div class="welcome-text">
-                      <div class="text-center">
-                        <p class="w-100 c-white">Reset your PIN</p>
-                        <!-- <h1 class="w-100 c-white am-type mt-0 mb-50">
-                          PayAfrik Dashboard
-                        </h1> -->
+              <div class="col-lg-5 ml-auto mr-auto">
+                <div class="w-100">
+                  <form class="w-100">
+                    <div class="w-100">
+                      <div class="welcome-text">
+                        <div class="text-center">
+                          <p class="w-100 c-white">Reset your PIN</p>
+                          <!-- <h1 class="w-100 c-white am-type mt-0 mb-50">
+                            PayAfrik Dashboard
+                          </h1> -->
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="exchange centerdiv">
-                      <div>
-                        <img
-                          class="prefix-icon"
-                          src="../assets/img/iphone.png"
-                          alt=""
-                        />
-                        <input
-                            v-model='username'
-                            id="exchange-afk"
-                            type="text"
-                            placeholder="Enter Registered Phone Number"
-                        />
-                        <label for="exchange-afk">Phone Number</label>
-                        <div class="exchange--dropdown"></div>
+                      <div class="exchange centerdiv">
+                        <div>
+                          <img
+                            class="prefix-icon"
+                            src="../assets/img/iphone.png"
+                            alt=""
+                          />
+                          <input
+                              v-model='username'
+                              id="exchange-afk"
+                              type="text"
+                              placeholder="Enter Registered Phone Number"
+                          />
+                          <label for="exchange-afk">Phone Number</label>
+                          <div class="exchange--dropdown"></div>
+                        </div>
                       </div>
-                    </div>
-                    <p class="authhint">
-                      Please add your phone code (eg: +234)
-                    </p>
+                      <p class="authhint">
+                        Please add your phone code (eg: +234)
+                      </p>
 
-                    <div v-if="codeSent" class="exchange centerdiv mb-3">
-                      <div>
-                        <img
-                          class="prefix-icon"
-                          src="../assets/img/right-arrow.png"
-                          alt=""
-                        />
-                        <input
-                            v-model="resetCode"
-                            type="text"
-                            id="reset-code"
-                            placeholder="Code sent to your phone"
-                        />
-                       
-                        <label for="pin">Reset Code</label>
+                      <div v-if="codeSent" class="exchange centerdiv mb-3">
+                        <div>
+                          <img
+                            class="prefix-icon"
+                            src="../assets/img/right-arrow.png"
+                            alt=""
+                          />
+                          <input
+                              v-model="resetCode"
+                              type="text"
+                              id="reset-code"
+                              placeholder="Code sent to your phone"
+                          />
+                        
+                          <label for="pin">Reset Code</label>
+                        </div>
                       </div>
-                    </div>
 
-                    <div v-if="codeSent" class="exchange centerdiv">
-                      <div>
-                        <img
-                          class="prefix-icon"
-                          src="../assets/img/right-arrow.png"
-                          alt=""
-                        />
-                        <input
-                            v-if="!viewPassword"
-                            v-model="password"
-                            @keydown="enforceNumbersOnly($event)"
-                            maxlength="4"
-                            type="password"
-                          id="pin"
-                          placeholder="Your New 4 Digit PIN"
-                        />
-                        <input
-                            v-if="viewPassword"
-                            v-model="password"
-                            type="text"
-                            @keydown="enforceNumbersOnly($event)"
-                            maxlength="4"
-                          id="pin-text"
-                          placeholder="Your New 4 Digit PIN"
-                        />
-                        <label for="pin">PIN</label>
-                        <div class="exchange--dropdown ">
+                      <div v-if="codeSent" class="exchange centerdiv">
+                        <div>
+                          <img
+                            class="prefix-icon"
+                            src="../assets/img/right-arrow.png"
+                            alt=""
+                          />
+                          <input
+                              v-if="!viewPassword"
+                              v-model="password"
+                              @keydown="enforceNumbersOnly($event)"
+                              maxlength="4"
+                              type="password"
+                            id="pin"
+                            placeholder="Your New 4 Digit PIN"
+                          />
+                          <input
+                              v-if="viewPassword"
+                              v-model="password"
+                              type="text"
+                              @keydown="enforceNumbersOnly($event)"
+                              maxlength="4"
+                            id="pin-text"
+                            placeholder="Your New 4 Digit PIN"
+                          />
+                          <label for="pin">PIN</label>
                           <img
                             @click="toggleViewPassword()"
-                            class="suffix-icon suffix"
+                            class="suffix-icon suffix password-toggle-switch"
                             src="../assets/img/view.png"
                             alt=""
                           />
+                          <div class="exchange--dropdown ">
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div v-if="!codeSent" class="text-center mt-20 sub--btn--holder">
-                      <div class="sub-button mt-20">
-                        <button v-if="!processing" @click="requestReset()" class="w-100">Request PIN Reset</button>
-                        <button v-if="processing" disabled class="w-100">Requesting reset...</button>
+                      <div v-if="!codeSent" class="text-center mt-20 sub--btn--holder">
+                        <div class="sub-button mt-20">
+                          <button v-if="!processing" @click="requestReset()" class="w-100">Request PIN Reset</button>
+                          <button v-if="processing" disabled class="w-100">Requesting reset...</button>
+                        </div>
+                      </div>
+
+                      <div v-if="codeSent" class="text-center mt-20 sub--btn--holder">
+                        <div class="sub-button mt-20">
+                          <button v-if="!processing" @click="resetPassword()" class="w-100">Reset PIN</button>
+                          <button v-if="processing" disabled class="w-100">Resetting PIN...</button>
+                        </div>
+                      </div>
+
+
+                      <div class="text-center mt-20">
+                        <nuxt-link to="/signup"
+                          ><p class="authhint">
+                            New to PayAfrik?
+                            <span class="reset-color">Sign Up</span>
+                          </p></nuxt-link
+                        >
                       </div>
                     </div>
+                  </form>
+                </div>
 
-                    <div v-if="codeSent" class="text-center mt-20 sub--btn--holder">
-                      <div class="sub-button mt-20">
-                        <button v-if="!processing" @click="resetPassword()" class="w-100">Reset PIN</button>
-                        <button v-if="processing" disabled class="w-100">Resetting PIN...</button>
-                      </div>
-                    </div>
-
-
-                    <div class="text-center mt-20">
-                      <nuxt-link to="/signup"
-                        ><p class="authhint">
-                          New to PayAfrik?
-                          <span class="reset-color">Sign Up</span>
-                        </p></nuxt-link
-                      >
-                    </div>
-                  </div>
-                </form>
               </div>
             </div>
           </section>
@@ -271,7 +274,7 @@ export default {
 </script>
 
 <style scoped>
-.section{
+/* .section{
     background-color:#1f3d74;
     background: url('../assets/img/blockchain-bg.jpg') no-repeat center center;
     background-size:cover;
@@ -339,5 +342,49 @@ a.password-toggle-switch{
     right:15px;
     z-index:999;
     color:#666;
+} */
+.exchange {
+  position: relative;
+}
+
+img.password-toggle-switch {
+  position: absolute;
+  top: 27px;
+  left: 92%!important;
+  color: #666;
+  z-index: 999;
+}
+
+.suffix{
+  cursor: pointer;
+}
+
+.prefix-icon, .suffix-icon{
+  width:30px;
+  filter: invert();
+}
+
+.prefix-icon{
+  opacity: 0.5;
+}
+
+label {
+  color: #0000ff;
+}
+
+p{
+  color: #ffffffe5;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.dash-body {
+  margin-left:7%;
+}
+
+@media (max-width: 768px) {
+  .dash-body{
+    margin-left: 0;
+  }
 }
 </style>

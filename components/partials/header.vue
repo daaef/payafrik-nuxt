@@ -4,23 +4,23 @@
       <div class="balance">
         <img src="../../assets/img/logo.png" class="mobile-logo" alt="logo" />
         <span>AfriToken:</span>
-        <h3>{{ +userDetails.balance }}</h3>
+        <h3>{{ +userDetails.balance | formatNumber }}</h3>
       </div>
       <ul class="nav-links">
         <li class="mr-32">
-          <a href="#" @click="toggleTokenModal()">
+          <a @click="openFunctionModal('buy-token-active')">
             <img class="mr-8" src="../../assets/img/plus.png" alt="plus" />
             BUY TOKEN
           </a>
         </li>
         <li class="mr-32">
-          <a href="#" @click="toggleWithdrawalModal()">
+          <a @click="openFunctionModal('withdraw-active')">
             <img class="mr-8" src="../../assets/img/wallet.png" alt="wallet" />
             WITHDRAW
           </a>
         </li>
         <li>
-          <a href="#" data-link-class="transfer-token-active">
+          <a @click="openFunctionModal('transfer-token-active')">
             <img
               class="mr-8"
               src="../../assets/img/transfer.png"
@@ -31,7 +31,7 @@
         </li>
       </ul>
       <div class="user-account">
-        <a href="#">
+        <a @click="openFunctionModal('profile--active')" data-link-class="profile--active">
           <img class="mr-12" src="../../assets/img/user.png" alt="user icon" />
           <span>{{ userDetails.username }}</span>
         </a>
@@ -44,17 +44,17 @@
       <div class="nav-dropdown">
         <div class="balance">
           <span>AfriToken:</span>
-          <h3>2,500.24</h3>
+          <h3>{{ +userDetails.balance }}</h3>
         </div>
         <ul class="nav-links">
           <li>
-            <a href="#" data-link-class="buy-token-active">
+            <a @click="openFunctionModal('buy-token-active')">
               <img class="mr-8" src="../../assets/img/plus.png" alt="plus" />
               BUY TOKEN
             </a>
           </li>
           <li>
-            <a href="#" data-link-class="withdraw-active">
+            <a @click="openFunctionModal('withdraw-active')">
               <img
                 class="mr-8"
                 src="../../assets/img/wallet.png"
@@ -64,7 +64,7 @@
             </a>
           </li>
           <li>
-            <a href="#" data-link-class="transfer-token-active">
+            <a @click="openFunctionModal('transfer-token-active')">
               <img
                 class="mr-8"
                 src="../../assets/img/transfer.png"
@@ -74,32 +74,32 @@
             </a>
           </li>
           <li class="active">
-            <a href="#" class=" mt-8">
+            <nuxt-link to="/user-area/dashboard" class=" mt-8">
               <img class="mr-8" src="../../assets/img/home.png" alt="" />
               HOME
-            </a>
+            </nuxt-link>
           </li>
           <li>
-            <a href="" class=" mt-8">
+            <nuxt-link to="/user-area/wallet" class=" mt-8">
               <img class="mr-8" src="../../assets/img/side-wallet.png" alt="" />
               WALLET
-            </a>
+            </nuxt-link>
           </li>
           <li>
-            <a href="" class=" mt-8">
+            <nuxt-link to="/user-area/mart" class=" mt-8">
               <img class="mr-8" src="../../assets/img/mart.png" alt="" />
               MART
-            </a>
+            </nuxt-link>
           </li>
           <li>
-            <a href="" class=" mt-8">
+            <nuxt-link to="/user-area/exchange" class=" mt-8">
               <img
                 class="mr-8"
                 src="../../assets/img/side-exchange.png"
                 alt=""
               />
               EXCHANGE
-            </a>
+            </nuxt-link>
           </li>
           <li>
             <a href="" class=" mt-8">
@@ -114,7 +114,7 @@
             </a>
           </li>
           <li>
-            <a href="" class=" mt-8">
+            <a @click="signOut()" class=" mt-8">
               <img class="mr-8" src="../../assets/img/exit.png" alt="" />
               EXIT
             </a>
@@ -133,50 +133,6 @@
       </div>
     </nav>
   </header>
-  <!-- <div class="fixedNav">
-        <div class="logo">
-        <img src="../../assets/img/logo-.png" alt="" />
-        </div>
-
-        <div class="aside">
-        <div class="avatar">
-            <div v-if="userDetails.avatar !== ''" class="profile-picture" v-bind:style="{ backgroundImage: 'url(' + userDetails.avatar + ')' }" ></div>
-            <div v-if="userDetails.avatar === ''" class="profile-picture" style="" ></div>
-        </div>
-        <img
-            @click="openMenu()"
-            id="navbutton"
-            src="../../assets/img/menu-2.png"
-            alt=""
-        />
-        </div>
-    </div> -->
-  <!-- <div class="header flex-display">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                   <a @click="openSideBar()" class="nav-toggler"><i class="ti-align-right"></i></a>
-                    <img class="logo" src="../../assets/img/logo.png">
-                </div>
-                <div class="col-md-6"></div>
-                <div class="col-md-3">
-                    <div class="user-box shadowed-box flex-display">
-                        <i class="ti-bell"></i>
-                        <div v-if="userDetails.avatar !== ''" class="profile-picture" v-bind:style="{ backgroundImage: 'url(' + userDetails.avatar + ')' }" ></div>
-                        <div v-if="userDetails.avatar === ''" class="profile-picture" style="" ></div>
-                        <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{userDetails.username}}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <nuxt-link class="dropdown-item" to="/user-area/user-profile"><i class="ti-settings mr-2"></i>Profile settings</nuxt-link>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" @click="signOut()"><i class="ti-share mr-2"></i>Sign out</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </template>
 
 <script>
@@ -209,9 +165,12 @@ export default {
     openSideBar() {
       this.$store.commit("global/toggleSidebar");
     },
-    // ...mapMutations({
-    //   toggleSidebar: 'global/toggleSidebar'
-    // }),
+    openFunctionModal(modalActiveClass ) {
+      let data = {
+        class: modalActiveClass
+      }
+      this.$store.commit("global/openFunctionModal", data);
+    },
     signOut() {
       this.$cookies.removeAll();
       this.$router.push("/login");
@@ -232,7 +191,7 @@ export default {
 
     ...mapMutations({
       toggleTokenModal: "global/toggleTokenModal" ,
-      toggleWithdrawalModal: "global/toggleTokenWithdrawalModal"
+      toggleWithdrawalModal: "global/toggleTokenWithdrawalModal",
     }),
   }
 };
@@ -242,6 +201,9 @@ export default {
 ul.nav-links li a{
     color:#fff !important;
     text-decoration: none !important;
+}
+a{
+  cursor: pointer !important;
 }
 /* .profile-picture {
   height: 40px;

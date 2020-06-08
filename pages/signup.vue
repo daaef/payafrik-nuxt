@@ -65,130 +65,133 @@
         </a> -->
 
         <div class="auth--content mt-5">
-          <div class="w-100">
-            <form class="w-100">
-              <div class="flex flex-between flex-col flex-middle w-100">
-                <div class="welcome-text">
-                  <div class="text-center">
-                    <p class="w-100 c-white">sign up</p>
-                    <h1 class="w-100 c-white am-type mt-0 mb-50">
-                      To PayAfrik
-                    </h1>
-                  </div>
-                </div>
-                <div class="exchange centerdiv mb-20">
-                  <div>
-                    <img
-                      class="prefix-icon"
-                      src="../assets/img/user-icon.png"
-                      alt=""
-                    />
-                    <input
-                        v-model="firstName"
-                        id="exchange-afk"
-                        type="text"
-                        placeholder="Enter First Name"
-                    />
-                    <label for="exchange-afk">First Name</label>
-                    <div class="exchange--dropdown"></div>
-                  </div>
-                </div>
-                <div class="exchange centerdiv mb-20">
-                  <div>
-                    <img
-                      class="prefix-icon"
-                      src="../assets/img/user-icon.png"
-                      alt=""
-                    />
-                    <input
-                        v-model="firstName"
-                        id="exchange-afk"
-                        type="text"
-                        placeholder="Enter Last Name"
-                    />
-                    <label for="exchange-afk">Last Name</label>
-                    <div class="exchange--dropdown"></div>
-                  </div>
-                </div>
-                <div class="exchange centerdiv">
-                  <div>
-                    <img
-                      class="prefix-icon"
-                      src="../assets/img/iphone.png"
-                      alt=""
-                    />
-                    <input
-                        v-model='username'
-                        id="exchange-afk"
-                        type="text"
-                        placeholder="Enter Phone Number (eg: +2348012345678)"
-                    />
-                    <label for="exchange-afk">Phone Number</label>
-                    <div class="exchange--dropdown"></div>
-                  </div>
-                </div>
-                <p class="authhint">
-                  Please add your phone code (eg: +234)
-                </p>
-                <div class="exchange centerdiv">
-                  <div>
-                    <img
-                      class="prefix-icon"
-                      src="../assets/img/right-arrow.png"
-                      alt=""
-                    />
-                    <input
-                        v-if="!viewPassword"
-                        v-model="password1"
-                        @keydown="enforceNumbersOnly($event)"
-                        maxlength="4"
-                        id="exchange-afk"
-                        type="password"
-                        placeholder="Your PIN"
-                    />
-                    <input
-                        v-if="viewPassword"
-                        v-model="password1"
-                        @keydown="enforceNumbersOnly($event)"
-                        maxlength="4"
-                        id="exchange-afk"
-                        type="text"
-                        placeholder="Your PIN"
-                    />
-                    <label for="exchange-afk">Password</label>
-                    <div class="exchange--dropdown ">
-                      <img
-                        @click="toggleViewPassword()"
-                        class="suffix-icon suffix"
-                        src="../assets/img/view.png"
-                        alt=""
-                      />
+          <div class="col-lg-6 ml-auto mr-auto">
+            <div class="w-100">
+              <form class="w-100">
+                <div class="w-100">
+                  <div class="welcome-text">
+                    <div class="text-center">
+                      <p class="w-100 c-white">sign up</p>
+                      <h1 class="w-100 c-white am-type mt-0 mb-50">
+                        To PayAfrik
+                      </h1>
                     </div>
                   </div>
-                <p class="authhint text-center">
-                  Your PIN must be 4 digits and contain only numbers
-                </p>
-                </div>
- 
-                <p class="authhint text-center">
-                   By clicking button below, you agree to Payafrik's <a>terms of acceptable use</a>
-                </p>
-                <div class="text-center  sub--btn--holder">
-                  <div class="sub-button">
-                    <button class="w-100" v-if="!processing">Create Account</button>
-                    <button class="w-100" v-if="processing">Creating Account...</button>
+                  <div class="exchange centerdiv mb-20">
+                    <div>
+                      <img
+                        class="prefix-icon"
+                        src="../assets/img/user-icon.png"
+                        alt=""
+                      />
+                      <input
+                          v-model="firstName"
+                          id="exchange-afk"
+                          type="text"
+                          placeholder="Enter First Name"
+                      />
+                      <label for="exchange-afk">First Name</label>
+                      <div class="exchange--dropdown"></div>
+                    </div>
+                  </div>
+                  <div class="exchange centerdiv mb-20">
+                    <div>
+                      <img
+                        class="prefix-icon"
+                        src="../assets/img/user-icon.png"
+                        alt=""
+                      />
+                      <input
+                          v-model="firstName"
+                          id="exchange-afk"
+                          type="text"
+                          placeholder="Enter Last Name"
+                      />
+                      <label for="exchange-afk">Last Name</label>
+                      <div class="exchange--dropdown"></div>
+                    </div>
+                  </div>
+                  <div class="exchange centerdiv">
+                    <div>
+                      <img
+                        class="prefix-icon"
+                        src="../assets/img/iphone.png"
+                        alt=""
+                      />
+                      <input
+                          v-model='username'
+                          id="exchange-afk"
+                          type="text"
+                          placeholder="Enter Phone Number (eg: +2348012345678)"
+                      />
+                      <label for="exchange-afk">Phone Number</label>
+                      <div class="exchange--dropdown"></div>
+                    </div>
+                  </div>
+                  <p class="authhint">
+                    Please add your phone code (eg: +234)
+                  </p>
+                  <div class="exchange centerdiv">
+                    <div>
+                      <img
+                        class="prefix-icon"
+                        src="../assets/img/right-arrow.png"
+                        alt=""
+                      />
+                      <input
+                          v-if="!viewPassword"
+                          v-model="password1"
+                          @keydown="enforceNumbersOnly($event)"
+                          maxlength="4"
+                          id="exchange-afk"
+                          type="password"
+                          placeholder="Your PIN"
+                      />
+                      <input
+                          v-if="viewPassword"
+                          v-model="password1"
+                          @keydown="enforceNumbersOnly($event)"
+                          maxlength="4"
+                          id="exchange-afk"
+                          type="text"
+                          placeholder="Your PIN"
+                      />
+                      <label for="exchange-afk">Password</label>
+                        <img
+                          @click="toggleViewPassword()"
+                          class="suffix-icon suffix password-toggle-switch"
+                          src="../assets/img/view.png"
+                          alt=""
+                        />
+                      </div>
+                      <div class="exchange--dropdown ">
+                    </div>
+                  <p class="authhint text-center">
+                    Your PIN must be 4 digits and contain only numbers
+                  </p>
+                  </div>
+  
+                  <p class="authhint text-center">
+                    By clicking button below, you agree to Payafrik's <a>terms of acceptable use</a>
+                  </p>
+                  <div class="text-center  sub--btn--holder">
+                    <div class="sub-button">
+                      <button class="w-100" v-if="!processing">Create Account</button>
+                      <button class="w-100" v-if="processing">Creating Account...</button>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <nuxt-link to="/login"
+                      ><p class="authhint">
+                        Already have an account?
+                        <span class="reset-color">Sign In</span>
+                      </p></nuxt-link
+                    >
                   </div>
                 </div>
-                <div class="text-center">
-                  <nuxt-link to="/login"
-                    ><p class="authhint">
-                      Already have an account?
-                      <span class="reset-color">Sign In</span>
-                    </p></nuxt-link
-                  >
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
+
           </div>
         </div>
       </section>
@@ -363,7 +366,7 @@ export default {
 </script>
 
 <style scoped>
-.section {
+/* .section {
   background-color: #1f3d74;
   background: url("../assets/img/blockchain-bg.jpg") no-repeat center center;
   background-size: cover;
@@ -377,7 +380,6 @@ img.logo {
   background-color: #fff;
   border-radius: 5px;
   padding: 35px;
-  /* padding-top:50px; */
   width: 100%;
   margin-top: 25px;
 }
@@ -448,5 +450,50 @@ a.password-toggle-switch {
   right: 15px;
   z-index: 999;
   color: #666;
+} */
+
+.exchange {
+  position: relative;
+}
+
+img.password-toggle-switch {
+  position: absolute;
+  top: 27px;
+  left: 92%!important;
+  color: #666;
+  z-index: 999;
+}
+
+.suffix{
+  cursor: pointer;
+}
+
+.prefix-icon, .suffix-icon{
+  width:30px;
+  filter: invert();
+}
+
+.prefix-icon{
+  opacity: 0.5;
+}
+
+label {
+  color: #0000ff;
+}
+
+p{
+  color: #ffffffe5;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.dash-body {
+  margin-left:7%;
+}
+
+@media (max-width: 768px) {
+  .dash-body{
+    margin-left: 0;
+  }
 }
 </style>

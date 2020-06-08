@@ -35,11 +35,11 @@
                 <span class="muted w-100 text-right d-block">0 ETH</span>
               </a>
             </li>
-            <li class="mt-40 mb-20">
+            <!-- <li class="mt-40 mb-20">
               <a href="#" class="btn dashed">
                 + Add more
               </a>
-            </li>
+            </li> -->
           </ul>
         </div>
 
@@ -72,6 +72,7 @@
                   class="normal-btn afk-bordered mr-20"
                   data-link-class="wallet-modal-active"
                   data-modal="wallet--send"
+                  @click="openFunctionModal('wallet-modal-active', 'send', 'afk')"
                 >
                   Send
                 </button>
@@ -79,6 +80,7 @@
                   class="normal-btn afk-bordered mr-20"
                   data-link-class="wallet-modal-active"
                   data-modal="wallet--recieve"
+                  @click="openFunctionModal('wallet-modal-active', 'receive', 'afk')"
                 >
                   Recieve
                 </button>
@@ -132,10 +134,12 @@
                   class="normal-btn btc-bordered mr-20"
                   data-link-class="wallet-modal-active"
                   data-modal="wallet--send"
+                  @click="openFunctionModal('wallet-modal-active', 'send', 'btc')"
                 >
                   Send
                 </button>
                 <button
+                @click="openFunctionModal('wallet-modal-active', 'receive', 'btc')"
                   class="normal-btn btc-bordered mr-20"
                   data-link-class="wallet-modal-active"
                   data-modal="wallet--recieve"
@@ -192,10 +196,12 @@
                   class="normal-btn eth-bordered mr-20"
                   data-link-class="wallet-modal-active"
                   data-modal="wallet--send"
+                  @click="openFunctionModal('wallet-modal-active', 'send', 'eth')"
                 >
                   Send
                 </button>
                 <button
+                @click="openFunctionModal('wallet-modal-active', 'receive', 'eth')"
                   class="normal-btn eth-bordered mr-20"
                   data-link-class="wallet-modal-active"
                   data-modal="wallet--recieve"
@@ -221,8 +227,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </section>
@@ -254,8 +258,13 @@ export default {
     },
     ...mapMutations({
       toggleSidebar: "global/toggleSidebar",
-      closeSideBar: "global/closeSidebar"
+      closeSideBar: "global/closeSidebar",
+      openFunctionModal: "global/openFunctionModal"
     }),
+
+    openFunctionModal(modalActiveClass, activeWallet, activeCurrency) {
+      this.$store.commit("global/openFunctionModal", { class: modalActiveClass, wallet: activeWallet, currency: activeCurrency });
+    },
 
     loadChart() {
       var ctx = document.getElementById("myChart");
@@ -335,180 +344,6 @@ export default {
   beforeMount() {},
   mounted() {
     this.loadChart()
-    /*Chart 1*/
-    // var ctx = document.getElementById("myChart");
-    // ctx.getContext('2d');
-    // var options = {
-    //   responsive: true, // Instruct chart js to respond nicely.
-    //   maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-    //   bezierCurve: false,
-    //   color: 'red',
-    //   scales: {
-    //     xAxes: [{
-    //       gridLines: {
-    //         display: true
-    //       },
-    //       ticks: {
-    //         display: true //this will remove only the label
-    //       }
-    //     }],
-    //     yAxes: [{
-    //       gridLines: {
-    //         display: true
-    //       },
-    //       ticks: {
-    //         display: true //this will remove only the label
-    //       }
-    //     }]
-    //   }, legend: {
-    //     display: true,
-    //   },
-    //   elements: {
-    //     line: {
-    //       tension: 0
-    //     },
-    //     point: {
-    //       radius: 0
-    //     }
-    //   }
-    // };
-    // var myChart = new Chart(ctx, {
-    //   type: 'line',
-    //   data: {
-    //     labels: ["January", "February", "March", "April", "May", "June", "July"],
-    //     datasets: [
-    //       {
-    //         label: "My Second dataset",
-    //         fillColor: "rgba(151,187,205,0.2)",
-    //         strokeColor: "rgba(151,187,205,1)",
-    //         pointColor: "rgba(151,187,205,1)",
-    //         pointStrokeColor: "#fff",
-    //         pointHighlightFill: "#fff",
-    //         pointHighlightStroke: "rgba(151,187,205,1)",
-    //         data: [28, 48, 40, 19, 86, 27, 90]
-    //       }]
-    //   },
-    //   options: options
-    // });
-    // ctx.style.height = "174px";
-    // ctx.style.maxHeight = "174px";
-    // ctx.style.width = "100%";
-    // /*Chart 2*/
-    // var ctx1 = document.getElementById("myChart1");
-    // ctx1.getContext('2d');
-    // var options = {
-    //   responsive: true, // Instruct chart js to respond nicely.
-    //   maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-    //   bezierCurve: false,
-    //   color: 'red',
-    //   scales: {
-    //     xAxes: [{
-    //       gridLines: {
-    //         display: true
-    //       },
-    //       ticks: {
-    //         display: true //this will remove only the label
-    //       }
-    //     }],
-    //     yAxes: [{
-    //       gridLines: {
-    //         display: true
-    //       },
-    //       ticks: {
-    //         display: true //this will remove only the label
-    //       }
-    //     }]
-    //   }, legend: {
-    //     display: true,
-    //   },
-    //   elements: {
-    //     line: {
-    //       tension: 0
-    //     },
-    //     point: {
-    //       radius: 0
-    //     }
-    //   }
-    // };
-    // var myChart1 = new Chart(ctx1, {
-    //   type: 'line',
-    //   data: {
-    //     labels: ["January", "February", "March", "April", "May", "June", "July"],
-    //     datasets: [
-    //       {
-    //         label: "My Second dataset",
-    //         fillColor: "rgba(151,187,205,0.2)",
-    //         strokeColor: "rgba(151,187,205,1)",
-    //         pointColor: "rgba(151,187,205,1)",
-    //         pointStrokeColor: "#fff",
-    //         pointHighlightFill: "#fff",
-    //         pointHighlightStroke: "rgba(151,187,205,1)",
-    //         data: [28, 48, 40, 19, 86, 27, 90]
-    //       }]
-    //   },
-    //   options: options
-    // });
-    // ctx1.style.height = "174px";
-    // ctx1.style.maxHeight = "174px";
-    // ctx1.style.width = "100%";
-    // /*Chart 3*/
-    // var ctx2 = document.getElementById("myChart2");
-    // ctx2.getContext('2d');
-    // var options = {
-    //   responsive: true, // Instruct chart js to respond nicely.
-    //   maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-    //   bezierCurve: false,
-    //   color: 'red',
-    //   scales: {
-    //     xAxes: [{
-    //       gridLines: {
-    //         display: true
-    //       },
-    //       ticks: {
-    //         display: true //this will remove only the label
-    //       }
-    //     }],
-    //     yAxes: [{
-    //       gridLines: {
-    //         display: true
-    //       },
-    //       ticks: {
-    //         display: true //this will remove only the label
-    //       }
-    //     }]
-    //   }, legend: {
-    //     display: true,
-    //   },
-    //   elements: {
-    //     line: {
-    //       tension: 0
-    //     },
-    //     point: {
-    //       radius: 0
-    //     }
-    //   }
-    // };
-    // var myChart2 = new Chart(ctx2, {
-    //   type: 'line',
-    //   data: {
-    //     labels: ["January", "February", "March", "April", "May", "June", "July"],
-    //     datasets: [
-    //       {
-    //         label: "My Second dataset",
-    //         fillColor: "rgba(151,187,205,0.2)",
-    //         strokeColor: "rgba(151,187,205,1)",
-    //         pointColor: "rgba(151,187,205,1)",
-    //         pointStrokeColor: "#fff",
-    //         pointHighlightFill: "#fff",
-    //         pointHighlightStroke: "rgba(151,187,205,1)",
-    //         data: [28, 48, 40, 19, 86, 27, 90]
-    //       }]
-    //   },
-    //   options: options
-    // });
-    // ctx2.style.height = "174px";
-    // ctx2.style.maxHeight = "174px";
-    // ctx2.style.width = "100%";
   },
   beforeMount() {
     this.closeSideBar();
@@ -517,14 +352,4 @@ export default {
 </script>
 
 <style scoped>
-/* img {
-  width: 80%;
-  max-width: 100%;
-  margin-top: 10vh;
-}
-p {
-  color: #141414 !important;
-  margin-top: 25px;
-  font-size: 0.9em;
-} */
 </style>
