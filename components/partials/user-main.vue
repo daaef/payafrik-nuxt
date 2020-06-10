@@ -45,7 +45,7 @@
             </nuxt-link>
           </li>
           <li class="link-card">
-            <a href="#">
+            <nuxt-link to="/user-area/support">
               <div class="imge">
                 <img src="../../assets/img/supporting.png" alt="purse" />
               </div>
@@ -53,7 +53,7 @@
                 Get professional support &amp; quality customer care
               </p>
               <p class="higlight text-center">Support</p>
-            </a>
+            </nuxt-link>
           </li>
         </ul>
         <div class="wallets--and--transactions">

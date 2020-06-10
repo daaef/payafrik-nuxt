@@ -134,7 +134,7 @@
       </div>
     </nav>
 
-        <!-- card Request Modal -->
+    <!-- Card Request Modal -->
     <div
       class="modal fade"
       id="cardRequestModal"
@@ -181,13 +181,13 @@
                 <div class="col-md-7">
                   <button
                     class="success-btn"
-                    v-if="!uploadingDoc"
+                    v-if="!processing"
                     @click="requestSmartCard()"
                     type="submit"
                   >
                     Request Smart Card
                   </button>
-                  <button class="success-btn" v-if="uploadingDoc" disabled>
+                  <button class="success-btn" v-if="processing" disabled>
                     <i class="fas fa-circle-notch fa-spin"></i>
                   </button>
                 </div>
@@ -209,7 +209,8 @@ export default {
   data() {
     return {
       // userDetails: this.$cookies.get('user-details'),
-      profileImage: "../../assets/img/placeholder-profile.jpg"
+      profileImage: "../../assets/img/placeholder-profile.jpg",
+      processing: false
     };
   },
   computed: {
@@ -264,7 +265,7 @@ export default {
     }),
 
     requestSmartCard() {
-      
+
     }
   }
 };
@@ -503,7 +504,7 @@ select {
   border: solid transparent;
 }
 
-p.warn, span.warn{
+p.warn, span.warn, a.warn{
   font-weight: 700;
   color: #F8AE30;
 }

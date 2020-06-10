@@ -956,7 +956,8 @@ export const state = () => ({
   authenticatedUser: {},
   activeBiller: {},
   btcData: {},
-  ethData: {}
+  ethData: {},
+  supportTickets: []
 })
 
 export const mutations = {
@@ -1016,7 +1017,13 @@ export const mutations = {
     state.authenticatedUser = userDetails
   },
   setActiveBiller (state, biller){
-    console.log('in store: ', biller)
     state.activeBiller = biller
-  }
+  },
+  loadTickets (state, tickets) {
+    state.supportTickets = tickets
+    console.log('STORE===>', state.supportTickets)
+  },
+  selectTicket (state, ticket) {
+    state.selectedTicket = ticket
+  },
 }

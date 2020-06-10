@@ -3070,3 +3070,13 @@ img.empty-state {
   width: 20%;
   margin: 20px auto;
 }
+
+p.warn, span.warn, a.warn, h6.warn, .warn{
+  font-weight: 700;
+  color: #F8AE30;
+}
+
+a.warn{
+  cursor: pointer;
+  color: #F8AE30 !important;
+}
