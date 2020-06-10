@@ -12,7 +12,7 @@
         </div>
         <ul class="card-links">
           <li class="link-card">
-            <a href="#">
+            <nuxt-link to="/user-area/mart">
               <div class="imge">
                 <img src="../../assets/img/purse.png" alt="purse" />
               </div>
@@ -20,7 +20,7 @@
                 Manage your wallets &amp; make transactions
               </p>
               <p class="higlight text-center">Make Transactions</p>
-            </a>
+            </nuxt-link>
           </li>
           <li class="link-card active">
             <nuxt-link to="/user-area/mart">
@@ -67,7 +67,7 @@
                     <th>PRICE</th>
                     <th>24H CHANGE</th>
                     <th>MARKET CAP</th>
-                    <th>30 DAY TREND</th>
+                    <th class="trend text-center">30 DAY TREND</th>
                     <th>BALANCE</th>
                   </tr>
                 </thead>
@@ -85,10 +85,21 @@
                     <td>$1.00</td>
                     <td><span class="c-success">+0.3%</span></td>
                     <td>$3.21B</td>
-                    <td>
-                      <canvas id="myChart"></canvas>
+                    <td class="trend">
+                      <!-- <canvas id="myChart"></canvas> -->
+                      <trend
+                        :data="[0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]"
+                        :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                        auto-draw
+                        smooth
+                      >
+                      </trend>
                     </td>
-                    <td><span class="c-afk">{{ +userDetails.afk_balance | formatNumber }}AFK</span></td>
+                    <td>
+                      <span class="c-afk"
+                        >{{ +userDetails.afk_balance | formatNumber }}AFK</span
+                      >
+                    </td>
                   </tr>
                   <tr onclick="window.location='#';">
                     <td>
@@ -112,10 +123,21 @@
                       >
                     </td>
                     <td>${{ btcData.market_cap | formatNumber }}</td>
-                    <td>
-                      <canvas id="myChart1"></canvas>
+                    <td class="trend">
+                      <!-- <canvas id="myChart1"></canvas> -->
+                      <trend
+                        :data="btcChartData"
+                        :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                        auto-draw
+                        smooth
+                      >
+                      </trend>
                     </td>
-                    <td><span class="c-btc">{{ +userDetails.btc_balance | formatNumber }}BTC</span></td>
+                    <td>
+                      <span class="c-btc"
+                        >{{ +userDetails.btc_balance | formatNumber }}BTC</span
+                      >
+                    </td>
                   </tr>
                   <tr onclick="window.location='#';">
                     <td>
@@ -128,18 +150,32 @@
                       </span>
                     </td>
                     <td>${{ ethData.current_price | formatNumber }}</td>
-                    <td><span
+                    <td>
+                      <span
                         :class="[
                           ethData.market_cap_change_percentage_24h > 0
                             ? 'c-success'
                             : 'c-alert'
                         ]"
-                        >{{ ethData.market_cap_change_percentage_24h }}%</span></td>
-                    <td>${{ ethData.market_cap | formatNumber }}</td>
-                    <td>
-                      <canvas id="myChart2"></canvas>
+                        >{{ ethData.market_cap_change_percentage_24h }}%</span
+                      >
                     </td>
-                    <td><span class="c-eth">{{ +userDetails.eth_balance | formatNumber }}BTC</span></td>
+                    <td>${{ ethData.market_cap | formatNumber }}</td>
+                    <td class="trend">
+                      <!-- <canvas id="myChart2"></canvas> -->
+                      <trend
+                        :data="ethChartData"
+                        :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                        auto-draw
+                        smooth
+                      >
+                      </trend>
+                    </td>
+                    <td>
+                      <span class="c-eth"
+                        >{{ +userDetails.eth_balance | formatNumber }}BTC</span
+                      >
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -153,13 +189,20 @@
             <table>
               <thead>
                 <tr>
-                  <th class="text-left"><span>TYPE</span></th>
+                  <th class="text-left"><span>RECEIVER</span></th>
+                  <th class="text-center">PLATFORM</th>
                   <th>AMOUNT</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody v-if="userTransactions.length > 0">
+                <tr v-for="transaction of userTransactions" :key="transaction.id">
+                  <th class="text-left"><span>{{transaction.receiver}}</span></th>
+                  <th class="text-center">{{transaction.sent_via}}</th>
+                  <th>{{ + transaction.requested_amount}}</th>
+                </tr>
+              </tbody>
             </table>
-            <div class="no-trans">
+            <div v-if="userTransactions.length === 0" class="no-trans">
               <p class="c-white">No Transactions</p>
             </div>
           </div>
@@ -207,7 +250,10 @@ export default {
       fetchingTransactions: false,
       loadingData: false,
       btcData: {},
-      ethData: {}
+      btcChartData: [],
+      ethData: {},
+      ethChartData: [],
+
     };
   },
   computed: {
@@ -355,25 +401,27 @@ export default {
     }),
 
     async getCoinMarketData() {
-      this.loadingData = true;
+      // this.loadingData = true;
       try {
         const coinMarketData = await this.$axios.$get(
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h"
         );
-        // console.log("Coin Market Details ==>", coinMarketData);
         this.btcData = coinMarketData[0];
         this.ethData = coinMarketData[1];
-        let btcSparkline = []
-        for (let i = 0; i < 10; i++){
-            btcSparkline.push(this.btcData.sparkline_in_7d.price[i])        
+        let btcSparkline = [];
+        for (let i = 0; i < 50; i++) {
+          btcSparkline.push(this.btcData.sparkline_in_7d.price[i]);
         }
+        this.btcChartData = btcSparkline
+
+        let ethSparkline = [];
+        for (let i = 0; i < 50; i++) {
+          ethSparkline.push(this.ethData.sparkline_in_7d.price[i]);
+        }
+        this.ethChartData = ethSparkline
         this.loadingData = false;
-        // setTimeout(this.loadBTCChart(btcSparkline), 1000) 
-        
-        // console.log(this.btcData)
       } catch (e) {
         console.log(e);
-        // this.$toast.error(e.response.data.detail);
         this.importingWallet = false;
       }
     },
@@ -392,7 +440,7 @@ export default {
         );
 
         if (userTransactionsResponse.results.length > 4) {
-          for (let i = 0; i < 4; i++) {
+          for (let i = 0; i < 10; i++) {
             this.userTransactions.push(userTransactionsResponse.results[i]);
           }
         } else {
@@ -408,247 +456,18 @@ export default {
     },
     checkWallets() {
       if (this.userDetails.eth_wallet !== "") {
-        console.log("look here for eth");
         this.getEthWalletBalance();
       }
       if (this.userDetails.btc_wallet !== "") {
-        console.log("look here for btc");
         this.getBtcWalletBalance();
       }
     },
-
-    loadBTCChart(sparklineData) {
-      /*Chart 1*/
-
-      console.log('sparkline data --------', sparklineData)
-      
-      var ctx = document.getElementById("myChart1");
-      ctx.getContext("2d");
-      ctx.height = 40;
-      var options = {
-        responsive: true, // Instruct chart js to respond nicely.
-        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-        bezierCurve: false,
-        color: "red",
-        scales: {
-          xAxes: [
-            {
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                display: false //this will remove only the label
-              }
-            }
-          ],
-          yAxes: [
-            {
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                display: false //this will remove only the label
-              }
-            }
-          ]
-        },
-        legend: {
-          display: false
-        },
-        elements: {
-          line: {
-            tension: 0
-          },
-          point: {
-            radius: 0
-          }
-        }
-      };
-      var myChart = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: [
-            "Tokyo",
-            "Mumbai",
-            "Mexico City",
-            "Shanghai",
-            "Sao Paulo",
-            "New York",
-            "Karachi",
-            "Buenos Aires",
-            "Delhi",
-            "Moscow"
-          ],
-          datasets: [
-            {
-              label: "Series 1", // Name the series
-              data: sparklineData, // Specify the data values array
-              fill: false,
-              lineTension: 0,
-              borderColor: "#4451ff", // Add custom color border (Line)
-              backgroundColor: "#4451ff", // Add custom color background (Points and Fill)
-              borderWidth: 1 // Specify bar border width
-            }
-          ]
-        },
-        options: options
-      });
-    }
   },
 
   beforeMount() {
-    // this.checkWallets()
     this.getUserDetails();
-    console.log('BTC DATA+++++++++++++++++++++++++++++++++++++++', this.btcData)
   },
   mounted() {
-    // this.loadBTCChart([500, 50, 2424, 14040, 14141, 4111, 4544, 47, 5555, 6811]) 
-    // this.loadBTCChart()
-    // this.getCoinMarketData()
-    /*Chart 2*/
-    // var ctx1 = document.getElementById("myChart");
-    // ctx1.getContext("2d");
-    // ctx1.height = 40;
-    // var options = {
-    //   responsive: true, // Instruct chart js to respond nicely.
-    //   maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-    //   bezierCurve: false,
-    //   color: "red",
-    //   scales: {
-    //     xAxes: [
-    //       {
-    //         gridLines: {
-    //           display: false
-    //         },
-    //         ticks: {
-    //           display: false //this will remove only the label
-    //         }
-    //       }
-    //     ],
-    //     yAxes: [
-    //       {
-    //         gridLines: {
-    //           display: false
-    //         },
-    //         ticks: {
-    //           display: false //this will remove only the label
-    //         }
-    //       }
-    //     ]
-    //   },
-    //   legend: {
-    //     display: false
-    //   },
-    //   elements: {
-    //     line: {
-    //       tension: 0
-    //     },
-    //     point: {
-    //       radius: 0
-    //     }
-    //   }
-    // };
-    // var myChart1 = new Chart(ctx1, {
-    //   type: "line",
-    //   data: {
-    //     labels: [
-    //       "Tokyo",
-    //       "Mumbai",
-    //       "Mexico City",
-    //       "Shanghai",
-    //       "Sao Paulo",
-    //       "New York",
-    //       "Karachi",
-    //       "Buenos Aires",
-    //       "Delhi",
-    //       "Moscow"
-    //     ],
-    //     datasets: [
-    //       {
-    //         label: "Series 1", // Name the series
-    //         data: [500, 50, 2424, 14040, 14141, 4111, 4544, 47, 5555, 6811], // Specify the data values array
-    //         fill: false,
-    //         lineTension: 0,
-    //         borderColor: "#f98e12", // Add custom color border (Line)
-    //         backgroundColor: "#f98e12", // Add custom color background (Points and Fill)
-    //         borderWidth: 1 // Specify bar border width
-    //       }
-    //     ]
-    //   },
-    //   options: options
-    // });
-    /*Chart 3*/
-    // var ctx2 = document.getElementById("myChart2");
-    // ctx2.getContext("2d");
-    // ctx2.height = 40;
-    // var options = {
-    //   responsive: true, // Instruct chart js to respond nicely.
-    //   maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-    //   bezierCurve: false,
-    //   color: "red",
-    //   scales: {
-    //     xAxes: [
-    //       {
-    //         gridLines: {
-    //           display: false
-    //         },
-    //         ticks: {
-    //           display: false //this will remove only the label
-    //         }
-    //       }
-    //     ],
-    //     yAxes: [
-    //       {
-    //         gridLines: {
-    //           display: false
-    //         },
-    //         ticks: {
-    //           display: false //this will remove only the label
-    //         }
-    //       }
-    //     ]
-    //   },
-    //   legend: {
-    //     display: false
-    //   },
-    //   elements: {
-    //     line: {
-    //       tension: 0
-    //     },
-    //     point: {
-    //       radius: 0
-    //     }
-    //   }
-    // };
-    // var myChart2 = new Chart(ctx2, {
-    //   type: "line",
-    //   data: {
-    //     labels: [
-    //       "Tokyo",
-    //       "Mumbai",
-    //       "Mexico City",
-    //       "Shanghai",
-    //       "Sao Paulo",
-    //       "New York",
-    //       "Karachi",
-    //       "Buenos Aires",
-    //       "Delhi",
-    //       "Moscow"
-    //     ],
-    //     datasets: [
-    //       {
-    //         label: "Series 1", // Name the series
-    //         data: [500, 50, 2424, 14040, 14141, 4111, 4544, 47, 5555, 6811], // Specify the data values array
-    //         fill: false,
-    //         lineTension: 0,
-    //         borderColor: "#50599c", // Add custom color border (Line)
-    //         backgroundColor: "#50599c", // Add custom color background (Points and Fill)
-    //         borderWidth: 1 // Specify bar border width
-    //       }
-    //     ]
-    //   },
-    //   options: options
-    // });
   }
 };
 </script>
@@ -663,4 +482,7 @@ a p {
   text-decoration: none;
 }
 
+th.trend, td.trend{
+  max-width: 180px !important;
+}
 </style>

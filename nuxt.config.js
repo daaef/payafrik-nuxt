@@ -73,6 +73,7 @@ export default {
   plugins: [
     { src: '~/plugins/vue-datepicker', ssr: false },
     { src: '~/plugins/numeral' },
+    { src: '~/plugins/vue-trend' },
 
   ],
   /*

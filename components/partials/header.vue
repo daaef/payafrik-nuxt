@@ -5,6 +5,7 @@
         <img src="../../assets/img/logo.png" class="mobile-logo" alt="logo" />
         <span>AfriToken:</span>
         <h3>{{ +userDetails.balance | formatNumber }}</h3>
+        <a class="tag-button" @click="openModal('cardRequestModal')">Request Card</a>
       </div>
       <ul class="nav-links">
         <li class="mr-32">
@@ -132,6 +133,70 @@
         </div>
       </div>
     </nav>
+
+        <!-- card Request Modal -->
+    <div
+      class="modal fade"
+      id="cardRequestModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="cardRequestModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitleTitle">
+              Upload a Document
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container ml-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <p>You are about to request for a <span class="warn">Payafrik Smart Card</span>.</p>
+                  <p>with a smart card, you will be able to withdraw your tokens at atm machines and make normal everyday cash transactions.<br>Click on "Request Smart Card" below to complete the request or "Cancel" to cancel</p>
+                  <p class="warn">Please note, 2000 Tokens will be debited from your account</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="cancel" data-dismiss="modal">
+                    Cancel
+                  </button>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-7">
+                  <button
+                    class="success-btn"
+                    v-if="!uploadingDoc"
+                    @click="requestSmartCard()"
+                    type="submit"
+                  >
+                    Request Smart Card
+                  </button>
+                  <button class="success-btn" v-if="uploadingDoc" disabled>
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -162,6 +227,10 @@ export default {
     }
   },
   methods: {
+    openModal(modalId) {
+      $("#" + modalId).modal("show");
+      $(".modal-backdrop").hide();
+    },
     openSideBar() {
       this.$store.commit("global/toggleSidebar");
     },
@@ -193,6 +262,10 @@ export default {
       toggleTokenModal: "global/toggleTokenModal" ,
       toggleWithdrawalModal: "global/toggleTokenWithdrawalModal",
     }),
+
+    requestSmartCard() {
+      
+    }
   }
 };
 </script>
@@ -311,4 +384,127 @@ a.nav-toggler{
         padding:5px;
     }
 } */
+
+.balance h3 {
+  font-size:1.5em;
+}
+
+a.tag-button{
+  display: inline-block;
+  padding: 3px 15px;
+  border-radius:50px;
+  background-color: #F8AE30;
+  color: #141F50;
+  font-size: 0.9em;
+  left: 170px;
+  position: absolute;
+}
+
+a.tag-button:hover{
+  background-color: #141F50;
+  color: #F8AE30;
+}
+
+select {
+  padding: 20px;
+  color: #ffffff99;
+  background: #111a3f;
+  border: solid 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}
+
+#uploadModal .modal-content {
+  background-color: #131c4b;
+  border: dashed 1px #4451ff;
+  box-shadow: 25px 25px 100px #00000044;
+  padding: 0;
+  color: #fff;
+}
+
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+/* button.greyed-btn{
+        font-weight:500;
+        background-color: #f1f1f1;
+        width: inherit!important;
+    } */
+
+#cardRequestModal .modal-content {
+  background-color: #131c4b;
+  border: dashed 1px #4451ff;
+  box-shadow: 25px 25px 100px #00000044;
+  padding: 0;
+  color: #fff;
+}
+
+.input-file + label {
+  font-size: 0.8em;
+  font-weight: 500;
+  color: #8190ca;
+  background-color: #111a3f !important;
+  display: inline-block;
+  transition: all ease 200ms;
+  padding: 20px;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+  background-color: #d4d1d1;
+}
+
+.input-file + label {
+  cursor: pointer; /* "hand" cursor */
+}
+
+#cardRequestModal .modal-header {
+  margin-bottom: 15px;
+  border: none !important;
+}
+
+#cardRequestModal .modal-header button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+}
+
+#cardRequestModal .modal-header h5 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.2em;
+}
+
+#cardRequestModal .modal-footer {
+  border: none !important;
+}
+
+#cardRequestModal .modal-footer button {
+  background: #11154b;
+  color: #f6f6f6;
+  border: solid #2832c3;
+  padding: 10px 40px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+#cardRequestModal .modal-footer button.cancel {
+  border: solid transparent;
+}
+
+p.warn, span.warn{
+  font-weight: 700;
+  color: #F8AE30;
+}
 </style>

@@ -115,4 +115,12 @@ export default {
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+.exchange--content{
+  height: inherit!important;
+}
+.main-content main .dash-body > div {
+    padding-bottom: 50px;
+    overflow-y: unset!important;
+}
+</style>

@@ -13,7 +13,8 @@
           <div class="token-details">
             <p class="highlight">AVAILABLE TOKEN</p>
             <h1>{{ +userDetails.balance }}</h1>
-            <p class="light">1 AFK TOKEN = 1.00 NGN</p>
+            <p class="light">1 AFK TOKEN = {{pricePerToken}} NGN</p>
+            <input type="number" v-model="tokens" placeholder="How many tokens?" >
           </div>
           <div class="token--description">
             <p class="c-white">
@@ -26,7 +27,7 @@
           <div class="cash--crypto--btns">
             <div>
               <div class="sub-button mr-50">
-                <paystack
+                <!-- <paystack
                   :amount="amount"
                   :email="email"
                   :paystackkey="paystackkey"
@@ -37,7 +38,12 @@
                   class="yellowText text-uppercase"
                 >
                   Buy with Cash
-                </paystack>
+                </paystack> -->
+                <button>
+                  <a @click="sendPaymentRequest()">
+                      BUY WITH CASH
+                    </a>
+                </button>
               </div>
 
               <div class="sub-button ml-56">
@@ -63,6 +69,9 @@
 import { mapMutations } from "vuex";
 // import { mapState } from 'vuex'
 import paystack from "vue-paystack";
+var sha512 = require('js-sha512');
+const jsSHA = require("jssha");
+
 
 export default {
   components: {
@@ -73,7 +82,10 @@ export default {
       baseUrl: process.env.baseUrl,
       paystackkey: "pk_test_0a74386a6032347f675dee2ba41fb9d47bba958d", //paystack public key
       email: "foobar@example.com", // Customer email
-      amount: 1000000 // in kobo
+      amount: 1000000, // in kobo
+      initiatingPayment: false,
+      tokens: 0,
+      pricePerToken: 1
     };
   },
   computed: {
@@ -83,16 +95,6 @@ export default {
     userDetails() {
       return this.$store.state.global.authenticatedUser;
     },
-    reference() {
-      let text = "";
-      let possible =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-      for (let i = 0; i < 10; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-      return text;
-    }
   },
   methods: {
     callback: function(response) {
@@ -112,8 +114,71 @@ export default {
     ...mapMutations({
       toggleChatBox: "global/toggleTokenModal",
       closeFunctionModal: "global/closeFunctionModal"
+    }),
+    reference() {
+      let text = "";
+      let possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    })
+      for (let i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    },
+    async sendPaymentRequest() {
+      this.initiatingPayment = true
+      const transactionRef = this.reference()
+      const productId = '6205'
+      const paymentItemId = '101'
+      const amount = this.tokens * this.pricePerToken * 100
+      const siteRedirectUrl = 'https://portal.payafrik.io/user-area/payment-done'
+      const macKey = 'D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F	'
+
+      var hash = sha512(transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey);
+      // hash.update(transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey);
+      // hash.hex();
+
+      // var hash = sha512.hmac('key', transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey)
+      // const hash = sha512(transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey);
+
+      // var baseStringToBeSigned = transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey
+      // var shaObj = new jsSHA('SHA-512', "TEXT"); // sha;
+      // shaObj.update(baseStringToBeSigned);
+      // var hash = shaObj.getHash("B64");
+
+      const requestObject = {
+        amount: amount,
+        currency: 566,
+        cust_id: this.userDetails.id,
+        hash: hash,
+        txn_ref: transactionRef,
+        pay_item_id: paymentItemId,
+        product_id: productId,
+        site_redirect_url: siteRedirectUrl,
+        cust_id_desc: this.userDetails.username,
+        cust_name: this.userDetails.first_name + ' ' + this.userDetails.last_name,
+        site_name: 'www.portal.payafrik.io'
+      }
+
+      const headers = {
+        "Content-Type": "multipart/form-data",
+      };
+
+      console.log('THE REQUEST OBJECT ====>', JSON.stringify(requestObject))
+
+      try{
+        const requestResponse = await this.$axios.$post('https://sandbox.interswitchng.com/collections/w/pay', requestObject, {headers})
+        console.log('payment request response', requestResponse)
+        // if (requestResponse.status === true){
+        //     this.sendPaymentAdvice()
+        // }
+
+      } catch(e){
+        console.log('TRANSACTION REQUEST ERROR===>', e)
+        this.$toast.error(e)
+        this.makingPayment = false
+      }
+    }
   }
 };
 </script>
@@ -128,5 +193,14 @@ export default {
 }
 button a {
   color: #fff !important;
+}
+input {
+  padding: 20px;
+  color: #ffffff99;
+  background: #111a3f;
+  border: solid 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  /* width: 100%; */
 }
 </style>
