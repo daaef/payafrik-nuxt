@@ -114,7 +114,7 @@ export default {
    display: default;
  }
 
- @media (max-width: 425px) {
+ @media (max-width: 768px) {
   .for-mobile{
     display: inline-block !important;
   }

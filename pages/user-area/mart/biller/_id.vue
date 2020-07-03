@@ -92,7 +92,7 @@
                                     <input  v-model="paymentDetails.email" type="email" placeholder="Your email address" v-bind:class="formErrors.emailError === true ? 'has-error' : ''">
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Customer ID: <strong class="text-uppercase">{{activeBiller.customerfield1}}</strong></label>
+                                    <label>Beneficiary: <strong class="text-uppercase">{{activeBiller.customerfield1}}</strong></label>
                                     <input v-model="paymentDetails.customerId" type="text" placeholder="Unique customer id for this product" v-bind:class="formErrors.emailError === true ? 'has-error' : ''">
                                 </div>
                                 <div class="col-md-12">

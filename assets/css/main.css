@@ -832,6 +832,7 @@ form div input {
   color: rgba(255, 255, 255, 0.72);
   padding-left: 50px;
   padding-top: 20px;
+  border-style:solid;
 }
 form div input::placeholder {
   color: rgba(255, 255, 255, 0.45);
@@ -3079,4 +3080,10 @@ p.warn, span.warn, a.warn, h6.warn, .warn{
 a.warn{
   cursor: pointer;
   color: #F8AE30 !important;
+}
+
+@media (max-width: 768px) {
+  .not-for-mobile{
+    display:none;
+  }
 }

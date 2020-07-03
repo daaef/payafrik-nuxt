@@ -1,13 +1,13 @@
 <template>
   <section class="dash-body">
-    <div class="exchange--content">
+    <div class="exchange--content not-for-mobile">
       <div class="w-100">
         <form class="w-100">
           <div class="flex flex-between flex-middle w-100">
             <div class="exchange">
               <span class="muted mb-20 d-block">Exchange</span>
               <div>
-                <img src="img/Africoin.png" alt="" />
+                <img src="../../assets/img/Africoin.png" alt="" />
                 <input
                   id="exchange-afk"
                   type="text"
@@ -29,13 +29,13 @@
             </div>
             <div class="exchange--btn">
               <a href="#">
-                <img src="img/exchangebtn.png" alt="" />
+                <img src="../../assets/img/exchangebtn.png" alt="" />
               </a>
             </div>
             <div class="recieve">
               <span class="muted mb-20 d-block">Recieve</span>
               <div>
-                <img src="img/bitcoin.png" alt="" />
+                <img src="../../assets/img/bitcoin.png" alt="" />
                 <input
                   id="exchange-btc"
                   type="text"
@@ -59,7 +59,7 @@
         <div class="exchange--breakdown flex-middle">
           <div class="exchange-breakdown text-right">
             <div class="mb-16">
-              <img src="img/Africoin.png" height="50" alt="" />
+              <img src="../../assets/img/Africoin.png" height="50" alt="" />
             </div>
             <div>
               <span class="c-white mb-4 d-block">You are exchanging</span>
@@ -68,11 +68,11 @@
             </div>
           </div>
           <div class="arrow--breakdown">
-            <img src="img/right.png" alt="" />
+            <img src="../../assets/img/right.png" alt="" />
           </div>
           <div class="recieve-breakdown text-left">
             <div class="mb-16">
-              <img src="img/bitcoin.png" height="50" alt="" />
+              <img src="../../assets/img/bitcoin.png" height="50" alt="" />
             </div>
             <div>
               <span class="c-white mb-4 d-block">You will receive</span>
@@ -88,6 +88,103 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="for-mobile">
+      <div class="w-100">
+        <form>
+        <div class="exchange">
+              <span class="muted mb-20 d-block">Exchange</span>
+              <div>
+                <img src="../../assets/img/Africoin.png" alt="" />
+                <input
+                  id="exchange-afk"
+                  type="text"
+                  placeholder="0.00 AFK | $0.00 USD"
+                />
+                <label for="exchange-afk"
+                  ><span class="c-blue">AFK</span> <span class="c-white">Africoin</span></label
+                >
+                <div class="exchange--dropdown"></div>
+              </div>
+              <div class="line--input mt-64 mb-4">
+                <input type="text" class="c-afk" placeholder="0.00" />
+                <span class="wallet--name">AFK</span>
+              </div>
+              <div class="sending--amnt flex flex-between">
+                <span class="amount c-white">0.00</span>
+                <span class="currency c-white">USD</span>
+              </div>
+            </div>
+        </form>
+
+
+            <div class="text-center mt-5 mb-5">
+              <div class="exchange--btn">
+                <a href="#">
+                  <img src="../../assets/img/exchangebtn.png" alt="" />
+                </a>
+              </div>
+            </div>
+
+<form>
+            <div class="recieve">
+              <span class="muted mb-20 d-block">Recieve</span>
+              <div>
+                <img src="../../assets/img/bitcoin.png" alt="" />
+                <input
+                  id="exchange-btc"
+                  type="text"
+                  placeholder="1 AFK = 0.0010457 BTC"
+                />
+                <label for="exchange-btc"
+                  ><span class="c-yellow">BTC</span> <span class="c-white">Bitcoin</span></label
+                >
+              </div>
+              <div class="line--input mt-64 mb-4">
+                <input type="text" class="c-btc" placeholder="0.00" />
+                <span class="wallet--name">BTC</span>
+              </div>
+              <div class="sending--amnt flex flex-between">
+                <span class="amount c-white">0.00</span>
+                <span class="currency c-white">USD</span>
+              </div>
+            </div>
+            </form>
+
+            <div class="exchange--breakdown w-100">
+          <div class="exchange-breakdown text-right w-100">
+            <div class="mb-16">
+              <img src="../../assets/img/Africoin.png" height="50" alt="" />
+            </div>
+            <div>
+              <span class="c-white mb-4 d-block">You are exchanging</span>
+              <h2 class="c-afk">0.00 AFK</h2>
+              <span class="small-text c-white">$0.00</span>
+            </div>
+          </div>
+          <div class="arrow--breakdown">
+            <img src="../../assets/img/right.png" alt="" />
+          </div>
+          <div class="recieve-breakdown text-left w-100">
+            <div class="mb-16">
+              <img src="../../assets/img/bitcoin.png" height="50" alt="" />
+            </div>
+            <div>
+              <span class="c-white mb-4 d-block">You will receive</span>
+              <h2 class="c-btc">0.00 BTC</h2>
+              <span class="small-text c-white">$0.00</span>
+            </div>
+          </div>
+        </div>
+
+            <div class="text-center mt-20 sub--btn--holder">
+              <div class="sub-button mt-20">
+                <button class="w-100">EXCHANGE</button>
+              </div>
+            </div>
+      </div>
+
     </div>
   </section>
 </template>
@@ -122,5 +219,20 @@ export default {
 .main-content main .dash-body > div {
     padding-bottom: 50px;
     overflow-y: unset!important;
+}
+
+input#exchange-afk{
+  border-color: #476EFB;
+}
+input#exchange-btc{
+  border-color: #F8AE30;
+}
+
+.c-yellow{
+  color: #F8AE30;
+}
+
+.c-blue{
+  color: #476EFB;
 }
 </style>

@@ -147,7 +147,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalCenterTitleTitle">
-              Upload a Document
+              Make request for a Payafrik Smart Card
             </h5>
             <button
               type="button"
@@ -165,6 +165,29 @@
                   <p>You are about to request for a <span class="warn">Payafrik Smart Card</span>.</p>
                   <p>with a smart card, you will be able to withdraw your tokens at atm machines and make normal everyday cash transactions.<br>Click on "Request Smart Card" below to complete the request or "Cancel" to cancel</p>
                   <p class="warn">Please note, 2000 Tokens will be debited from your account</p>
+                  <label>Select card type</label>
+                  <div class="row mb-2">
+                    <div class="col-3">
+                      <a class="card-option" @click="selectedCard='verve'" :class="[selectedCard === 'verve' ? 'bordered' : '']">
+                        <img src="../../assets/img/verve.svg" alt="">
+                      </a>
+                    </div>
+                    <div class="col-3">
+                      <a class="card-option" @click="selectedCard='mastercard'" :class="[selectedCard === 'mastercard' ? 'bordered' : '']">
+                        <img src="../../assets/img/mastercard.svg" alt="">
+                      </a>
+                    </div>
+                    <div class="col-3">
+                      <a class="card-option" @click="selectedCard='visa'" :class="[selectedCard === 'visa' ? 'bordered' : '']">
+                        <img src="../../assets/img/visa.svg" alt="">
+                      </a>
+                    </div>
+                  </div>
+                  <label>Name on card</label>
+                  <input type="text" class="mb-2" placeholder="your full name">
+
+                  <label>Delivery address</label>
+                  <input type="text" placeholder="Where we'll ship the card">
                 </div>
               </div>
             </div>
@@ -210,7 +233,8 @@ export default {
     return {
       // userDetails: this.$cookies.get('user-details'),
       profileImage: "../../assets/img/placeholder-profile.jpg",
-      processing: false
+      processing: false,
+      selectedCard: 'mastercard'
     };
   },
   computed: {
@@ -507,5 +531,31 @@ select {
 p.warn, span.warn, a.warn{
   font-weight: 700;
   color: #F8AE30;
+}
+
+label{
+  font-weight: 500;
+  color: #ffffffcb;
+  font-size: 0.8em;;
+}
+
+input {
+  padding: 20px;
+  color: #ffffff99;
+  background: #111a3f;
+  border: solid 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}
+
+a.card-option{
+  padding:10px;
+}
+
+a.card-option.bordered{
+  border-radius:5px;
+  border: 2px solid #F8AE30;
+  display:block;
 }
 </style>

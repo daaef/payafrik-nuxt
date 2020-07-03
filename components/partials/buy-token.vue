@@ -14,7 +14,7 @@
             <p class="highlight">AVAILABLE TOKEN</p>
             <h1>{{ +userDetails.balance }}</h1>
             <p class="light">1 AFK TOKEN = {{pricePerToken}} NGN</p>
-            <input type="number" v-model="tokens" placeholder="How many tokens?" >
+            <input type="number" v-model="tokens" @keyup="calculateParams()" placeholder="How many tokens?" >
           </div>
           <div class="token--description">
             <p class="c-white">
@@ -27,23 +27,18 @@
           <div class="cash--crypto--btns">
             <div>
               <div class="sub-button mr-50">
-                <!-- <paystack
-                  :amount="amount"
-                  :email="email"
-                  :paystackkey="paystackkey"
-                  :reference="reference"
-                  :callback="callback"
-                  :close="close"
-                  :embed="false"
-                  class="yellowText text-uppercase"
-                >
-                  Buy with Cash
-                </paystack> -->
-                <button>
-                  <a @click="sendPaymentRequest()">
-                      BUY WITH CASH
-                    </a>
-                </button>
+                <form name="form1" action="https://sandbox.interswitchng.com/collections/w/pay" method="post">
+                  <input name="product_id" v-model="productId" type="hidden" />
+                  <input name="pay_item_id"  v-model="paymentItemId" type="hidden" />
+                  <input name="amount" v-model="amountToPay" type="hidden" />
+                  <input name="currency"  v-model="currency" type="hidden" />
+                  <input name="site_redirect_url" v-model="redirectUrl" type="hidden" />
+                  <input name="txn_ref" v-model="transactionRef" type="hidden" />
+                  <input name="cust_id"  v-model="customerId" type="hidden" >
+                  <input name="cust_name"  v-model="customerName" type="hidden" />
+                  <input name="hash" v-model="transactionHash" type="hidden" />
+                <button type="submit">BUY WITH CASH</button>
+                </form>
               </div>
 
               <div class="sub-button ml-56">
@@ -57,6 +52,7 @@
                   <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807"></script>
                 </button>
               </div>
+              
             </div>
           </div>
         </div>
@@ -80,12 +76,21 @@ export default {
   data() {
     return {
       baseUrl: process.env.baseUrl,
-      paystackkey: "pk_test_0a74386a6032347f675dee2ba41fb9d47bba958d", //paystack public key
-      email: "foobar@example.com", // Customer email
-      amount: 1000000, // in kobo
+      // paystackkey: "pk_test_0a74386a6032347f675dee2ba41fb9d47bba958d", //paystack public key
+      // email: "foobar@example.com", // Customer email
+      // amount: 1000000, // in kobo
       initiatingPayment: false,
       tokens: 0,
-      pricePerToken: 1
+      pricePerToken: 1,
+      amountToPay: 0,
+      redirectUrl: '',
+      transactionRef: '',
+      customerId: '',
+      customerName: '',
+      transactionHash: '',
+      productId: 1076,
+      paymentItemId: 101,
+      currency: 566
     };
   },
   computed: {
@@ -118,67 +123,29 @@ export default {
     reference() {
       let text = "";
       let possible =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
       for (let i = 0; i < 10; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
       return text;
     },
-    async sendPaymentRequest() {
-      this.initiatingPayment = true
-      const transactionRef = this.reference()
-      const productId = '6205'
-      const paymentItemId = '101'
-      const amount = this.tokens * this.pricePerToken * 100
-      const siteRedirectUrl = 'https://portal.payafrik.io/user-area/payment-done'
-      const macKey = 'D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F	'
 
-      var hash = sha512(transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey);
-      // hash.update(transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey);
-      // hash.hex();
-
-      // var hash = sha512.hmac('key', transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey)
-      // const hash = sha512(transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey);
-
-      // var baseStringToBeSigned = transactionRef + productId + paymentItemId + amount + siteRedirectUrl + macKey
-      // var shaObj = new jsSHA('SHA-512', "TEXT"); // sha;
-      // shaObj.update(baseStringToBeSigned);
-      // var hash = shaObj.getHash("B64");
-
-      const requestObject = {
-        amount: amount,
-        currency: 566,
-        cust_id: this.userDetails.id,
-        hash: hash,
-        txn_ref: transactionRef,
-        pay_item_id: paymentItemId,
-        product_id: productId,
-        site_redirect_url: siteRedirectUrl,
-        cust_id_desc: this.userDetails.username,
-        cust_name: this.userDetails.first_name + ' ' + this.userDetails.last_name,
-        site_name: 'www.portal.payafrik.io'
+    calculateParams() {
+      if (!this.tokens || this.tokens === 0 ){
+        return
       }
+      this.transactionRef = this.reference()
+      this.amountToPay =  this.tokens * this.pricePerToken * 100
+      this.redirectUrl = 'http://localhost:3000/user-area/payment-done?ref=' + this.transactionRef + '&amount=' + this.amountToPay + '&prodId=' + this.productId
+      this.customerId = 'CUST' + this.userDetails.username
+      this.customerName = this.userDetails.first_name + ' ' + this.userDetails.last_name
+      const macKey = 'D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F'
+      this.transactionHash = sha512(this.transactionRef + this.productId + this.paymentItemId + this.amountToPay + this.redirectUrl + macKey);
+    },
 
-      const headers = {
-        "Content-Type": "multipart/form-data",
-      };
-
-      console.log('THE REQUEST OBJECT ====>', JSON.stringify(requestObject))
-
-      try{
-        const requestResponse = await this.$axios.$post('https://sandbox.interswitchng.com/collections/w/pay', requestObject, {headers})
-        console.log('payment request response', requestResponse)
-        // if (requestResponse.status === true){
-        //     this.sendPaymentAdvice()
-        // }
-
-      } catch(e){
-        console.log('TRANSACTION REQUEST ERROR===>', e)
-        this.$toast.error(e)
-        this.makingPayment = false
-      }
-    }
+  },
+  mounted() {
   }
 };
 </script>

@@ -72,7 +72,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr onclick="window.location='#';">
+                  <tr class="wallet-row" @click="goToWallet('afk')">
                     <td>
                       <span>
                         <img src="../../assets/img/Africoin.png" alt="" />
@@ -101,7 +101,7 @@
                       >
                     </td>
                   </tr>
-                  <tr onclick="window.location='#';">
+                  <tr  class="wallet-row" @click="goToWallet('btc')">
                     <td>
                       <span>
                         <img src="../../assets/img/bitcoin.png" alt="" />
@@ -139,7 +139,7 @@
                       >
                     </td>
                   </tr>
-                  <tr onclick="window.location='#';">
+                  <tr  class="wallet-row" @click="goToWallet('eth')">
                     <td>
                       <span>
                         <img src="../../assets/img/eth.png" alt="" />
@@ -462,6 +462,10 @@ export default {
         this.getBtcWalletBalance();
       }
     },
+
+    goToWallet (wallet) {
+      this.$router.push({ name: 'user-area-wallet', query: { active: wallet }})
+    }
   },
 
   beforeMount() {
@@ -484,5 +488,9 @@ a p {
 
 th.trend, td.trend{
   max-width: 180px !important;
+}
+
+tr.wallet-row{
+  cursor:pointer;
 }
 </style>

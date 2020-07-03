@@ -6,10 +6,40 @@
           <h1 class="w-100 c-white am-type mt-0 mb-0 text-large light">
             Wallets
           </h1>
+          <div class="for-mobile mt-3">
+            <div class="container">
+              <div class="row">
+                <div class="col-4">
+                  <a @click="changeWallet('afk')" :class="[ activeWallet === 'afk' ?  'warn' : '' ]">
+                    <span class="d-block afk am-type mb-8 text-right bold w-title"
+                      >Africoin</span
+                    >
+                    <span class="muted w-100 text-right d-block">0 AFK</span>
+                  </a>
+                </div>
+                <div class="col-4">
+                  <a @click="changeWallet('btc')" :class="[ activeWallet === 'btc' ?  'warn' : '' ]">
+                    <span class="d-block btc am-type mb-8 text-right bold w-title"
+                      >Bitcoin</span
+                    >
+                    <span class="muted w-100 text-right d-block">0 BTC</span>
+                  </a>
+                </div>
+                <div class="col-4">
+                  <a @click="changeWallet('eth')" :class="[ activeWallet === 'eth' ?  'warn' : '' ]">
+                    <span class="d-block eth am-type mb-8 text-right bold w-title"
+                      >Ethereum</span
+                    >
+                    <span class="muted w-100 text-right d-block">0 ETH</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="flex flex-wrap flex-between flex-stretch">
-        <div class="wallet-sidebar">
+      <div class="flex flex-wrap flex-between flex-stretch mt-3">
+        <div class="wallet-sidebar not-for-mobile">
           <ul>
             <li class="mt-20 mb-20" :class="[ activeWallet === 'afk' ?  'w-active' : '' ]">
               <a @click="changeWallet('afk')">
@@ -45,7 +75,7 @@
 
 
         <div class="wallet-content w-afk" v-if="activeWallet === 'afk'">
-          <div class="wallet-description c-white flex h-100">
+          <div class="wallet-description not-for-mobile c-white flex h-100">
             <p>
               <span class="uppercase wall-desc d-block mb-4">Description</span>
               <span class="small-text"
@@ -106,7 +136,7 @@
 
 
         <div class="wallet-content w-btc" v-if="activeWallet === 'btc'">
-          <div class="wallet-description c-white flex h-100">
+          <div class="wallet-description not-for-mobile c-white flex h-100">
             <p>
               <span class="uppercase wall-desc d-block mb-4">Description</span>
               <span class="small-text"
@@ -168,7 +198,7 @@
 
 
         <div class="wallet-content w-eth" v-if="activeWallet === 'eth'">
-          <div class="wallet-description c-white flex h-100">
+          <div class="wallet-description not-for-mobile c-white flex h-100">
             <p>
               <span class="uppercase wall-desc d-block mb-4">Description</span>
               <span class="small-text"
@@ -344,6 +374,11 @@ export default {
   beforeMount() {},
   mounted() {
     this.loadChart()
+    console.log('ROUTE OBJECT', this.$route)
+    if (this.$route.query.active){
+      // console.log('theres a query')
+      this.changeWallet(this.$route.query.active) 
+    }
   },
   beforeMount() {
     this.closeSideBar();
@@ -352,4 +387,17 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 768px) {
+  /* .not-for-mobile{
+    display:none;
+  } */
+
+  .w-afk, .w-eth, .w-btc, .wallet-chart{
+    width: 100%
+  }
+
+  .afk-wallet, .btc-wallet, .eth-wallet{
+    margin:auto;
+  }
+}
 </style>
