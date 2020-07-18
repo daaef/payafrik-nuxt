@@ -153,10 +153,10 @@
               <div class="w-100 text-center">
                 <img height="40" src="../../assets/img/bitcoin.png" alt="" />
                 <h2 class="c-d-btc mt-8">
-                  <span class="large-text">0</span>BTC
+                  <span class="large-text">{{ +userDetails.btc_balance | formatNumber }}</span>BTC
                 </h2>
                 <h3 class="c-white light">
-                  <span class="small-text mr-4">$</span>0.00 USD
+                  <span class="small-text mr-4">$</span>{{ +userDetails.btc_balance * btcData.current_price | formatNumber}} USD
                 </h3>
               </div>
               <div class="wallet-btns flex flex-center flex-wrap w-100 mt-20">
@@ -188,7 +188,7 @@
                 <p class="uppercase c-white small-text mt-20 mb-12">
                   Price Chart
                 </p>
-                <h2 class="light c-white">$1.00</h2>
+                <h2 class="light c-white">${{ +btcData.current_price | formatNumber}}</h2>
                 <p class="small-text muted">1 BTC</p>
                 <canvas id="myChart"></canvas>
               </div>
@@ -215,10 +215,10 @@
               <div class="w-100 text-center">
                 <img height="40" src="../../assets/img/eth.png" alt="" />
                 <h2 class="c-d-eth mt-8">
-                  <span class="large-text">0</span>ETH
+                  <span class="large-text">{{ +userDetails.eth_balance | formatNumber }}</span>ETH
                 </h2>
                 <h3 class="c-white light">
-                  <span class="small-text mr-4">$</span>0.00 USD
+                  <span class="small-text mr-4">$</span>{{ +userDetails.eth_balance * ethData.current_price | formatNumber }} USD
                 </h3>
               </div>
               <div class="wallet-btns flex flex-center flex-wrap w-100 mt-20">
@@ -250,7 +250,7 @@
                 <p class="uppercase c-white small-text mt-20 mb-12">
                   Price Chart
                 </p>
-                <h2 class="light c-white">$1.00</h2>
+                <h2 class="light c-white">${{ethData.current_price | formatNumber}}.00</h2>
                 <p class="small-text muted">1 ETH</p>
                 <canvas id="myChart"></canvas>
               </div>
@@ -275,7 +275,18 @@ export default {
       activeWallet: "afk"
     };
   },
-  computed: {},
+  computed: {
+    userDetails() {
+      return this.$store.state.global.authenticatedUser;
+    },
+    btcData() {
+      return this.$store.state.global.btcData;
+    },
+    ethData() {
+      return this.$store.state.global.ethData;
+    }
+  },
+  
   methods: {
     changeWallet(wallet) {
       this.activeWallet = wallet;
@@ -374,11 +385,12 @@ export default {
   beforeMount() {},
   mounted() {
     this.loadChart()
-    console.log('ROUTE OBJECT', this.$route)
+    console.log('BTCDATA ======', this.btcData)
     if (this.$route.query.active){
       // console.log('theres a query')
       this.changeWallet(this.$route.query.active) 
     }
+
   },
   beforeMount() {
     this.closeSideBar();

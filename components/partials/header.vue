@@ -232,6 +232,7 @@ export default {
   data() {
     return {
       // userDetails: this.$cookies.get('user-details'),
+      baseUrl: process.env.baseUrl,
       profileImage: "../../assets/img/placeholder-profile.jpg",
       processing: false,
       selectedCard: 'mastercard'
@@ -288,8 +289,23 @@ export default {
       toggleWithdrawalModal: "global/toggleTokenWithdrawalModal",
     }),
 
-    requestSmartCard() {
-
+    async requestSmartCard() {
+      this.processing = true
+      const payload = {}
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': this.userDetails.token,
+      }
+      try{
+        const requestResponse = await this.$axios.$post(this.baseUrl + 'utilities/cards/request-card/', payload, {headers})
+        console.log('request response', requestResponse)
+        this.$toast.success('Card request successful!')
+        this.processing = false
+      } catch(e){
+        console.log(e.response)
+        this.$toast.error(e.response.data.error)
+        this.processing = false
+      }
     }
   }
 };
@@ -303,112 +319,6 @@ ul.nav-links li a{
 a{
   cursor: pointer !important;
 }
-/* .profile-picture {
-  height: 40px;
-  min-width: 40px;
-  width: 40px;
-  border-radius: 50%;
-  border: 2px solid #f9b330;
-  background: url("../../assets/img/placeholder-profile.jpg") no-repeat center
-    center;
-  background: url("https://img.icons8.com/ultraviolet/40/000000/user-male-circle.png")
-    no-repeat center center;
-  background-size: cover;
-} */
-/* .header{
-    height:80px;
-    padding: 5px 0;
-}
-
-img{
-    max-width:100%;
-}
-
-img.logo{
-    width:50%;
-    margin-top:20px;
-}
-
-.user-box{
-    width:100%;
-    min-height:100%;
-    height:inherit;
-    background-color: #1f3d74;
-    border-radius:5px;
-    color:#ffffffde;
-    font-family: 'Poppins', sans-serif;
-    font-size:0.8em;
-    padding:10px;
-}
-
-.user-box i, 
-.user-box a, 
-.user-box > div{
-    float:left;
-    margin-right:5px;
-    margin-left:10px;
-}
-
-.user-box i.ti-bell{
-    font-size:2em;
-}
-
-.profile-picture{
-    height:40px;
-    min-width:40px;
-    width:40px;
-    border-radius:50%;
-    border: 2px solid #F9B330;
-    background: url('../../assets/img/placeholder-profile.jpg') no-repeat center center; 
-    background: url('https://img.icons8.com/ultraviolet/40/000000/user-male-circle.png') no-repeat center center; 
-    background-size:cover;
-}
-
-.dropdown-menu{
-    padding:5px;
-}
-
-.dropdown-menu a{
-    font-size:0.8em;
-}
-
-a.dropdown-item{
-    padding: 1em;
-}
-
-a.nav-toggler{
-    float:left;
-    margin-right: 20px;
-    margin-top: 20px;
-    font-size:1em;
-    display:none;
-}
-
-@media only screen and (max-width: 990px) {
-  a.nav-toggler {
-    display: inline-block;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-    .header{
-        height:inherit;
-        padding:10px;
-    }
-    img.logo{
-        width:30%;
-        margin-bottom:20px;
-    }
-}
-
-@media only screen and (max-width: 320px) {
-    img.logo{
-        width:40%;
-    }
-    .header{
-        padding:5px;
-    }
-} */
 
 .balance h3 {
   font-size:1.5em;

@@ -44,11 +44,16 @@
         <div class="main-modal h-100">
           <div>
             <div class="w-100 text-center mb-20">
-              <img height="50" src="../../assets/img/Africoin.png" alt="">
+              <!-- <img height="50" src="../../assets/img/Africoin.png" alt=""> -->
+              <img v-if="activeCurrency === 'afk'" height="50" src="../../assets/img/Africoin.png" alt="">
+              <img v-if="activeCurrency === 'btc'" height="50" src="../../assets/img/bitcoin.png" alt="">
+              <img v-if="activeCurrency === 'eth'" height="50" src="../../assets/img/eth.png" alt="">
             </div>
             <div class="plain--input mt-50 mb-12">
-              <input type="text" value="0x983426eCbA8e739C690B2B58C85fb45976bf58ef">
-              <a href="#" class="copy--btn">
+              <input v-if="activeCurrency === 'btc'" type="text" id="walletAddress" v-model="userDetails.btc_wallet">
+              <input v-if="activeCurrency === 'afk'" type="text" id="walletAddress" v-model="userDetails.afk_wallet">
+              <input v-if="activeCurrency === 'eth'" type="text" id="walletAddress" v-model="userDetails.eth_wallet">
+              <a @click="copyText()" class="copy--btn">
                 <img src="../../assets/img/copy.png" alt="">
               </a>
             </div>
@@ -107,6 +112,17 @@ export default {
     }
   },
   methods: {
+    copyText () {
+      /* Get the text field */
+      var copyText = document.getElementById("walletAddress");
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+      this.$toast.success('Address copied to clipboard')
+    },
+
     closeFunctionModal() {
       this.$store.commit("global/closeFunctionModal");
     },
@@ -116,9 +132,26 @@ export default {
       } 
 
       this.sending = true
+      // const payload = {
+      //   "recipient": this.walletAddress,
+      //   "requested_amount": this.amount,
+      // }
+
+      let currency = ''
+
+      if (this.activeCurrency === 'afk') {
+        currency = 'AFK'
+      } else if (this.activeCurrency === 'btc') {
+        currency = 'BTC'
+      } else if (this.activeCurrency === 'eth') {
+        currency = 'ETH'
+      }
+
       const payload = {
-        "recipient": this.walletAddress,
-        "requested_amount": this.amount,
+        wallet_name: this.userDetails.username,
+        currency: currency,
+        receiving_address: this.walletAddress,
+        amount: this.amount
       }
 
       if (this.activeCurrency === 'afk'){
@@ -141,7 +174,8 @@ export default {
       }
 
       try{
-        const transferResponse = await this.$axios.$post(this.baseUrl+'transactions/transactions/send/', payload, {headers})
+        const transferResponse = await this.$axios.$post(this.baseUrl+'wallet/utilities/transfer/', payload, {headers})
+        // const transferResponse = await this.$axios.$post(this.baseUrl+'transactions/transactions/send/', payload, {headers})
         this.$toast.success('Transfer successful!')
         console.log('AFK TRansfer successfull...')
         this.sending = false

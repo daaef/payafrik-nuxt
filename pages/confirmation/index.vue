@@ -1,12 +1,11 @@
 <template>
-    <div class="section">
+    <!-- <div class="section">
         <div class="container animated fadeIn">
             <div class="row">
                 <div class="col-md-5 ml-auto mr-auto">
                     <div class="text-center">
                         <img class="logo" src="../../assets/img/logo.png">
                         <div class="login-container shadowed-box">
-                            <!-- <p><i class="ti-check-box"></i> Account confirmed successfully</p> -->
                             <h6 class="font-weight-bold">PLEASE VERIFY YOUR PHONE NUMBER TO PROCEED</h6>
 
                             <input type="text" v-model="verificationCode" v-bind:class="formErrors.verificationCodeError === true ? 'has-error' : ''"         placeholder="Your verification code code (Sent via sms)">
@@ -21,7 +20,123 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+      <section class="main-content">
+        <main class="full">
+          <section class="dash-body">
+            <!-- <a href="#" class="modal-close">
+              <img src="img/close.png" alt="" />
+            </a> -->
+            <!-- <div class="auth--content"> -->
+              <div class="col-lg-5 ml-auto mr-auto text-center">
+                <div class="w-100">
+                  <!-- <form class="w-100"> -->
+                    <div class="w-100">
+                      <div class="welcome-text">
+                        <div class="text-center">
+                          <p class="w-100 c-white">Verify your</p>
+                          <h1 class="w-100 c-white am-type mt-0 mb-50">
+                            Phone number
+                          </h1>
+                        </div>
+                      </div>
+
+                      <div class="exchange centerdiv">
+                        <div>
+                          <img
+                            class="prefix-icon"
+                            src="../../assets/img/iphone.png"
+                            alt=""
+                          />
+                          <input
+                              v-model='phone'
+                              id="exchange-afk"
+                              type="text"
+                              placeholder="Enter Registered Phone Number"
+                          />
+                          <label for="exchange-afk">Phone Number</label>
+                          <div class="exchange--dropdown"></div>
+                        </div>
+                      </div>
+                      <p class="authhint">
+                        Please add your phone code (eg: +234)
+                      </p>
+                      <div class="exchange centerdiv">
+                        <div>
+                          <img
+                            class="prefix-icon"
+                            src="../../assets/img/right-arrow.png"
+                            alt=""
+                          />
+                          <input
+                              v-if="!viewPassword"
+                              v-model="password"
+                              type="password"
+                            id="pin"
+                            placeholder="Your 4 Digit PIN"
+                          />
+                          <input
+                              v-if="viewPassword"
+                              v-model="password"
+                              type="text"
+                            id="pin-text"
+                            placeholder="Your 4 Digit PIN"
+                          />
+                          <label for="pin">PIN</label>
+                          <!-- <div class="exchange--dropdown "> -->
+                            <img
+                              @click="toggleViewPassword()"
+                              class="suffix-icon suffix password-toggle-switch"
+                              src="../../assets/img/view.png"
+                              alt=""
+                            />
+                          <!-- </div> -->
+                        </div>
+                      </div>
+
+                      <div class="exchange centerdiv mt-3">
+                        <div>
+                          <img
+                            class="prefix-icon"
+                            src="../../assets/img/iphone.png"
+                            alt=""
+                          />
+                          <input
+                              v-model='verificationCode'
+                              id="exchange-afk"
+                              type="text"
+                              placeholder="Verification code sent to your SMS"
+                          />
+                          <label for="exchange-afk">Verification code</label>
+                          <div class="exchange--dropdown"></div>
+                        </div>
+                      </div>
+
+                      <div class="text-center mt-20 sub--btn--holder">
+                        <div class="sub-button mt-20">
+                          <button v-if="!processing" @click="verifyPhone()" class="w-100">Verify phone number</button>
+                          <button v-if="processing" disabled class="w-100">verifying...</button>
+                        </div>
+                      </div>
+                      <div class="text-center mt-20">
+                        <nuxt-link to="/signup"
+                          ><p class="authhint">
+                            New to PayAfrik?
+                            <span class="reset-color">Sign Up</span>
+                          </p>
+                        </nuxt-link>
+                      </div>
+                    </div>
+                  <!-- </form> -->
+                </div>
+
+              <!-- </div> -->
+            </div>
+          </section>
+        </main>
+      </section>
+    <!-- </div> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -41,6 +156,7 @@ export default {
                 verificationCodeError: false
             },
             processing: false,
+            viewPassword: false
         }
     },  
     computed: {
@@ -52,6 +168,10 @@ export default {
         console.log(this.countryCodes)
     },
   methods: {
+
+    toggleViewPassword() {
+      this.viewPassword = !this.viewPassword;
+    },
 
     async verifyPhone() {
         this.processing = true;
@@ -129,51 +249,49 @@ export default {
 </script>
 <style>
 
-.section{
-    background-color:#1f3d74;
-    background: url('../../assets/img/blockchain-bg.jpg') no-repeat center center;
-    background-size:cover;
-    padding:35px;
+.exchange {
+  position: relative;
 }
-img.logo{
-    width:30%;
-    filter: brightness(0) invert(1) opacity(0.8);;
+
+img.password-toggle-switch {
+  position: absolute;
+  top: 27px;
+  left: 92%!important;
+  color: #666;
+  z-index: 999;
 }
-.login-container{
-    background-color:#fff;
-    border-radius:5px;
-    padding:35px;
-    padding-top:30px;
-    width:100%;
-    margin-top:25px;
+
+.suffix{
+  cursor: pointer;
 }
-button.login{
-    color:#ffffffde;
-    background-color: #1fa545;
+
+.prefix-icon, .suffix-icon{
+  width:30px;
+  filter: invert();
 }
-button.login:hover{
-    color:#ffffffde;
-    background-color: #13642a;
+
+.prefix-icon{
+  opacity: 0.5;
 }
-p > a{
-    font-size:1em;
+
+label {
+  color: #0000ff;
 }
+
 p{
-    margin:0;
-    color:#1fa545;
-    margin-bottom: 20px;
+  color: #ffffffe5;
+  margin-top: 15px;
+  text-align: center;
 }
-p, a{
-    font-size:0.8em;
+
+.dash-body {
+  margin-left:5%;
 }
-a{
-    font-weight:700;
+
+@media (max-width: 768px) {
+  .dash-body{
+    margin-left: 0;
+  }
 }
-a.hover{
-    color:#fffffffd;
-    text-decoration:none;
-}
-h6{
-    font-size:0.8em;
-}
+
 </style>

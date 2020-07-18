@@ -86,7 +86,6 @@
                       />
                       <input
                           v-model="firstName"
-                          id="exchange-afk"
                           type="text"
                           placeholder="Enter First Name"
                       />
@@ -102,8 +101,7 @@
                         alt=""
                       />
                       <input
-                          v-model="firstName"
-                          id="exchange-afk"
+                          v-model="lastName"
                           type="text"
                           placeholder="Enter Last Name"
                       />
@@ -119,8 +117,7 @@
                         alt=""
                       />
                       <input
-                          v-model='username'
-                          id="exchange-afk"
+                          v-model='phone'
                           type="text"
                           placeholder="Enter Phone Number (eg: +2348012345678)"
                       />
@@ -143,7 +140,6 @@
                           v-model="password1"
                           @keydown="enforceNumbersOnly($event)"
                           maxlength="4"
-                          id="exchange-afk"
                           type="password"
                           placeholder="Your PIN"
                       />
@@ -152,7 +148,6 @@
                           v-model="password1"
                           @keydown="enforceNumbersOnly($event)"
                           maxlength="4"
-                          id="exchange-afk"
                           type="text"
                           placeholder="Your PIN"
                       />
@@ -176,8 +171,8 @@
                   </p>
                   <div class="text-center  sub--btn--holder">
                     <div class="sub-button">
-                      <button class="w-100" v-if="!processing">Create Account</button>
-                      <button class="w-100" v-if="processing">Creating Account...</button>
+                      <button v-if="!processing" class="w-100" @click="signUp()">Create Account</button>
+                      <button v-if="processing" class="w-100">Creating Account...</button>
                     </div>
                   </div>
                   <div class="text-center">
@@ -189,7 +184,8 @@
                     >
                   </div>
                 </div>
-              </form>
+                
+             </form>
             </div>
 
           </div>
@@ -298,14 +294,15 @@ export default {
     },
 
     async signUp() {
+      console.log('signing up...')
       this.processing = true;
 
-      if (this.password1 !== this.password2) {
-        this.formErrors.passwordError = true;
-        this.$toast.error("Make sure both password match");
-        this.processing = false;
-        return;
-      }
+      // if (this.password1 !== this.password2) {
+      //   this.formErrors.passwordError = true;
+      //   this.$toast.error("Make sure both password match");
+      //   this.processing = false;
+      //   return;
+      // }
 
       // if(this.username === ''){
       //     this.formErrors.usernameError = true
@@ -317,7 +314,7 @@ export default {
       //     this.processing = false
       //     return
       // }
-      else if (this.phone === "") {
+      if (this.phone === "") {
         this.formErrors.phoneError = true;
         this.processing = false;
         return;

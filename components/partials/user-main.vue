@@ -207,6 +207,60 @@
             </div>
           </div>
         </div>
+
+        <div class="wallets--and--transactions">
+          <div class="wallets">
+            <h3 class="c-white">PAYAFRIK PLATFORMS</h3>
+            <div class="table--holder">
+              <table>
+                <!-- <thead>
+                  <tr>
+                    <th class="text-left"><span>ASSET NAME</span></th>
+                    <th>PRICE</th>
+                    <th>24H CHANGE</th>
+                    <th>MARKET CAP</th>
+                    <th class="trend text-center">30 DAY TREND</th>
+                    <th>BALANCE</th>
+                  </tr>
+                </thead> -->
+                <tbody>
+                  <tr class="wallet-row">
+                    <td>
+                      <span>
+                        <!-- <img src="../../assets/img/bitcoin.png" alt="" /> -->
+                        <i class="fas fa-power-off fa-3x c-yellow"></i>
+                        <span class="ml-16 d-block">
+                          <span class="mb-4 d-block">Payafrik Power</span>
+                          <p class="muted">This is literally <strong>power in your hands</strong>. A novel solution by payafrik that gives you full control of your Power Metres in Nigeria. Shut off you rpower, disconnect appliances and reload your metres remotely with payafrik power. <br> <a>Checkout Payafrik FixIt!</a></p>
+
+                        </span>
+                      </span>
+                      
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+                  <tr class="wallet-row">
+                    <td>
+                      <span>
+                        <!-- <img src="../../assets/img/bitcoin.png" alt="" /> -->
+                        <i class="fas fa-hammer fa-3x c-yellow"></i>
+                        <span class="ml-16 d-block">
+                          <span class="mb-4 d-block">Payafrik FixIt!</span>
+                          <p class="muted">A solution that lets you order a repairman or artisan for all your daily home repair and instalation needs. Make payments for services using your payafrik tokens <br><a>Checkout Payafrik Power!</a> </p>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <div class="add--more">
+              <button class="blueish-btn btn">+Add More</button>
+            </div> -->
+          </div>
+           
+        </div>
       </div>
     </section>
   </span>
@@ -394,6 +448,12 @@ export default {
     authenticate(user) {
       this.$store.commit("global/authenticateUser", user);
     },
+    commitBtc(data) {
+      this.$store.commit("global/loadBTCData", data);
+    },
+    commitEth(data) {
+      this.$store.commit("global/loadEthData", data);
+    },
     ...mapMutations({
       authenticate: "global/authenticateUser",
       loadBTCData: "global/loadBTCData",
@@ -408,6 +468,7 @@ export default {
         );
         this.btcData = coinMarketData[0];
         this.ethData = coinMarketData[1];
+
         let btcSparkline = [];
         for (let i = 0; i < 50; i++) {
           btcSparkline.push(this.btcData.sparkline_in_7d.price[i]);
@@ -419,6 +480,11 @@ export default {
           ethSparkline.push(this.ethData.sparkline_in_7d.price[i]);
         }
         this.ethChartData = ethSparkline
+
+        //TODO: commit data to store here
+        this.commitBtc(this.btcData)
+        this.commitEth(this.ethData)
+
         this.loadingData = false;
       } catch (e) {
         console.log(e);
@@ -493,4 +559,26 @@ th.trend, td.trend{
 tr.wallet-row{
   cursor:pointer;
 }
+
+.c-yellow {
+  color: #F8AE30;
+}
+
+a.tag-button{
+  /* display: inline-block; */
+  padding: 3px 15px;
+  border-radius:50px;
+  background-color: #F8AE30;
+  color: #141F50 !important;
+  font-size: 0.9em;
+  left: 170px;
+  position: absolute;
+  font-weight: 700;
+}
+
+a.tag-button:hover{
+  background-color: #141F50;
+  color: #F8AE30 !important;
+}
+
 </style>

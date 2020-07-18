@@ -137,7 +137,7 @@ export default {
       }
       this.transactionRef = this.reference()
       this.amountToPay =  this.tokens * this.pricePerToken * 100
-      this.redirectUrl = 'http://localhost:3000/user-area/payment-done?ref=' + this.transactionRef + '&amount=' + this.amountToPay + '&prodId=' + this.productId
+      this.redirectUrl = 'https://portal.payafrik.io/user-area/payment-done?ref=' + this.transactionRef + '&amount=' + this.amountToPay + '&prodId=' + this.productId
       this.customerId = 'CUST' + this.userDetails.username
       this.customerName = this.userDetails.first_name + ' ' + this.userDetails.last_name
       const macKey = 'D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F'
