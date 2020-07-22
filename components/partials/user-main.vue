@@ -505,13 +505,15 @@ export default {
           { headers }
         );
 
-        if (userTransactionsResponse.results.length > 4) {
-          for (let i = 0; i < 10; i++) {
-            this.userTransactions.push(userTransactionsResponse.results[i]);
-          }
-        } else {
-          this.userTransactions = userTransactionsResponse.results;
+        // if (userTransactionsResponse.results.length > 4) {
+        for (let i = 0; i < 10; i++) {
+          if(i < userTransactionsResponse.results.length) this.userTransactions.push(userTransactionsResponse.results[i]);
         }
+        // } else {
+        //   this.userTransactions = userTransactionsResponse.results;
+        // }
+
+        console.log('USER-TRANSACTIONS', this.userTransactions)
 
         this.fetchingTransactions = false;
       } catch (e) {

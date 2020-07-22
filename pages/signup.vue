@@ -171,7 +171,7 @@
                   </p>
                   <div class="text-center  sub--btn--holder">
                     <div class="sub-button">
-                      <button v-if="!processing" class="w-100" @click="signUp()">Create Account</button>
+                      <button v-if="!processing" class="w-100" @click="signUp($event)">Create Account</button>
                       <button v-if="processing" class="w-100">Creating Account...</button>
                     </div>
                   </div>
@@ -293,27 +293,11 @@ export default {
       this.passwordScore = points + "%";
     },
 
-    async signUp() {
+    async signUp(event) {
+      event.preventDefault()
       console.log('signing up...')
       this.processing = true;
 
-      // if (this.password1 !== this.password2) {
-      //   this.formErrors.passwordError = true;
-      //   this.$toast.error("Make sure both password match");
-      //   this.processing = false;
-      //   return;
-      // }
-
-      // if(this.username === ''){
-      //     this.formErrors.usernameError = true
-      //     this.processing = false
-      //     return
-      // }
-      // else if (this.email === ''){
-      //     this.formErrors.emailError = true
-      //     this.processing = false
-      //     return
-      // }
       if (this.phone === "") {
         this.formErrors.phoneError = true;
         this.processing = false;
@@ -333,11 +317,11 @@ export default {
         last_name: this.lastName,
         // username: this.username,
         // phone: this.countryCode + this.phone,
-        phone: this.username,
+        phone: this.phone,
         password: this.password1
         // email: this.email
       };
-      console.log(payload);
+      console.log('THE PAYLOAD =>', payload);
 
       const headers = {
         "Content-Type": "application/json",
@@ -351,7 +335,7 @@ export default {
           { headers }
         );
         console.log("Signup Response", signupResponse);
-        this.$router.push("../confirmation");
+        this.$router.push("/confirmation");
       } catch (e) {
         console.log(JSON.stringify(e));
         this.$toast.error(e.message);

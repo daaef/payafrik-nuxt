@@ -985,6 +985,21 @@ form div label {
   right: 0;
   font-size: 1.03rem;
 }
+.line--input input.c-eth::placeholder {
+  color: #50599c;
+  font-size: 1.3rem;
+}
+.line--input input.c-eth {
+  border-bottom: solid #50599c 2px !important;
+  color: #50599c;
+}
+.line--input input.c-eth ~ .wallet--name {
+  color: #50599c;
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  font-size: 1.03rem;
+}
 .line--input input.c-btc::placeholder {
   color: #f98e12;
   font-size: 1.3rem;
