@@ -303,16 +303,28 @@ export default {
       userTransactions: [],
       fetchingTransactions: false,
       loadingData: false,
-      btcData: {},
-      btcChartData: [],
-      ethData: {},
-      ethChartData: [],
+      // btcData: {},
+      // btcChartData: [],
+      // ethData: {},
+      // ethChartData: [],
 
     };
   },
   computed: {
     userDetails() {
       return this.$store.state.global.authenticatedUser;
+    },
+    btcData() {
+      return this.$store.state.btcData;
+    },
+    btcChartData() {
+      return this.$store.state.btcChartData;
+    },
+    ethData() {
+      return this.$store.state.ethData;
+    },
+    ethChartData() {
+      return this.$store.state.ethChartData;
     }
   },
   methods: {
@@ -436,7 +448,7 @@ export default {
         updatedUserDetails.token = this.userDetails.token;
         console.log("User ==>", updatedUserDetails);
         this.getUserTransactions();
-        this.getCoinMarketData();
+        // this.getCoinMarketData();
         this.authenticate(updatedUserDetails);
       } catch (e) {
         this.$toast.error(e.response.data.detail);

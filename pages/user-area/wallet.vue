@@ -114,7 +114,7 @@
                 >
                   Recieve
                 </button>
-                <a href="#" class="icon-btn">
+                <a @click="openModal('buyCryptoModal')" class="icon-btn">
                   <img
                     src="../../assets/img/exchange-icon.png"
                     height="35"
@@ -153,7 +153,7 @@
               <div class="w-100 text-center">
                 <img height="40" src="../../assets/img/bitcoin.png" alt="" />
                 <h2 class="c-d-btc mt-8">
-                  <span class="large-text">{{ +userDetails.btc_balance | formatNumber }}</span>BTC
+                  <span class="large-text">{{ +userDetails.btc_balance | formatNumberLong }}</span>BTC
                 </h2>
                 <h3 class="c-white light">
                   <span class="small-text mr-4">$</span>{{ +userDetails.btc_balance * btcData.current_price | formatNumber}} USD
@@ -176,7 +176,7 @@
                 >
                   Recieve
                 </button>
-                <a href="#" class="icon-btn">
+                <a  @click="openModal('buyCryptoModal')" class="icon-btn">
                   <img
                     src="../../assets/img/exchange-icon.png"
                     height="35"
@@ -215,7 +215,7 @@
               <div class="w-100 text-center">
                 <img height="40" src="../../assets/img/eth.png" alt="" />
                 <h2 class="c-d-eth mt-8">
-                  <span class="large-text">{{ +userDetails.eth_balance | formatNumber }}</span>ETH
+                  <span class="large-text">{{ +userDetails.eth_balance | formatNumberLong }}</span>ETH
                 </h2>
                 <h3 class="c-white light">
                   <span class="small-text mr-4">$</span>{{ +userDetails.eth_balance * ethData.current_price | formatNumber }} USD
@@ -238,7 +238,7 @@
                 >
                   Recieve
                 </button>
-                <a href="#" class="icon-btn">
+                <a @click="openModal('buyCryptoModal')" class="icon-btn">
                   <img
                     src="../../assets/img/exchange-icon.png"
                     height="35"
@@ -259,6 +259,80 @@
         </div>
       </div>
     </div>
+
+        <!-- Card Request Modal -->
+    <div
+      class="modal fade"
+      id="buyCryptoModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="buyCryptoModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitleTitle">
+              Swap your AfriTokens for Cryptocurrency
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container ml-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <p>You are about to convert your available <span class="warn">AfriTokens</span> to cryptocurrency.</p>
+                  <p>Please select the currency you want to receive below and enter the amount of AfriTokens you would like to convert</p>
+                  <label>Select card type</label>
+                  <select v-model="cryptoToReceive">
+                    <option value="">Select currency to receive</option>
+                    <option value="AFK">Africoin</option>
+                    <option value="BTC">Bitcoin</option>
+                    <option value="ETH">Ethereum</option>
+                    <option value="BTC">LiteCoin</option>
+                    <option value="DASH">Dash</option>
+                  </select>
+                  <label>Amount</label>
+                  <input v-model="amount" type="number" class="mb-2" placeholder="Amount in AfriTokens">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="cancel" data-dismiss="modal">
+                    Cancel
+                  </button>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-7">
+                  <button
+                    class="success-btn"
+                    v-if="!processing"
+                    @click="requestConversion()"
+                    type="submit"
+                  >
+                    Request Conversion
+                  </button>
+                  <button class="success-btn" v-if="processing" disabled>
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -272,7 +346,11 @@ export default {
   components: {},
   data() {
     return {
-      activeWallet: "afk"
+      baseUrl: process.env.baseUrl,
+      activeWallet: "afk",
+      processing: false,
+      amount: 0,
+      cryptoToReceive: ''
     };
   },
   computed: {
@@ -288,6 +366,10 @@ export default {
   },
   
   methods: {
+    openModal(modalId) {
+      $("#" + modalId).modal("show");
+      $(".modal-backdrop").hide();
+    },
     changeWallet(wallet) {
       this.activeWallet = wallet;
       setTimeout(() => {
@@ -305,6 +387,40 @@ export default {
 
     openFunctionModal(modalActiveClass, activeWallet, activeCurrency) {
       this.$store.commit("global/openFunctionModal", { class: modalActiveClass, wallet: activeWallet, currency: activeCurrency });
+    },
+
+    async requestConversion() {
+      if (!this.amount || this.amount === 0) {
+        this.$toast.error('Please select an amount greater than 0')
+        return
+      }
+      if (!this.cryptoToReceive || this.cryptoToReceive === "") {
+        this.$toast.error('Please choose a currency to receive')
+        return
+      }
+
+      this.processing = true
+
+      const payload = {
+        amount: this.amount,
+        from_currency:"AFRITOKEN",
+        to_currency: this.cryptoToReceive
+      }
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': this.userDetails.token,
+      }
+      try{
+        const requestResponse = await this.$axios.$post(this.baseUrl + 'exchange/barter/swap/', payload, {headers})
+        console.log('request response', requestResponse)
+        this.$toast.success('Conversion request successful!')
+        this.processing = false
+      } catch(e){
+        console.log(e.response)
+        this.$toast.error(e.response.data.error)
+        this.processing = false
+      }
     },
 
     loadChart() {
@@ -399,6 +515,131 @@ export default {
 </script>
 
 <style scoped>
+
+  a.tag-button{
+  display: inline-block;
+  padding: 3px 15px;
+  border-radius:50px;
+  background-color: #F8AE30;
+  color: #141F50;
+  font-size: 0.9em;
+  left: 170px;
+  position: absolute;
+}
+
+a.tag-button:hover{
+  background-color: #141F50;
+  color: #F8AE30;
+}
+
+select {
+  padding: 20px;
+  color: #ffffff99;
+  background: #111a3f;
+  border: solid 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}
+
+#buyCryptoModal .modal-content {
+  background-color: #131c4b;
+  border: dashed 1px #4451ff;
+  box-shadow: 25px 25px 100px #00000044;
+  padding: 0;
+  color: #fff;
+}
+
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+/* button.greyed-btn{
+        font-weight:500;
+        background-color: #f1f1f1;
+        width: inherit!important;
+    } */
+
+#buyCryptoModal .modal-content {
+  background-color: #131c4b;
+  border: dashed 1px #4451ff;
+  box-shadow: 25px 25px 100px #00000044;
+  padding: 0;
+  color: #fff;
+}
+
+#buyCryptoModal .modal-header {
+  margin-bottom: 15px;
+  border: none !important;
+}
+
+#buyCryptoModal .modal-header button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+}
+
+#buyCryptoModal .modal-header h5 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.2em;
+}
+
+#buyCryptoModal .modal-footer {
+  border: none !important;
+}
+
+#buyCryptoModal .modal-footer button {
+  background: #11154b;
+  color: #f6f6f6;
+  border: solid #2832c3;
+  padding: 10px 40px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+#buyCryptoModal .modal-footer button.cancel {
+  border: solid transparent;
+}
+
+p.warn, span.warn, a.warn{
+  font-weight: 700;
+  color: #F8AE30;
+}
+
+label{
+  font-weight: 500;
+  color: #ffffffcb;
+  font-size: 0.8em;;
+}
+
+input {
+  padding: 20px;
+  color: #ffffff99;
+  background: #111a3f;
+  border: solid 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}
+
+a.icon-btn{
+ cursor: pointer;
+}
+
+a.card-option.bordered{
+  border-radius:5px;
+  border: 2px solid #F8AE30;
+  display:block;
+}
+
 @media (max-width: 768px) {
   /* .not-for-mobile{
     display:none;

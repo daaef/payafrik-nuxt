@@ -957,7 +957,9 @@ export const state = () => ({
   activeBiller: {},
   btcData: {},
   ethData: {},
-  supportTickets: []
+  supportTickets: [],
+  btcChartData: [],
+  ethChartData: []
 })
 
 export const mutations = {
@@ -994,6 +996,12 @@ export const mutations = {
   loadEthData (state, data) {
     state.ethData = data
   },
+  loadBTCChartData (state, data) {
+    state.btcChartData = data
+  },
+  loadEthChartData (state, data) {
+    state.ethChartData = data
+  },
   openFunctionModal (state, data) {
     state.canvasClass = data.class
     if (data.wallet && data.wallet !== ''){
@@ -1025,5 +1033,38 @@ export const mutations = {
   },
   selectTicket (state, ticket) {
     state.selectedTicket = ticket
+  },
+}
+
+export const actions = {
+  async getCoinMarketData({commit}) {
+    // this.loadingData = true;
+    try {
+      const coinMarketData = await this.$axios.$get(
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h"
+      );
+      // let btcData = coinMarketData[0];
+      // con ethData = coinMarketData[1];
+
+      let btcSparkline = [];
+      for (let i = 0; i < 50; i++) {
+        btcSparkline.push(this.btcData.sparkline_in_7d.price[i]);
+      }
+
+      let ethSparkline = [];
+      for (let i = 0; i < 50; i++) {
+        ethSparkline.push(this.ethData.sparkline_in_7d.price[i]);
+      }
+
+      loadBTCChartData(btcSparkline)
+      loadEthChartData(ethSparkline)
+
+      loadBTCData(coinMarketData[0])
+      loadEthData(coinMarketData[1])
+
+      // this.loadingData = false;
+    } catch (e) {
+      console.log(e);
+    }
   },
 }

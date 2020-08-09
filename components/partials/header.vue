@@ -5,7 +5,9 @@
         <img src="../../assets/img/logo.png" class="mobile-logo" alt="logo" />
         <span>AfriToken:</span>
         <h3>{{ +userDetails.balance | formatNumber }}</h3>
-        <a class="tag-button" @click="openModal('cardRequestModal')">Request Card</a>
+        <a class="tag-button" @click="openModal('cardRequestModal')"
+          >Request Card</a
+        >
       </div>
       <ul class="nav-links">
         <li class="mr-32">
@@ -32,7 +34,10 @@
         </li>
       </ul>
       <div class="user-account">
-        <a @click="openFunctionModal('profile--active')" data-link-class="profile--active">
+        <a
+          @click="openFunctionModal('profile--active')"
+          data-link-class="profile--active"
+        >
           <img class="mr-12" src="../../assets/img/user.png" alt="user icon" />
           <span>{{ userDetails.username }}</span>
         </a>
@@ -162,32 +167,70 @@
             <div class="container ml-3">
               <div class="row">
                 <div class="col-md-12">
-                  <p>You are about to request for a <span class="warn">Payafrik Smart Card</span>.</p>
-                  <p>with a smart card, you will be able to withdraw your tokens at atm machines and make normal everyday cash transactions.<br>Click on "Request Smart Card" below to complete the request or "Cancel" to cancel</p>
-                  <p class="warn">Please note, 2000 Tokens will be debited from your account</p>
+                  <p>
+                    You are about to request for a
+                    <span class="warn">Payafrik Smart Card</span>.
+                  </p>
+                  <p>
+                    with a smart card, you will be able to withdraw your tokens
+                    at atm machines and make normal everyday cash
+                    transactions.<br />Click on "Request Smart Card" below to
+                    complete the request or "Cancel" to cancel
+                  </p>
+                  <p class="warn">
+                    Please note, 2000 Tokens will be debited from your account
+                  </p>
                   <label>Select card type</label>
                   <div class="row mb-2">
                     <div class="col-3">
-                      <a class="card-option" @click="selectedCard='verve'" :class="[selectedCard === 'verve' ? 'bordered' : '']">
-                        <img src="../../assets/img/verve.svg" alt="">
+                      <a
+                        class="card-option"
+                        @click="selectedCard = 'verve'"
+                        :class="[selectedCard === 'verve' ? 'bordered' : '']"
+                      >
+                        <img src="../../assets/img/verve.svg" alt="" />
                       </a>
                     </div>
                     <div class="col-3">
-                      <a class="card-option" @click="selectedCard='mastercard'" :class="[selectedCard === 'mastercard' ? 'bordered' : '']">
-                        <img src="../../assets/img/mastercard.svg" alt="">
+                      <a
+                        class="card-option"
+                        @click="selectedCard = 'mastercard'"
+                        :class="[
+                          selectedCard === 'mastercard' ? 'bordered' : ''
+                        ]"
+                      >
+                        <img src="../../assets/img/mastercard.svg" alt="" />
                       </a>
                     </div>
                     <div class="col-3">
-                      <a class="card-option" @click="selectedCard='visa'" :class="[selectedCard === 'visa' ? 'bordered' : '']">
-                        <img src="../../assets/img/visa.svg" alt="">
+                      <a
+                        class="card-option"
+                        @click="selectedCard = 'visa'"
+                        :class="[selectedCard === 'visa' ? 'bordered' : '']"
+                      >
+                        <img src="../../assets/img/visa.svg" alt="" />
                       </a>
                     </div>
                   </div>
                   <label>Name on card</label>
-                  <input type="text" class="mb-2" placeholder="your full name">
+                  <input
+                    type="text"
+                    class="mb-2"
+                    placeholder="Your first name"
+                    v-model="firstName"
+                  />
+                   <input
+                    type="text"
+                    class="mb-2"
+                    placeholder="Your last name"
+                    v-model="lastName"
+                  />
 
                   <label>Delivery address</label>
-                  <input type="text" placeholder="Where we'll ship the card">
+                  <input v-model="addressLine1" type="text" class="mb-1" placeholder="Address line 1" />
+                  <input v-model="addressLine2" type="text" class="mb-1" placeholder="Address line 2" />
+                  <input v-model="city" type="text" class="mb-1" placeholder="City" />
+                  <input v-model="country" type="text" class="mb-1" placeholder="Country" />
                 </div>
               </div>
             </div>
@@ -235,7 +278,13 @@ export default {
       baseUrl: process.env.baseUrl,
       profileImage: "../../assets/img/placeholder-profile.jpg",
       processing: false,
-      selectedCard: 'mastercard'
+      selectedCard: "mastercard",
+      firstName: '',
+      lastName: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      country: ''
     };
   },
   computed: {
@@ -260,10 +309,10 @@ export default {
     openSideBar() {
       this.$store.commit("global/toggleSidebar");
     },
-    openFunctionModal(modalActiveClass ) {
+    openFunctionModal(modalActiveClass) {
       let data = {
         class: modalActiveClass
-      }
+      };
       this.$store.commit("global/openFunctionModal", data);
     },
     signOut() {
@@ -285,26 +334,59 @@ export default {
     },
 
     ...mapMutations({
-      toggleTokenModal: "global/toggleTokenModal" ,
-      toggleWithdrawalModal: "global/toggleTokenWithdrawalModal",
+      toggleTokenModal: "global/toggleTokenModal",
+      toggleWithdrawalModal: "global/toggleTokenWithdrawalModal"
     }),
 
     async requestSmartCard() {
-      this.processing = true
-      const payload = {}
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': this.userDetails.token,
+      if (this.firstName === ""){
+        this.$toast.error('Please input your first name');
+        return
       }
-      try{
-        const requestResponse = await this.$axios.$post(this.baseUrl + 'utilities/cards/request-card/', payload, {headers})
-        console.log('request response', requestResponse)
-        this.$toast.success('Card request successful!')
-        this.processing = false
-      } catch(e){
-        console.log(e.response)
-        this.$toast.error(e.response.data.error)
-        this.processing = false
+      if (this.lastName === ""){
+        this.$toast.error('Please input your last name');
+        return
+      }
+      if (this.addressLine1 === ""){
+        this.$toast.error('Please input your delivery address');
+        return
+      }
+      if (this.city === ""){
+        this.$toast.error('Please input your delivery city');
+        return
+      }
+      if (this.country === ""){
+        this.$toast.error('Please input your delivery country');
+        return
+      }
+      this.processing = true;
+      const payload = {
+        first_name: this.first_name,
+        last_name: this.lastName,
+        address_line: this.addressLine1,
+        address_line2: this.addressLine2,
+        address_line3: "",
+        city: this.city,
+        country: this.country,
+        physical_card: true
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: this.userDetails.token
+      };
+      try {
+        const requestResponse = await this.$axios.$post(
+          this.baseUrl + "utilities/cards/request-card/",
+          payload,
+          { headers }
+        );
+        console.log("request response", requestResponse);
+        this.$toast.success("Card request successful!");
+        this.processing = false;
+      } catch (e) {
+        console.log(e.response);
+        this.$toast.error(e.response.data.error);
+        this.processing = false;
       }
     }
   }
@@ -312,32 +394,32 @@ export default {
 </script>
 
 <style scoped>
-ul.nav-links li a{
-    color:#fff !important;
-    text-decoration: none !important;
+ul.nav-links li a {
+  color: #fff !important;
+  text-decoration: none !important;
 }
-a{
+a {
   cursor: pointer !important;
 }
 
 .balance h3 {
-  font-size:1.5em;
+  font-size: 1.5em;
 }
 
-a.tag-button{
+a.tag-button {
   display: inline-block;
   padding: 3px 15px;
-  border-radius:50px;
-  background-color: #F8AE30;
-  color: #141F50;
+  border-radius: 50px;
+  background-color: #f8ae30;
+  color: #141f50;
   font-size: 0.9em;
   left: 170px;
   position: absolute;
 }
 
-a.tag-button:hover{
-  background-color: #141F50;
-  color: #F8AE30;
+a.tag-button:hover {
+  background-color: #141f50;
+  color: #f8ae30;
 }
 
 select {
@@ -438,15 +520,17 @@ select {
   border: solid transparent;
 }
 
-p.warn, span.warn, a.warn{
+p.warn,
+span.warn,
+a.warn {
   font-weight: 700;
-  color: #F8AE30;
+  color: #f8ae30;
 }
 
-label{
+label {
   font-weight: 500;
   color: #ffffffcb;
-  font-size: 0.8em;;
+  font-size: 0.8em;
 }
 
 input {
@@ -459,13 +543,13 @@ input {
   width: 100%;
 }
 
-a.card-option{
-  padding:10px;
+a.card-option {
+  padding: 10px;
 }
 
-a.card-option.bordered{
-  border-radius:5px;
-  border: 2px solid #F8AE30;
-  display:block;
+a.card-option.bordered {
+  border-radius: 5px;
+  border: 2px solid #f8ae30;
+  display: block;
 }
 </style>

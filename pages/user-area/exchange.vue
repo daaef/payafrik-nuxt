@@ -14,71 +14,54 @@
         <form class="w-100">
           <div class="flex flex-between flex-middle w-100">
             <div class="exchange">
-              <span class="muted mb-10 d-block"
+              <!-- <span class="muted mb-10 d-block"
                 >Select currency to exchange</span
-              >
-              <div class="row" style="height: 70px;">
-                <div class="col-1 mr-1">
-                  <a @click="fromCurrency = 'AFK'"
-                    ><img src="../../assets/img/Africoin.png" alt=""
-                  /></a>
+              > -->
+
+              <div class="dropdown coin-options">
+                <a v-if="fromCurrency === 'AFK'" class="coin-option afk dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/Africoin.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >AFK <span class="c-white">Africoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.afk }}</span>
+                </a>
+                <a v-if="fromCurrency === 'BTC'" class="coin-option btc dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/bitcoin.png" alt="" /> 
+                 <label for="exchange-btc"
+                  >BTC <span class="c-white">Bitcoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.btc }}</span>
+                </a>
+                <a v-if="fromCurrency === 'ETH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/eth.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >ETH <span class="c-white">Ethereum</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a v-if="fromCurrency !== 'AFK'" class="dropdown-item afk" @click="fromCurrency = 'AFK'">
+                    <img src="../../assets/img/Africoin.png" alt="" /> 
+                    <label>AFK <span class="c-white">Africoin</span></label>
+                    <span class="rate">{{ dollarRates.afk }}</span>
+                  </a>
+                  <a v-if="fromCurrency !== 'BTC'" class="dropdown-item btc" @click="fromCurrency = 'BTC'">
+                    <img src="../../assets/img/bitcoin.png" alt="" /> 
+                    <label for="exchange-afk">BTC <span class="c-white">Bitcoin</span></label>
+                    <span class="rate">{{ dollarRates.btc }}</span>
+                  </a>
+                  <a v-if="fromCurrency !== 'ETH'" class="dropdown-item eth" @click="fromCurrency = 'ETH'">
+                    <img src="../../assets/img/eth.png" alt="" /> 
+                    <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
+                    <span class="rate">{{ dollarRates.eth }}</span>
+                  </a>
                 </div>
-                <div class="col-1 mr-1">
-                  <a @click="fromCurrency = 'BTC'"
-                    ><img src="../../assets/img/bitcoin.png" alt=""
-                  /></a>
-                </div>
-                <div class="col-1 mr-2">
-                  <a @click="fromCurrency = 'ETH'"
-                    ><img src="../../assets/img/eth.png" alt=""
-                  /></a>
-                </div>
-              </div>
-              <div v-if="fromCurrency === 'AFK'">
-                <img src="../../assets/img/Africoin.png" alt="" />
-                <input
-                  id="exchange-afk"
-                  type="text"
-                  disabled
-                  v-model="dollarRates.afk"
-                />
-                <label for="exchange-afk"
-                  >AFK <span class="c-white">Africoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="fromCurrency === 'BTC'">
-                <img src="../../assets/img/bitcoin.png" alt="" />
-                <input
-                  id="exchange-btc"
-                  type="text"
-                  disabled
-                  placeholder="0.00 BTC | $0.00 USD"
-                  v-model="dollarRates.btc"
-                />
-                <label style="color:#f8ae30" for="exchange-afk"
-                  >BTC <span class="c-white">Bitcoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="fromCurrency === 'ETH'">
-                <img src="../../assets/img/eth.png" alt="" />
-                <input
-                  id="exchange-eth"
-                  type="text"
-                  disabled
-                  placeholder="0.00 ETH | $0.00 USD"
-                  v-model="dollarRates.eth"
-                />
-                <label style="color: #6d76bc" for="exchange-afk"
-                  >ETH <span class="c-white">Ethereum</span></label
-                >
-                <div class="exchange--dropdown"></div>
               </div>
 
               <div class="line--input mt-64 mb-4">
                 <input
-                  type="text"
+                  type="number"
                   :class="{
                     'c-btc': fromCurrency === 'BTC',
                     'c-afk': fromCurrency === 'AFK',
@@ -86,19 +69,21 @@
                   }"
                   placeholder="0.00"
                   v-model="exchangeAmount"
-                  @keydown="checkKeyPress($event)"
+                  @keyup="checkKeyPress($event)"
                 />
                 <span class="wallet--name">{{ fromCurrency }}</span>
               </div>
 
               <div class="sending--amnt flex flex-between">
-                <span class="amount c-white">0.00</span>
+                <span v-if="fromCurrency === 'AFK'" class="amount c-white">0.00</span>
+                <span v-if="fromCurrency === 'BTC'" class="amount c-white">{{ exchangeAmount * btcData.current_price | formatNumber }}</span>
+                <span v-if="fromCurrency === 'ETH'" class="amount c-white">{{ exchangeAmount * ethData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
-              <span class="muted mb-20 d-block"
+              <!-- <span class="muted mb-20 d-block"
                 >Enter the amount of the selected currency you are exchanging
                 above and press enter</span
-              >
+              > -->
             </div>
             <div class="exchange--btn">
               <a @click="swapCurrencies()">
@@ -106,90 +91,76 @@
               </a>
             </div>
             <div class="recieve">
-              <span class="muted mb-10 d-block"
+              <!-- <span class="muted mb-10 d-block"
                 >Select currency to recieve</span
-              >
-              <div class="row" style="height: 70px;">
-                <div class="col-1 mr-1">
-                  <a @click="toCurrency = 'AFK'"
-                    ><img src="../../assets/img/Africoin.png" alt=""
-                  /></a>
+              > -->
+              <div class="dropdown coin-options">
+                <a v-if="toCurrency === 'AFK'" class="coin-option afk dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/Africoin.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >AFK <span class="c-white">Africoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.afk }}</span>
+                </a>
+                <a v-if="toCurrency === 'BTC'" class="coin-option btc dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/bitcoin.png" alt="" /> 
+                 <label for="exchange-btc"
+                  >BTC <span class="c-white">Bitcoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.btc }}</span>
+                </a>
+                <a v-if="toCurrency === 'ETH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/eth.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >ETH <span class="c-white">Ethereum</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a v-if="toCurrency !== 'AFK'" class="dropdown-item afk" @click="toCurrency = 'AFK'">
+                    <img src="../../assets/img/Africoin.png" alt="" /> 
+                    <label>AFK <span class="c-white">Africoin</span></label>
+                    <span class="rate">{{ dollarRates.afk }}</span>
+                  </a>
+                  <a v-if="toCurrency !== 'BTC'" class="dropdown-item btc" @click="toCurrency = 'BTC'">
+                    <img src="../../assets/img/bitcoin.png" alt="" /> 
+                    <label for="exchange-afk">BTC <span class="c-white">Bitcoin</span></label>
+                    <span class="rate">{{ dollarRates.btc }}</span>
+                  </a>
+                  <a v-if="toCurrency !== 'ETH'" class="dropdown-item eth" @click="toCurrency = 'ETH'">
+                    <img src="../../assets/img/eth.png" alt="" /> 
+                    <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
+                    <span class="rate">{{ dollarRates.eth }}</span>
+                  </a>
                 </div>
-                <div class="col-1 mr-1">
-                  <a @click="toCurrency = 'BTC'"
-                    ><img src="../../assets/img/bitcoin.png" alt=""
-                  /></a>
-                </div>
-                <div class="col-1 mr-2">
-                  <a @click="toCurrency = 'ETH'"
-                    ><img src="../../assets/img/eth.png" alt=""
-                  /></a>
-                </div>
-              </div>
-
-              <div v-if="toCurrency === 'AFK'">
-                <img src="../../assets/img/Africoin.png" alt="" />
-                <input
-                  id="exchange-afk"
-                  type="text"
-                  disabled
-                  placeholder="1 AFK = 0.0010457 BTC"
-                />
-                <label style="color: #476efb" for="exchange-afk"
-                  >AFK <span class="c-white">Africoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="toCurrency === 'BTC'">
-                <img src="../../assets/img/bitcoin.png" alt="" />
-                <input
-                  id="exchange-btc"
-                  type="text"
-                  disabled
-                  placeholder="1 BTC = 0.0010457 AFK"
-                />
-                <label style="color:#f8ae30" for="exchange-afk"
-                  >BTC <span class="c-white">Bitcoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="toCurrency === 'ETH'">
-                <img src="../../assets/img/eth.png" alt="" />
-                <input
-                  id="exchange-eth"
-                  type="text"
-                  disabled
-                  placeholder="1 ETH = 0.0010457 BTC"
-                />
-                <label style="color: #6d76bc" for="exchange-afk"
-                  >ETH <span class="c-white">Ethereum</span></label
-                >
-                <div class="exchange--dropdown"></div>
               </div>
 
               <div class="line--input mt-64 mb-4">
                 <input
-                  type="text"
+                  type="number"
                   :class="{
                     'c-btc': toCurrency === 'BTC',
                     'c-afk': toCurrency === 'AFK',
                     'c-eth': toCurrency === 'ETH'
                   }"
                   placeholder="0.00"
-                  v-model="toValue"
+                  v-model="exchangeValue"
                   disabled
                 />
                 <span class="wallet--name">{{ toCurrency }}</span>
               </div>
 
               <div class="sending--amnt flex flex-between">
-                <span class="amount c-white">0.00</span>
+                <!-- <span class="amount c-white">0.00</span> -->
+                <span v-if="toCurrency === 'AFK'" class="amount c-white">{{ exchangeValue * afkDollarRate | formatNumber }}</span>
+                <span v-if="toCurrency === 'BTC'" class="amount c-white">{{ exchangeValue * btcData.current_price | formatNumber }}</span>
+                <span v-if="toCurrency === 'ETH'" class="amount c-white">{{ exchangeValue * ethData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
-              <span class="muted mb-20 d-block"
+              <!-- <span class="muted mb-20 d-block"
                 >Enter the amount of the selected currency you are exchanging
                 above and press enter</span
-              >
+              > -->
             </div>
           </div>
         </form>
@@ -226,7 +197,10 @@
               >
                 {{ exchangeAmount }} {{ fromCurrency }}
               </h2>
-              <span class="small-text c-white">$0.00</span>
+              <!-- <span class="small-text c-white">$0.00</span> -->
+              <span v-if="fromCurrency === 'AFK'" class="small-text c-white">${{ exchangeAmount * afkDollarRate | formatNumber }}</span>
+              <span v-if="fromCurrency === 'BTC'" class="small-text c-white">${{ exchangeAmount * btcData.current_price | formatNumber }}</span>
+              <span v-if="fromCurrency === 'ETH'" class="small-text c-white">${{ exchangeAmount * ethData.current_price | formatNumber }}</span>
             </div>
           </div>
           <div class="arrow--breakdown">
@@ -264,7 +238,10 @@
               >
                 {{ exchangeValue | formatNumberLong }} {{ toCurrency }}
               </h2>
-              <span class="small-text c-white">$0.00</span>
+              <!-- <span class="small-text c-white">$0.00</span> -->
+              <span v-if="fromCurrency === 'AFK'" class="small-text c-white">${{ exchangeValue * afkDollarRate | formatNumber }}</span>
+              <span v-if="fromCurrency === 'BTC'" class="small-text c-white">${{ exchangeValue * btcData.current_price | formatNumber }}</span>
+              <span v-if="fromCurrency === 'ETH'" class="small-text c-white">${{ exchangeValue * ethData.current_price | formatNumber }}</span>
             </div>
           </div>
         </div>
@@ -285,148 +262,116 @@
             <span class="text-right muted mb-10 d-block"
                 >Select currency to exchange</span
               >
-              <div class="row" style="height: 70px;">
-                <div class="col-2 ml-auto">
-                  <a @click="fromCurrency = 'AFK'"
-                    ><img src="../../assets/img/Africoin.png" alt=""
-                  /></a>
+             <div class="dropdown coin-options">
+                <a v-if="fromCurrency === 'AFK'" class="coin-option afk dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/Africoin.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >AFK <span class="c-white">Africoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.afk }}</span>
+                </a>
+                <a v-if="fromCurrency === 'BTC'" class="coin-option btc dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/bitcoin.png" alt="" /> 
+                 <label for="exchange-btc"
+                  >BTC <span class="c-white">Bitcoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.btc }}</span>
+                </a>
+                <a v-if="fromCurrency === 'ETH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/eth.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >ETH <span class="c-white">Ethereum</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a v-if="fromCurrency !== 'AFK'" class="dropdown-item afk" @click="fromCurrency = 'AFK'">
+                    <img src="../../assets/img/Africoin.png" alt="" /> 
+                    <label>AFK <span class="c-white">Africoin</span></label>
+                    <span class="rate">{{ dollarRates.afk }}</span>
+                  </a>
+                  <a v-if="fromCurrency !== 'BTC'" class="dropdown-item btc" @click="fromCurrency = 'BTC'">
+                    <img src="../../assets/img/bitcoin.png" alt="" /> 
+                    <label for="exchange-afk">BTC <span class="c-white">Bitcoin</span></label>
+                    <span class="rate">{{ dollarRates.btc }}</span>
+                  </a>
+                  <a v-if="fromCurrency !== 'ETH'" class="dropdown-item eth" @click="fromCurrency = 'ETH'">
+                    <img src="../../assets/img/eth.png" alt="" /> 
+                    <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
+                    <span class="rate">{{ dollarRates.eth }}</span>
+                  </a>
                 </div>
-                <div class="col-2">
-                  <a @click="fromCurrency = 'BTC'"
-                    ><img src="../../assets/img/bitcoin.png" alt=""
-                  /></a>
-                </div>
-                <div class="col-2">
-                  <a @click="fromCurrency = 'ETH'"
-                    ><img src="../../assets/img/eth.png" alt=""
-                  /></a>
-                </div>
-              </div>
-              <div v-if="fromCurrency === 'AFK'">
-                <img src="../../assets/img/Africoin.png" alt="" />
-                <input
-                  id="exchange-afk"
-                  type="text"
-                  disabled
-                  v-model="dollarRates.afk"
-                />
-                <label style="color: #476efb" for="exchange-afk"
-                  >AFK <span class="c-white">Africoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="fromCurrency === 'BTC'">
-                <img src="../../assets/img/bitcoin.png" alt="" />
-                <input
-                  id="exchange-btc"
-                  type="text"
-                  disabled
-                  placeholder="0.00 BTC | $0.00 USD"
-                  v-model="dollarRates.btc"
-                />
-                <label style="color:#f8ae30" for="exchange-afk"
-                  >BTC <span class="c-white">Bitcoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="fromCurrency === 'ETH'">
-                <img src="../../assets/img/eth.png" alt="" />
-                <input
-                  id="exchange-eth"
-                  type="text"
-                  disabled
-                  placeholder="0.00 ETH | $0.00 USD"
-                  v-model="dollarRates.eth"
-                />
-                <label style="color: #6d76bc" for="exchange-afk"
-                  >ETH <span class="c-white">Ethereum</span></label
-                >
-                <div class="exchange--dropdown"></div>
               </div>
 
             <span class="text-right muted mb-10 mt-3 d-block"
                 >Select currency to recieve</span
               >
-              <div class="row" style="height: 70px;">
-                <div class="col-2 ml-auto text-center">
-                  <a @click="toCurrency = 'AFK'"
-                    ><img src="../../assets/img/Africoin.png" alt=""
-                  /></a>
+              <div class="dropdown coin-options">
+                <a v-if="toCurrency === 'AFK'" class="coin-option afk dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/Africoin.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >AFK <span class="c-white">Africoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.afk }}</span>
+                </a>
+                <a v-if="toCurrency === 'BTC'" class="coin-option btc dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/bitcoin.png" alt="" /> 
+                 <label for="exchange-btc"
+                  >BTC <span class="c-white">Bitcoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.btc }}</span>
+                </a>
+                <a v-if="toCurrency === 'ETH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/eth.png" alt="" /> 
+                 <label for="exchange-afk"
+                  >ETH <span class="c-white">Ethereum</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a v-if="toCurrency !== 'AFK'" class="dropdown-item afk" @click="toCurrency = 'AFK'">
+                    <img src="../../assets/img/Africoin.png" alt="" /> 
+                    <label>AFK <span class="c-white">Africoin</span></label>
+                    <span class="rate">{{ dollarRates.afk }}</span>
+                  </a>
+                  <a v-if="toCurrency !== 'BTC'" class="dropdown-item btc" @click="toCurrency = 'BTC'">
+                    <img src="../../assets/img/bitcoin.png" alt="" /> 
+                    <label for="exchange-afk">BTC <span class="c-white">Bitcoin</span></label>
+                    <span class="rate">{{ dollarRates.btc }}</span>
+                  </a>
+                  <a v-if="toCurrency !== 'ETH'" class="dropdown-item eth" @click="toCurrency = 'ETH'">
+                    <img src="../../assets/img/eth.png" alt="" /> 
+                    <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
+                    <span class="rate">{{ dollarRates.eth }}</span>
+                  </a>
                 </div>
-                <div class="col-2 text-center">
-                  <a @click="toCurrency = 'BTC'"
-                    ><img src="../../assets/img/bitcoin.png" alt=""
-                  /></a>
-                </div>
-                <div class="col-2 text-center">
-                  <a @click="toCurrency = 'ETH'"
-                    ><img class="ml-auto mr-auto" src="../../assets/img/eth.png" alt=""
-                  /></a>
-                </div>
-              </div>
-            <div v-if="toCurrency === 'AFK'">
-                <img src="../../assets/img/Africoin.png" alt="" />
-                <input
-                  id="exchange-afk"
-                  type="text"
-                  disabled
-                  placeholder="1 AFK = 0.0010457 BTC"
-                />
-                <label style="color: #476efb" for="exchange-afk"
-                  >AFK <span class="c-white">Africoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="toCurrency === 'BTC'">
-                <img src="../../assets/img/bitcoin.png" alt="" />
-                <input
-                  id="exchange-btc"
-                  type="text"
-                  disabled
-                  placeholder="1 BTC = 0.0010457 AFK"
-                />
-                <label style="color:#f8ae30" for="exchange-afk"
-                  >BTC <span class="c-white">Bitcoin</span></label
-                >
-                <div class="exchange--dropdown"></div>
-              </div>
-              <div v-if="toCurrency === 'ETH'">
-                <img src="../../assets/img/eth.png" alt="" />
-                <input
-                  id="exchange-eth"
-                  type="text"
-                  disabled
-                  placeholder="1 ETH = 0.0010457 BTC"
-                />
-                <label style="color: #6d76bc" for="exchange-afk"
-                  >ETH <span class="c-white">Ethereum</span></label
-                >
-                <div class="exchange--dropdown"></div>
               </div>
 
             <div class="line--input mt-64 mb-4">
                 <input
-                  type="text"
+                  type="number"
                   :class="{
-                    'c-btc': fromCurrency === 'BTC',
-                    'c-afk': fromCurrency === 'AFK',
-                    'c-eth': fromCurrency === 'ETH'
+                    'c-btc': toCurrency === 'BTC',
+                    'c-afk': toCurrency === 'AFK',
+                    'c-eth': toCurrency === 'ETH'
                   }"
                   placeholder="0.00"
                   v-model="exchangeAmount"
-                  @keydown="checkKeyPress($event)"
+                  @keyup="checkKeyPress($event)"
                 />
                 <span class="wallet--name">{{ fromCurrency }}</span>
               </div>
 
               <div class="sending--amnt flex flex-between">
-                <span class="amount c-white">0.00</span>
+                <span v-if="fromCurrency === 'AFK'" class="amount c-white">{{ exchangeAmount * afkDollarRate | formatNumber }}</span>
+                <span v-if="fromCurrency === 'BTC'" class="amount c-white">{{ exchangeAmount * btcData.current_price | formatNumber }}</span>
+                <span v-if="fromCurrency === 'ETH'" class="amount c-white">{{ exchangeAmount * ethData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
-              <span class="muted mb-20 d-block"
+              <!-- <span class="muted mb-20 d-block"
                 >Enter the amount of the selected currency you are exchanging
                 above and press enter</span
-              >
+              > -->
           </div>
         </form>
 
@@ -442,7 +387,7 @@
           <div class="recieve">
             <div class="line--input mt-64 mb-4">
                 <input
-                  type="text"
+                  type="number"
                   :class="{
                     'c-btc': toCurrency === 'BTC',
                     'c-afk': toCurrency === 'AFK',
@@ -456,13 +401,16 @@
               </div>
 
               <div class="sending--amnt flex flex-between">
-                <span class="amount c-white">0.00</span>
+                <!-- <span class="amount c-white">0.00</span> -->
+                <span v-if="toCurrency === 'AFK'" class="small-text c-white">{{ exchangeValue * afkDollarRate | formatNumber }}</span>
+                <span v-if="toCurrency === 'BTC'" class="small-text c-white">{{ exchangeValue * btcData.current_price | formatNumber }}</span>
+                <span v-if="toCurrency === 'ETH'" class="small-text c-white">{{ exchangeValue * ethData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
-              <span class="muted mb-20 d-block"
+              <!-- <span class="muted mb-20 d-block"
                 >Enter the amount of the selected currency you are exchanging
                 above and press enter</span
-              >
+              > -->
           </div>
         </form>
 
@@ -499,7 +447,10 @@
               >
                 {{ exchangeAmount }} {{ fromCurrency }}
               </h6>
-              <span class="small-text c-white">$0.00</span>
+              <!-- <span class="small-text c-white">$0.00</span> -->
+              <span v-if="fromCurrency === 'AFK'" class="small-text c-white">${{ exchangeAmount * afkDollarRate | formatNumber }}</span>
+              <span v-if="fromCurrency === 'BTC'" class="small-text c-white">${{ exchangeAmount * btcData.current_price | formatNumber }}</span>
+              <span v-if="fromCurrency === 'ETH'" class="small-text c-white">${{ exchangeAmount * ethData.current_price | formatNumber }}</span>
             </div>
           </div>
           <div class="arrow--breakdown">
@@ -537,7 +488,10 @@
               >
                 {{ exchangeValue | formatNumberLong }} {{ toCurrency }}
               </h6>
-              <span class="small-text c-white">$0.00</span>
+              <!-- <span class="small-text c-white">$0.00</span> -->
+              <span v-if="toCurrency === 'AFK'" class="small-text c-white">${{ exchangeValue * afkDollarRate | formatNumber }}</span>
+              <span v-if="toCurrency === 'BTC'" class="small-text c-white">${{ exchangeValue * btcData.current_price | formatNumber }}</span>
+              <span v-if="toCurrency === 'ETH'" class="small-text c-white">${{ exchangeValue * ethData.current_price | formatNumber }}</span>
             </div>
           </div>
         </div>
@@ -568,7 +522,12 @@ export default {
       calculatingRate: false,
       exchanging: false,
       exchangeValue: 0,
-      dollarRates: {}
+      dollarRates: {},
+      nairaValues: {
+        afk: 365,
+        eth: 0,
+        btc: 0
+      }
     };
   },
   computed: {
@@ -576,19 +535,21 @@ export default {
       return this.$store.state.global.authenticatedUser;
     },
     btcData() {
-      return this.$store.state.global.btcData;
+      return this.$store.state.btcData;
     },
     ethData() {
-      return this.$store.state.global.ethData;
+      return this.$store.state.ethData;
     }
   },
   created () {
     this.dollarRates =  {
-        afk: '1 AFK | $1',
-        btc: '1 BTC | $' + this.btcData.current_price,
-        eth: '1 ETH | $'  + this.btcData.current_price 
-      }
-      console.log('BTCDATA++',this.btcData)
+      afk: '1 AFK | $1',
+      btc: '1 BTC | $' + this.btcData.current_price,
+      eth: '1 ETH | $'  + this.ethData.current_price 
+    }
+    console.log('BTCDATA++',this.btcData)
+
+    this.getNairaValues()
   },
   methods: {
     closeSideBar() {
@@ -596,17 +557,42 @@ export default {
     },
 
     checkKeyPress(event) {
-      if(event.keyCode==13) this.calculateRates();
+      if (event.keyCode !==13 && event.keyCode !==8) {
+        this.calculateRates();
+      }
+    },
+
+    async getNairaValues() {
+      this.nairaValues.btc = await this.getExchangeRate('BTC')
+      this.nairaValues.eth = await this.getExchangeRate('ETH')
     },
 
     async calculateRates () {
-      this.calculatingRate = true
+      // this.calculatingRate = true
       let rate = 0
-      const fromNairaValue = await this.getExchangeRate(this.fromCurrency)
-      const toNairaValue = await this.getExchangeRate(this.toCurrency)
+      let fromNairaValue = 0 
+      let toNairaValue = 0
+
+      if (this.fromCurrency === 'ETH'){
+        fromNairaValue = this.nairaValues.eth
+      } else if (this.fromCurrency === 'BTC') {
+        fromNairaValue = this.nairaValues.btc
+      } else if (this.fromCurrency === 'AFK') {
+        fromNairaValue = fromNairaValue.afk
+      }
+
+      if (this.toCurrency === 'ETH'){
+        toNairaValue = this.nairaValues.eth
+      } else if (this.toCurrency === 'BTC') {
+        toNairaValue = this.nairaValues.btc
+      } else if (this.toCurrency === 'AFK') {
+        toNairaValue = fromNairaValue.afk
+      }
+
       rate = (+fromNairaValue * +this.exchangeAmount) / toNairaValue
       this.exchangeValue = rate
-      this.calculatingRate = false
+      // this.calculatingRate = false
+      console.log(this.rate)
     },
 
     async getExchangeRate(currency) {
@@ -645,8 +631,8 @@ export default {
       this.exchanging = true
       const payload = {
         amount: this.exchangeAmount,
-        buying_wallet: this.fromCurrency,
-        selling_wallet: this.toCurrency
+        from_currency: this.fromCurrency,
+        to_currency: this.toCurrency
       };
 
       const headers = {
@@ -656,13 +642,13 @@ export default {
 
       try {
         const response = await this.$axios.$post(
-          this.baseUrl + "exchange/barter/buy/",
+          this.baseUrl + "exchange/barter/swap/",
           payload,
           { headers }
         );
         this.exchanging = false
         console.log(response)
-        this.$toast.success(response.data)
+        this.$toast.success(response.msg)
       } catch (e) {
         console.log(e.response);
         this.$toast.error(e.response.data.detail);
@@ -683,9 +669,107 @@ export default {
 };
 </script>
 <style scoped>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 a{
   cursor:pointer;
 }
+
+.coin-option{
+  border-radius: 10px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  border: 2px solid;
+  width:100%;
+  display:block;
+}
+
+.coin-option span.rate{
+  color: #ffffffaf;
+  display: inline-block;;
+  margin-top: 10px;
+  margin-left: 35px;
+  font-size: 12px;
+}
+
+.coin-option .dropdown-toggle::after {
+  /* display: inline-block; */
+  margin-left: .255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+  float: right;
+  margin-top: 10px;
+}
+
+.coin-option img {
+  margin-top: -3px;
+}
+
+.coin-option.btc{
+  border-color: #f8ae30;
+}
+
+.coin-option.btc label, .dropdown-item.btc label{
+  color: #f8ae30;
+}
+
+.coin-option.eth{
+  border-color: #6d76bc;
+}
+
+.coin-option.eth label, .dropdown-item.eth label{
+  color: #6d76bc
+}
+
+.coin-option.afk{
+  border-color: #476efb;
+}
+
+.coin-option.afk label,  .dropdown-item.eth label{
+  color: #476efb
+}
+
+.dropdown.coin-options .dropdown-menu {
+  width:100%;
+  padding:15px;
+  background-color: #0b1a4d;
+}
+
+.dropdown-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: transparent;
+  display: block;
+  position: relative;
+}
+
+.dropdown-item label {
+  font-size: 13px;
+}
+
+.dropdown-item span.rate {
+  font-size: 12px;
+  margin-top: 20px;
+  display:block;
+  margin-left: 40px;
+}
+
 .exchange--content {
   height: inherit !important;
 }
