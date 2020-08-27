@@ -149,7 +149,7 @@ export default {
   },
   computed: {
     userDetails () {
-        return this.$store.state.global.authenticatedUser
+        return this.$store.state.authenticatedUser
     },
     reference(){
         let text = "";
@@ -168,7 +168,7 @@ export default {
       close: function(){
           console.log("Payment closed")
       },
-      async getUserDetails(){
+    async getUserDetails(){
       const headers = {
         'Content-Type': 'application/json',
         'Authorization': this.userDetails.token,
@@ -203,7 +203,7 @@ export default {
   },
   beforeMount(){
     this.closeSideBar()
-    this.getUserDetails()
+    // this.getUserDetails()
   }
 }
 

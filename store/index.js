@@ -957,9 +957,13 @@ export const state = () => ({
   activeBiller: {},
   btcData: {},
   ethData: {},
+  litecoinData: {},
+  dashData: {},
   supportTickets: [],
   btcChartData: [],
-  ethChartData: []
+  ethChartData: [],
+  litecoinChartData: [],
+  dashChartData: []
 })
 
 export const mutations = {
@@ -996,11 +1000,23 @@ export const mutations = {
   loadEthData (state, data) {
     state.ethData = data
   },
+  loadLitecoinData (state, data) {
+    state.litecoinData = data
+  },
+  loadDashData (state, data) {
+    state.dashData = data
+  },
   loadBTCChartData (state, data) {
     state.btcChartData = data
   },
   loadEthChartData (state, data) {
     state.ethChartData = data
+  },
+  loadLitecoinChartData (state, data) {
+    state.litecoinChartData = data
+  },
+  loadDashChartData (state, data) {
+    state.dashChartData = data
   },
   openFunctionModal (state, data) {
     state.canvasClass = data.class
@@ -1038,33 +1054,60 @@ export const mutations = {
 
 export const actions = {
   async getCoinMarketData({commit}) {
-    // this.loadingData = true;
     try {
       const coinMarketData = await this.$axios.$get(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h"
       );
-      // let btcData = coinMarketData[0];
-      // con ethData = coinMarketData[1];
-
       let btcSparkline = [];
       for (let i = 0; i < 50; i++) {
         btcSparkline.push(coinMarketData[0].sparkline_in_7d.price[i]);
       }
-
       let ethSparkline = [];
       for (let i = 0; i < 50; i++) {
         ethSparkline.push(coinMarketData[1].sparkline_in_7d.price[i]);
       }
-
+      let litecoinSparkline = [];
+      for (let i = 0; i < 50; i++) {
+        litecoinSparkline.push(coinMarketData[8].sparkline_in_7d.price[i]);
+      }
+      let dashSparkline = [];
+      for (let i = 0; i < 50; i++) {
+        dashSparkline.push(coinMarketData[25].sparkline_in_7d.price[i]);
+      }
       commit('loadBTCChartData', btcSparkline)
       commit('loadEthChartData', ethSparkline)
+      commit('loadLitecoinChartData', litecoinSparkline)
+      commit('loadDashChartData', dashSparkline)
 
       commit('loadBTCData', coinMarketData[0])
       commit('loadEthData', coinMarketData[1])
+      commit('loadLitecoinData', coinMarketData[8])
+      commit('loadDashData', coinMarketData[25])
 
       // this.loadingData = false;
     } catch (e) {
       console.log(e);
+    }
+  },
+
+  async getUserDetails({commit}) {
+    if (!this.$cookies.get('userdetails')){
+      return
+    }
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: this.$cookies.get('userdetails').token
+    };
+    try {
+      const updatedUserDetails = await this.$axios.$get(
+        process.env.baseUrl + "auth/user/profile",
+        { headers }
+      );
+      updatedUserDetails.token = this.$cookies.get('userdetails').token;
+      console.log("updated user =====>", updatedUserDetails);
+      commit('authenticateUser', updatedUserDetails)
+    } catch (e) {
+      console.log(e.response);
     }
   },
 }

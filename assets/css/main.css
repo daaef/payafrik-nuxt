@@ -793,6 +793,12 @@ ul {
 .c-eth {
   color: #50599c;
 }
+.c-dash {
+  color: #fff;
+}
+.c-ltc {
+  color: #a5a5a5;
+}
 .light {
   font-family: "Avenir Light", sans-serif;
 }
@@ -1000,6 +1006,39 @@ form div label {
   right: 0;
   font-size: 1.03rem;
 }
+
+.line--input input.c-dash::placeholder {
+  color: #fff;
+  font-size: 1.3rem;
+}
+.line--input input.c-dash {
+  border-bottom: solid #fff 2px !important;
+  color: #fff;
+}
+.line--input input.c-dash ~ .wallet--name {
+  color: #fff;
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  font-size: 1.03rem;
+}
+
+.line--input input.c-ltc::placeholder {
+  color: #a5a5a5;
+  font-size: 1.3rem;
+}
+.line--input input.c-ltc {
+  border-bottom: solid #a5a5a5 2px !important;
+  color: #a5a5a5;
+}
+.line--input input.c-ltc ~ .wallet--name {
+  color: #a5a5a5;
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  font-size: 1.03rem;
+}
+
 .line--input input.c-btc::placeholder {
   color: #f98e12;
   font-size: 1.3rem;
@@ -2879,6 +2918,12 @@ aside .links--and--logo:after {
 }
 .wallet-sidebar .w-active .eth {
   color: #50599c;
+}
+.wallet-sidebar .w-active .ltc {
+  color: #a5a5a5;
+}
+.wallet-sidebar .w-active .dash {
+  color: #fff;
 }
 .wallet-content {
   padding: 10px 20px;

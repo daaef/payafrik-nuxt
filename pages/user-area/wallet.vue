@@ -33,6 +33,7 @@
                     <span class="muted w-100 text-right d-block">0 ETH</span>
                   </a>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -46,7 +47,7 @@
                 <span class="d-block afk am-type mb-8 text-right bold w-title"
                   >Africoin</span
                 >
-                <span class="muted w-100 text-right d-block">0 AFK</span>
+                <span class="muted w-100 text-right d-block">{{ userDetails.afk_balance | formatNumberLong }} AFK</span>
               </a>
             </li>
             <li class="mt-20 mb-20" :class="[ activeWallet === 'btc' ?  'w-active' : '' ]">
@@ -54,7 +55,7 @@
                 <span class="d-block btc am-type mb-8 text-right bold w-title"
                   >Bitcoin</span
                 >
-                <span class="muted w-100 text-right d-block">0 BTC</span>
+                <span class="muted w-100 text-right d-block">{{ userDetails.btc_balance | formatNumberLong }} BTC</span>
               </a>
             </li>
             <li class="mt-20 mb-20" :class="[ activeWallet === 'eth' ?  'w-active' : '' ]">
@@ -62,7 +63,23 @@
                 <span class="d-block eth am-type mb-8 text-right bold w-title"
                   >Ethereum</span
                 >
-                <span class="muted w-100 text-right d-block">0 ETH</span>
+                <span class="muted w-100 text-right d-block">{{ userDetails.eth_balance | formatNumberLong }} ETH</span>
+              </a>
+            </li>
+            <li class="mt-20 mb-20" :class="[ activeWallet === 'ltc' ?  'w-active' : '' ]">
+              <a @click="changeWallet('ltc')">
+                <span class="d-block ltc am-type mb-8 text-right bold w-title"
+                  >LiteCoin</span
+                >
+                <span class="muted w-100 text-right d-block">{{ userDetails.ltc_balance | formatNumberLong }} LTC</span>
+              </a>
+            </li>
+            <li class="mt-20 mb-20" :class="[ activeWallet === 'dash' ?  'w-active' : '' ]">
+              <a @click="changeWallet('dash')">
+                <span class="d-block dash am-type mb-8 text-right bold w-title"
+                  >Dash</span
+                >
+                <span class="muted w-100 text-right d-block">{{ userDetails.dash_balance | formatNumberLong }} DASH</span>
               </a>
             </li>
             <!-- <li class="mt-40 mb-20">
@@ -257,6 +274,131 @@
             </div>
           </div>
         </div>
+
+        <div class="wallet-content w-ltc" v-if="activeWallet === 'ltc'">
+          <div class="wallet-description not-for-mobile c-white flex h-100">
+            <p>
+              <span class="uppercase wall-desc d-block mb-4">Description</span>
+              <span class="small-text"
+                >PayAfrik offers a cryptocurrency wallet with which users can
+                accept cryptocurrencies for services rendered & pay with
+                cryptocurrencies for services received. The PayAfrik wallet can
+                receive and send value anywhere.</span
+              >
+            </p>
+          </div>
+
+          <div class="ltc-wallet">
+            <div class="w-100">
+              <div class="w-100 text-center">
+                <img height="40" src="../../assets/img/litecoin.png" style="width:35px" alt="" />
+                <h2 class="c-d-eth mt-8">
+                  <span class="large-text">{{ +userDetails.ltc_balance | formatNumberLong }}</span>LTC
+                </h2>
+                <h3 class="c-white light">
+                  <span class="small-text mr-4">$</span>{{ +userDetails.ltc_balance * litecoinData.current_price | formatNumber }} USD
+                </h3>
+              </div>
+              <div class="wallet-btns flex flex-center flex-wrap w-100 mt-20">
+                <button
+                  class="normal-btn eth-bordered mr-20"
+                  data-link-class="wallet-modal-active"
+                  data-modal="wallet--send"
+                  @click="openFunctionModal('wallet-modal-active', 'send', 'ltc')"
+                >
+                  Send
+                </button>
+                <button
+                @click="openFunctionModal('wallet-modal-active', 'receive', 'ltc')"
+                  class="normal-btn eth-bordered mr-20"
+                  data-link-class="wallet-modal-active"
+                  data-modal="wallet--recieve"
+                >
+                  Recieve
+                </button>
+                <a @click="openModal('buyCryptoModal')" class="icon-btn">
+                  <img
+                    src="../../assets/img/exchange-icon.png"
+                    height="35"
+                    alt=""
+                  />
+                </a>
+              </div>
+              <div class="wallet-chart">
+                <p class="uppercase c-white small-text mt-20 mb-12">
+                  Price Chart
+                </p>
+                <h2 class="light c-white">${{litecoinData.current_price | formatNumber}}.00</h2>
+                <p class="small-text muted">1 LTC</p>
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="wallet-content w-dash" v-if="activeWallet === 'dash'">
+          <div class="wallet-description not-for-mobile c-white flex h-100">
+            <p>
+              <span class="uppercase wall-desc d-block mb-4">Description</span>
+              <span class="small-text"
+                >PayAfrik offers a cryptocurrency wallet with which users can
+                accept cryptocurrencies for services rendered & pay with
+                cryptocurrencies for services received. The PayAfrik wallet can
+                receive and send value anywhere.</span
+              >
+            </p>
+          </div>
+
+          <div class="dash-wallet">
+            <div class="w-100">
+              <div class="w-100 text-center">
+                <img height="40" src="../../assets/img/dash.png" style="width:35px" alt="" />
+                <h2 class="c-d-eth mt-8">
+                  <span class="large-text">{{ +userDetails.dash_balance | formatNumberLong }}</span>LTC
+                </h2>
+                <h3 class="c-white light">
+                  <span class="small-text mr-4">$</span>{{ +userDetails.dash_balance * dashData.current_price | formatNumber }} USD
+                </h3>
+              </div>
+              <div class="wallet-btns flex flex-center flex-wrap w-100 mt-20">
+                <button
+                  class="normal-btn eth-bordered mr-20"
+                  data-link-class="wallet-modal-active"
+                  data-modal="wallet--send"
+                  @click="openFunctionModal('wallet-modal-active', 'send', 'dash')"
+                >
+                  Send
+                </button>
+                <button
+                @click="openFunctionModal('wallet-modal-active', 'receive', 'dash')"
+                  class="normal-btn eth-bordered mr-20"
+                  data-link-class="wallet-modal-active"
+                  data-modal="wallet--recieve"
+                >
+                  Recieve
+                </button>
+                <a @click="openModal('buyCryptoModal')" class="icon-btn">
+                  <img
+                    src="../../assets/img/exchange-icon.png"
+                    height="35"
+                    alt=""
+                  />
+                </a>
+              </div>
+              <div class="wallet-chart">
+                <p class="uppercase c-white small-text mt-20 mb-12">
+                  Price Chart
+                </p>
+                <h2 class="light c-white">${{dashData.current_price | formatNumber}}.00</h2>
+                <p class="small-text muted">1 DASH</p>
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
 
@@ -355,13 +497,19 @@ export default {
   },
   computed: {
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     },
     btcData() {
-      return this.$store.state.global.btcData;
+      return this.$store.state.btcData;
     },
     ethData() {
-      return this.$store.state.global.ethData;
+      return this.$store.state.ethData;
+    },
+    litecoinData() {
+      return this.$store.state.litecoinData;
+    },
+    dashData() {
+      return this.$store.state.dashData;
     }
   },
   
@@ -645,11 +793,11 @@ a.card-option.bordered{
     display:none;
   } */
 
-  .w-afk, .w-eth, .w-btc, .wallet-chart{
+  .w-afk, .w-eth, .w-btc, .w-ltc, .w-dash .wallet-chart{
     width: 100%
   }
 
-  .afk-wallet, .btc-wallet, .eth-wallet{
+  .afk-wallet, .btc-wallet, .eth-wallet, .dash-wallet, .ltc-wallet{
     margin:auto;
   }
 }

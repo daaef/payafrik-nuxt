@@ -51,14 +51,25 @@
               Transactions
             </nuxt-link>
           </li>
+          <li>
+            <nuxt-link to="/user-area/buy-crypto" active-class="active-link">
+              <!-- <img class="mr-20" src="../../assets/img/mart.png" alt="" /> -->
+              <img
+                class="mr-20"
+                src="../../assets/img/side-wallet.png"
+                alt=""
+              />
+              Buy Crypto
+            </nuxt-link>
+          </li>
         </ul>
       </div>
       <ul class="main-links">
         <li>
-          <a href="">
-            <img class="mr-20" src="../../assets/img/setting.png" alt="" />
-            Setting
-          </a>
+          <nuxt-link to="/user-area/support" active-class="active-link">
+            <img class="mr-20" src="../../assets/img/headset-solid.svg" style="width:28px;" alt="" />
+            Support
+          </nuxt-link>
         </li>
         <li>
           <a @click="signOut()">
@@ -391,7 +402,7 @@ export default {
       return this.$store.state.global.sidebarClosed;
     },
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     }
   },
   mounted() {
@@ -437,7 +448,7 @@ export default {
         );
         this.$toast.success(transferResponse.success);
         this.closeModal("afkTransferModal");
-        this.getUserDetails();
+        // this.getUserDetails();
       } catch (e) {
         this.transferringAfk = false;
         // this.$toast.error(e.response.data.detail)
@@ -583,6 +594,16 @@ aside ul li a {
 aside ul li a.active-link{
   text-decoration: none !important;
   background-color: #162655;
+}
+
+.links--and--logo ul li a{
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+ul.main-links li a{
+  padding-top:5px;
+  padding-bottom: 5px;
 }
 /* .profile-picture {
   height: 40px;

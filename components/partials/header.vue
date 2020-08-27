@@ -185,8 +185,8 @@
                     <div class="col-3">
                       <a
                         class="card-option"
-                        @click="selectedCard = 'verve'"
-                        :class="[selectedCard === 'verve' ? 'bordered' : '']"
+                        @click="selectedCard = 'VERVE'"
+                        :class="[selectedCard === 'VERVE' ? 'bordered' : '']"
                       >
                         <img src="../../assets/img/verve.svg" alt="" />
                       </a>
@@ -194,9 +194,9 @@
                     <div class="col-3">
                       <a
                         class="card-option"
-                        @click="selectedCard = 'mastercard'"
+                        @click="selectedCard = 'MASTERCARD'"
                         :class="[
-                          selectedCard === 'mastercard' ? 'bordered' : ''
+                          selectedCard === 'MASTERCARD' ? 'bordered' : ''
                         ]"
                       >
                         <img src="../../assets/img/mastercard.svg" alt="" />
@@ -205,8 +205,8 @@
                     <div class="col-3">
                       <a
                         class="card-option"
-                        @click="selectedCard = 'visa'"
-                        :class="[selectedCard === 'visa' ? 'bordered' : '']"
+                        @click="selectedCard = 'VISA'"
+                        :class="[selectedCard === 'VISA' ? 'bordered' : '']"
                       >
                         <img src="../../assets/img/visa.svg" alt="" />
                       </a>
@@ -278,7 +278,7 @@ export default {
       baseUrl: process.env.baseUrl,
       profileImage: "../../assets/img/placeholder-profile.jpg",
       processing: false,
-      selectedCard: "mastercard",
+      selectedCard: "MASTERCARD",
       firstName: '',
       lastName: '',
       addressLine1: '',
@@ -298,7 +298,7 @@ export default {
       return this.$store.state.global.sidebarClosed;
     },
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     }
   },
   methods: {
@@ -306,15 +306,18 @@ export default {
       $("#" + modalId).modal("show");
       $(".modal-backdrop").hide();
     },
+
     openSideBar() {
       this.$store.commit("global/toggleSidebar");
     },
+    
     openFunctionModal(modalActiveClass) {
       let data = {
         class: modalActiveClass
       };
       this.$store.commit("global/openFunctionModal", data);
     },
+    
     signOut() {
       this.$cookies.removeAll();
       this.$router.push("/login");
@@ -361,14 +364,14 @@ export default {
       }
       this.processing = true;
       const payload = {
-        first_name: this.first_name,
+        first_name: this.firstName,
         last_name: this.lastName,
         address_line: this.addressLine1,
         address_line2: this.addressLine2,
         address_line3: "",
         city: this.city,
         country: this.country,
-        physical_card: true
+        card_type: this.selectedCard
       };
       const headers = {
         "Content-Type": "application/json",

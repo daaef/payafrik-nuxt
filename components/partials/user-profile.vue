@@ -154,7 +154,7 @@
                     </div>
                     <div>
                       <a
-                      @click="openModal('uploadModal', 'SELFIE', 'FRONT' )"
+                      @click="openModal('uploadModal', 'KYC-SELFIE', 'FRONT' )"
                         v-if="!userDetails.kyc_selfie || userDetails.kyc_selfie === ''"
                         class="k+"
                       >
@@ -330,7 +330,7 @@ export default {
   },
   computed: {
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     },
     activeWalletModal() {
       return this.$store.state.global.activeWalletModal;
@@ -435,7 +435,8 @@ export default {
         );
         console.log("Edit Response", signupResponse);
         this.$toast.success("Profile information updated successfully");
-        this.getUserDetails()
+        // this.getUserDetails()
+        await store.dispatch('getUserDetails')
         this.processing = false;
       } catch (e) {
         console.log(e.response);
@@ -458,6 +459,12 @@ export default {
         updatedUserDetails.token = this.userDetails.token;
         console.log("updated user =====>", updatedUserDetails);
         this.authenticate(updatedUserDetails);
+        this.firstname = this.userDetails.first_name;
+        this.lastname = this.userDetails.last_name;
+        this.username = this.userDetails.username;
+        this.phone = this.userDetails.phone;
+        this.email = this.userDetails.email;
+        this.dob = this.userDetails.dob;
       } catch (e) {
         this.$toast.error(e.response);
         this.importingWallet = false;

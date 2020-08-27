@@ -164,6 +164,9 @@
                   <p class="authhint text-center">
                     Your PIN must be 4 digits and contain only numbers
                   </p>
+                  <p class="authhint text-center">
+                    Need to confirm your phone number? <nuxt-link to="confirmation">Click here</nuxt-link>
+                  </p>
                   </div>
   
                   <p class="authhint text-center">
@@ -334,11 +337,12 @@ export default {
           payload,
           { headers }
         );
+        this.$cookies.set("signuptoken", signupResponse.data.token)
         console.log("Signup Response", signupResponse);
         this.$router.push("/confirmation");
       } catch (e) {
-        console.log(JSON.stringify(e));
-        this.$toast.error(e.message);
+        console.log(e.response);
+        this.$toast.error(e.response.data.msg);
         this.processing = false;
       }
     }

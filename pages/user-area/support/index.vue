@@ -78,7 +78,7 @@
                         placeholder="The ticket subject"
                     />
                     <label>Ticket Category</label>
-                    <select v-model="newTicket.caegory">
+                    <select v-model="newTicket.category">
                       <option value="">--Select Category--</option>
                       <option value="COMPLAINT">Complaint</option>
                       <option value="BUG">Bug</option>
@@ -145,18 +145,23 @@ export default {
       },
       tickets: [],
       creatingTicket: false,
-      newTicket: {}
+      newTicket: {
+        category: ''
+      }
     };
   },
   computed: {
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     }
   },
   methods: {
     openModal(modalId) {
       $("#" + modalId).modal("show");
       $(".modal-backdrop").hide();
+    },
+    closeModal(modalId) {
+      $("#" + modalId).modal("hide");
     },
     formatDate(date) {
       var d = new Date(date),
@@ -198,7 +203,7 @@ export default {
         this.ticketsPagination.totalRecords = ticketsResponse.count;
         this.loadingTickets = false;
       } catch (e) {
-        this.$toast.error(e.response);
+        this.$toast.error(e.response.data.detail);
         console.log(e.response);
         this.loadingTickets = false;
       }

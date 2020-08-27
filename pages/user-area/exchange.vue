@@ -40,6 +40,20 @@
                 </label>
                 <span class="rate">{{ dollarRates.eth }}</span>
                 </a>
+                <a v-if="fromCurrency === 'LTC'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/litecoin.png" style="width:35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >LTC <span class="c-white">Litecoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
+                <a v-if="fromCurrency === 'DASH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/dash.png" style="width:35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >Dash <span class="c-white">Dash</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a v-if="fromCurrency !== 'AFK'" class="dropdown-item afk" @click="fromCurrency = 'AFK'">
                     <img src="../../assets/img/Africoin.png" alt="" /> 
@@ -56,6 +70,16 @@
                     <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
                     <span class="rate">{{ dollarRates.eth }}</span>
                   </a>
+                  <a v-if="fromCurrency !== 'LTC'" class="dropdown-item eth" @click="fromCurrency = 'LTC'">
+                    <img src="../../assets/img/litecoin.png" style="width:35px" alt="" /> 
+                    <label for="exchange-afk">LTC <span class="c-white">Litecoin</span></label>
+                    <span class="rate">{{ dollarRates.ltc }}</span>
+                  </a>
+                  <a v-if="fromCurrency !== 'DASH'" class="dropdown-item eth" @click="fromCurrency = 'DASH'">
+                    <img src="../../assets/img/dash.png" style="width:35px" alt="" /> 
+                    <label for="exchange-afk">DASH <span class="c-white">Dash</span></label>
+                    <span class="rate">{{ dollarRates.dash }}</span>
+                  </a>
                 </div>
               </div>
 
@@ -65,7 +89,9 @@
                   :class="{
                     'c-btc': fromCurrency === 'BTC',
                     'c-afk': fromCurrency === 'AFK',
-                    'c-eth': fromCurrency === 'ETH'
+                    'c-eth': fromCurrency === 'ETH',
+                    'c-ltc': fromCurrency === 'LTC',
+                    'c-dash': fromCurrency === 'DASH'
                   }"
                   placeholder="0.00"
                   v-model="exchangeAmount"
@@ -78,6 +104,8 @@
                 <span v-if="fromCurrency === 'AFK'" class="amount c-white">0.00</span>
                 <span v-if="fromCurrency === 'BTC'" class="amount c-white">{{ exchangeAmount * btcData.current_price | formatNumber }}</span>
                 <span v-if="fromCurrency === 'ETH'" class="amount c-white">{{ exchangeAmount * ethData.current_price | formatNumber }}</span>
+                <span v-if="fromCurrency === 'LTC'" class="amount c-white">{{ exchangeAmount * litecoinData.current_price | formatNumber }}</span>
+                <span v-if="fromCurrency === 'DASH'" class="amount c-white">{{ exchangeAmount * dashData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
               <!-- <span class="muted mb-20 d-block"
@@ -116,6 +144,20 @@
                 </label>
                 <span class="rate">{{ dollarRates.eth }}</span>
                 </a>
+                 <a v-if="toCurrency === 'LTC'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/litecoin.png" style="width:35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >LTC <span class="c-white">Litecoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
+                <a v-if="toCurrency === 'DASH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/dash.png" style="width:35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >Dash <span class="c-white">Dash</span>
+                </label>
+                <span class="rate">{{ dollarRates.eth }}</span>
+                </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a v-if="toCurrency !== 'AFK'" class="dropdown-item afk" @click="toCurrency = 'AFK'">
                     <img src="../../assets/img/Africoin.png" alt="" /> 
@@ -132,6 +174,16 @@
                     <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
                     <span class="rate">{{ dollarRates.eth }}</span>
                   </a>
+                  <a v-if="toCurrency !== 'LTC'" class="dropdown-item eth" @click="toCurrency = 'LTC'">
+                    <img src="../../assets/img/litecoin.png" style="width:35px" alt="" /> 
+                    <label for="exchange-afk">LTC <span class="c-white">Litecoin</span></label>
+                    <span class="rate">{{ dollarRates.ltc }}</span>
+                  </a>
+                  <a v-if="toCurrency !== 'DASH'" class="dropdown-item eth" @click="toCurrency = 'DASH'">
+                    <img src="../../assets/img/dash.png" style="width:35px" alt="" /> 
+                    <label for="exchange-afk">DASH <span class="c-white">Dash</span></label>
+                    <span class="rate">{{ dollarRates.dash }}</span>
+                  </a>
                 </div>
               </div>
 
@@ -141,7 +193,9 @@
                   :class="{
                     'c-btc': toCurrency === 'BTC',
                     'c-afk': toCurrency === 'AFK',
-                    'c-eth': toCurrency === 'ETH'
+                    'c-eth': toCurrency === 'ETH',
+                    'c-ltc': toCurrency === 'LTC',
+                    'c-dash': toCurrency === 'DASH'
                   }"
                   placeholder="0.00"
                   v-model="exchangeValue"
@@ -155,6 +209,8 @@
                 <span v-if="toCurrency === 'AFK'" class="amount c-white">{{ exchangeValue * afkDollarRate | formatNumber }}</span>
                 <span v-if="toCurrency === 'BTC'" class="amount c-white">{{ exchangeValue * btcData.current_price | formatNumber }}</span>
                 <span v-if="toCurrency === 'ETH'" class="amount c-white">{{ exchangeValue * ethData.current_price | formatNumber }}</span>
+                <span v-if="toCurrency === 'LTC'" class="amount c-white">{{ exchangeValue * ethData.current_price | formatNumber }}</span>
+                <span v-if="toCurrency === 'DASH'" class="amount c-white">{{ exchangeValue * ethData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
               <!-- <span class="muted mb-20 d-block"
@@ -185,6 +241,20 @@
                 height="50"
                 alt=""
               />
+              <img
+                v-if="fromCurrency === 'LTC'"
+                src="../../assets/img/litecoin.png"
+                height="50"
+                style="width: 35px"
+                alt=""
+              />
+              <img
+                v-if="fromCurrency === 'DASH'"
+                src="../../assets/img/dash.png"
+                height="50"
+                style="width:35px"
+                alt=""
+              />
             </div>
             <div>
               <span class="c-white mb-4 d-block">You are exchanging</span>
@@ -192,7 +262,9 @@
                 :class="{
                   'c-btc': fromCurrency === 'BTC',
                   'c-afk': fromCurrency === 'AFK',
-                  'c-eth': fromCurrency === 'ETH'
+                  'c-eth': fromCurrency === 'ETH',
+                  'c-ltc': fromCurrency === 'LTC',
+                  'c-dash': fromCurrency === 'DASH'
                 }"
               >
                 {{ exchangeAmount }} {{ fromCurrency }}
@@ -201,6 +273,8 @@
               <span v-if="fromCurrency === 'AFK'" class="small-text c-white">${{ exchangeAmount * afkDollarRate | formatNumber }}</span>
               <span v-if="fromCurrency === 'BTC'" class="small-text c-white">${{ exchangeAmount * btcData.current_price | formatNumber }}</span>
               <span v-if="fromCurrency === 'ETH'" class="small-text c-white">${{ exchangeAmount * ethData.current_price | formatNumber }}</span>
+              <span v-if="fromCurrency === 'LTC'" class="small-text c-white">${{ exchangeAmount * litecoinData.current_price | formatNumber }}</span>
+              <span v-if="fromCurrency === 'DASH'" class="small-text c-white">${{ exchangeAmount * dashData.current_price | formatNumber }}</span>
             </div>
           </div>
           <div class="arrow--breakdown">
@@ -226,6 +300,20 @@
                 height="50"
                 alt=""
               />
+               <img
+                v-if="toCurrency === 'LTC'"
+                src="../../assets/img/litecoin.png"
+                height="50"
+                style="width: 35px"
+                alt=""
+              />
+              <img
+                v-if="toCurrency === 'DASH'"
+                src="../../assets/img/dash.png"
+                height="50"
+                style="width:35px"
+                alt=""
+              />
             </div>
             <div>
               <span class="c-white mb-4 d-block">You will receive</span>
@@ -233,15 +321,20 @@
                 :class="{
                   'c-btc': toCurrency === 'BTC',
                   'c-afk': toCurrency === 'AFK',
-                  'c-eth': toCurrency === 'ETH'
+                  'c-eth': toCurrency === 'ETH',
+                  'c-ltc': toCurrency === 'LTC',
+                  'c-dash': toCurrency === 'DASH'
+                  
                 }"
               >
                 {{ exchangeValue | formatNumberLong }} {{ toCurrency }}
               </h2>
               <!-- <span class="small-text c-white">$0.00</span> -->
-              <span v-if="fromCurrency === 'AFK'" class="small-text c-white">${{ exchangeValue * afkDollarRate | formatNumber }}</span>
-              <span v-if="fromCurrency === 'BTC'" class="small-text c-white">${{ exchangeValue * btcData.current_price | formatNumber }}</span>
-              <span v-if="fromCurrency === 'ETH'" class="small-text c-white">${{ exchangeValue * ethData.current_price | formatNumber }}</span>
+              <span v-if="toCurrency === 'AFK'" class="small-text c-white">${{ exchangeValue * afkDollarRate | formatNumber }}</span>
+              <span v-if="toCurrency === 'BTC'" class="small-text c-white">${{ exchangeValue * btcData.current_price | formatNumber }}</span>
+              <span v-if="toCurrency === 'ETH'" class="small-text c-white">${{ exchangeValue * ethData.current_price | formatNumber }}</span>
+              <span v-if="toCurrency === 'LTC'" class="small-text c-white">${{ exchangeValue * litecoinData.current_price | formatNumber }}</span>
+              <span v-if="toCurrency === 'DASH'" class="small-text c-white">${{ exchangeValue * dashData.current_price | formatNumber }}</span>
             </div>
           </div>
         </div>
@@ -284,6 +377,20 @@
                 </label>
                 <span class="rate">{{ dollarRates.eth }}</span>
                 </a>
+                <a v-if="fromCurrency === 'LTC'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/litecoin.png" style="width: 35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >LTC <span class="c-white">Litecoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.ltc }}</span>
+                </a>
+                <a v-if="fromCurrency === 'DASH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/dash.png" style="width: 35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >DASH <span class="c-white">Dash</span>
+                </label>
+                <span class="rate">{{ dollarRates.dash }}</span>
+                </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a v-if="fromCurrency !== 'AFK'" class="dropdown-item afk" @click="fromCurrency = 'AFK'">
                     <img src="../../assets/img/Africoin.png" alt="" /> 
@@ -299,6 +406,16 @@
                     <img src="../../assets/img/eth.png" alt="" /> 
                     <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
                     <span class="rate">{{ dollarRates.eth }}</span>
+                  </a>
+                  <a v-if="fromCurrency !== 'LTC'" class="dropdown-item eth" @click="fromCurrency = 'LTC'">
+                    <img src="../../assets/img/litecoin.png" style="width: 35px" alt="" /> 
+                    <label for="exchange-afk">LTC <span class="c-white">Litecoin</span></label>
+                    <span class="rate">{{ dollarRates.ltc }}</span>
+                  </a>
+                  <a v-if="fromCurrency !== 'DASH'" class="dropdown-item eth" @click="fromCurrency = 'DASH'">
+                    <img src="../../assets/img/eth.png" style="width: 35px" alt="" /> 
+                    <label for="exchange-afk">DASH <span class="c-white">Dash</span></label>
+                    <span class="rate">{{ dollarRates.dash }}</span>
                   </a>
                 </div>
               </div>
@@ -328,6 +445,20 @@
                 </label>
                 <span class="rate">{{ dollarRates.eth }}</span>
                 </a>
+                <a v-if="toCurrency === 'LTC'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/litecoin.png" style="width: 35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >LTC <span class="c-white">Litecoin</span>
+                </label>
+                <span class="rate">{{ dollarRates.ltc }}</span>
+                </a>
+                <a v-if="toCurrency === 'DASH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <img src="../../assets/img/dash.png" style="width: 35px" alt="" /> 
+                 <label for="exchange-afk"
+                  >DASH <span class="c-white">Dash</span>
+                </label>
+                <span class="rate">{{ dollarRates.dash }}</span>
+                </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a v-if="toCurrency !== 'AFK'" class="dropdown-item afk" @click="toCurrency = 'AFK'">
                     <img src="../../assets/img/Africoin.png" alt="" /> 
@@ -344,6 +475,16 @@
                     <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
                     <span class="rate">{{ dollarRates.eth }}</span>
                   </a>
+                  <a v-if="toCurrency !== 'LTC'" class="dropdown-item eth" @click="toCurrency = 'LTC'">
+                    <img src="../../assets/img/litecoin.png" style="width: 35px" alt="" /> 
+                    <label for="exchange-afk">LTC <span class="c-white">Litecoin</span></label>
+                    <span class="rate">{{ dollarRates.ltc }}</span>
+                  </a>
+                  <a v-if="toCurrency !== 'DASH'" class="dropdown-item eth" @click="toCurrency = 'DASH'">
+                    <img src="../../assets/img/eth.png" style="width: 35px" alt="" /> 
+                    <label for="exchange-afk">DASH <span class="c-white">Dash</span></label>
+                    <span class="rate">{{ dollarRates.dash }}</span>
+                  </a>
                 </div>
               </div>
 
@@ -353,7 +494,9 @@
                   :class="{
                     'c-btc': toCurrency === 'BTC',
                     'c-afk': toCurrency === 'AFK',
-                    'c-eth': toCurrency === 'ETH'
+                    'c-eth': toCurrency === 'ETH',
+                    'c-ltc': toCurrency === 'LTC',
+                    'c-dash': toCurrency === 'DASH'
                   }"
                   placeholder="0.00"
                   v-model="exchangeAmount"
@@ -366,6 +509,8 @@
                 <span v-if="fromCurrency === 'AFK'" class="amount c-white">{{ exchangeAmount * afkDollarRate | formatNumber }}</span>
                 <span v-if="fromCurrency === 'BTC'" class="amount c-white">{{ exchangeAmount * btcData.current_price | formatNumber }}</span>
                 <span v-if="fromCurrency === 'ETH'" class="amount c-white">{{ exchangeAmount * ethData.current_price | formatNumber }}</span>
+                <span v-if="fromCurrency === 'LTC'" class="amount c-white">{{ exchangeAmount * litecoinData.current_price | formatNumber }}</span>
+                <span v-if="fromCurrency === 'DASH'" class="amount c-white">{{ exchangeAmount * dashData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
               <!-- <span class="muted mb-20 d-block"
@@ -391,7 +536,9 @@
                   :class="{
                     'c-btc': toCurrency === 'BTC',
                     'c-afk': toCurrency === 'AFK',
-                    'c-eth': toCurrency === 'ETH'
+                    'c-eth': toCurrency === 'ETH',
+                    'c-ltc': toCurrency === 'LTC',
+                    'c-dash': toCurrency === 'DASH'
                   }"
                   placeholder="0.00"
                   v-model="toValue"
@@ -405,6 +552,8 @@
                 <span v-if="toCurrency === 'AFK'" class="small-text c-white">{{ exchangeValue * afkDollarRate | formatNumber }}</span>
                 <span v-if="toCurrency === 'BTC'" class="small-text c-white">{{ exchangeValue * btcData.current_price | formatNumber }}</span>
                 <span v-if="toCurrency === 'ETH'" class="small-text c-white">{{ exchangeValue * ethData.current_price | formatNumber }}</span>
+                <span v-if="toCurrency === 'LTC'" class="small-text c-white">{{ exchangeValue * litecoinData.current_price | formatNumber }}</span>
+                <span v-if="toCurrency === 'DASH'" class="small-text c-white">{{ exchangeValue * dashData.current_price | formatNumber }}</span>
                 <span class="currency c-white">USD</span>
               </div>
               <!-- <span class="muted mb-20 d-block"
@@ -435,6 +584,20 @@
                 height="50"
                 alt=""
               />
+              <img
+                v-if="fromCurrency === 'LTC'"
+                src="../../assets/img/litecoin.png"
+                height="50"
+                style="width:35px"
+                alt=""
+              />
+              <img
+                v-if="fromCurrency === 'DASH'"
+                src="../../assets/img/dash.png"
+                height="50"
+                style="width:35px"
+                alt=""
+              />
             </div>
             <div>
               <span class="c-white mb-4 d-block">You are exchanging</span>
@@ -442,7 +605,9 @@
                 :class="{
                   'c-btc': fromCurrency === 'BTC',
                   'c-afk': fromCurrency === 'AFK',
-                  'c-eth': fromCurrency === 'ETH'
+                  'c-eth': fromCurrency === 'ETH',
+                  'c-ltc': fromCurrency === 'LTC',
+                  'c-dash': fromCurrency === 'DASH'
                 }"
               >
                 {{ exchangeAmount }} {{ fromCurrency }}
@@ -451,6 +616,8 @@
               <span v-if="fromCurrency === 'AFK'" class="small-text c-white">${{ exchangeAmount * afkDollarRate | formatNumber }}</span>
               <span v-if="fromCurrency === 'BTC'" class="small-text c-white">${{ exchangeAmount * btcData.current_price | formatNumber }}</span>
               <span v-if="fromCurrency === 'ETH'" class="small-text c-white">${{ exchangeAmount * ethData.current_price | formatNumber }}</span>
+              <span v-if="fromCurrency === 'LTC'" class="small-text c-white">${{ exchangeAmount * litecoinData.current_price | formatNumber }}</span>
+              <span v-if="fromCurrency === 'DASH'" class="small-text c-white">${{ exchangeAmount * dashData.current_price | formatNumber }}</span>
             </div>
           </div>
           <div class="arrow--breakdown">
@@ -476,6 +643,20 @@
                 height="50"
                 alt=""
               />
+              <img
+                v-if="toCurrency === 'LTC'"
+                src="../../assets/img/litecoin.png"
+                height="50"
+                style="width:35px"
+                alt=""
+              />
+              <img
+                v-if="toCurrency === 'DASH'"
+                src="../../assets/img/dash.png"
+                height="50"
+                style="width:35px"
+                alt=""
+              />
             </div>
             <div>
               <span class="c-white mb-4 d-block">You will receive</span>
@@ -483,7 +664,9 @@
                 :class="{
                   'c-btc': toCurrency === 'BTC',
                   'c-afk': toCurrency === 'AFK',
-                  'c-eth': toCurrency === 'ETH'
+                  'c-eth': toCurrency === 'ETH',
+                  'c-ltc': toCurrency === 'LTC',
+                  'c-dash': toCurrency === 'DASH'
                 }"
               >
                 {{ exchangeValue | formatNumberLong }} {{ toCurrency }}
@@ -492,6 +675,8 @@
               <span v-if="toCurrency === 'AFK'" class="small-text c-white">${{ exchangeValue * afkDollarRate | formatNumber }}</span>
               <span v-if="toCurrency === 'BTC'" class="small-text c-white">${{ exchangeValue * btcData.current_price | formatNumber }}</span>
               <span v-if="toCurrency === 'ETH'" class="small-text c-white">${{ exchangeValue * ethData.current_price | formatNumber }}</span>
+              <span v-if="toCurrency === 'LTC'" class="small-text c-white">${{ exchangeValue * litecoinData.current_price | formatNumber }}</span>
+              <span v-if="toCurrency === 'DASH'" class="small-text c-white">${{ exchangeValue * dashData.current_price | formatNumber }}</span>
             </div>
           </div>
         </div>
@@ -515,7 +700,7 @@ export default {
     return {
       baseUrl: process.env.baseUrl,
       fromCurrency: "AFK",
-      exchangeAmount: 0,
+      exchangeAmount: '',
       toCurrency: "BTC",
       toValue: 0,
       afkDollarRate: 1,
@@ -526,7 +711,9 @@ export default {
       nairaValues: {
         afk: 365,
         eth: 0,
-        btc: 0
+        btc: 0,
+        ltc: 0,
+        dash: 0
       }
     };
   },
@@ -539,13 +726,21 @@ export default {
     },
     ethData() {
       return this.$store.state.ethData;
+    },
+    litecoinData() {
+      return this.$store.state.litecoinData;
+    },
+    dashData() {
+      return this.$store.state.dashData;
     }
   },
   created () {
     this.dollarRates =  {
       afk: '1 AFK | $1',
       btc: '1 BTC | $' + this.btcData.current_price,
-      eth: '1 ETH | $'  + this.ethData.current_price 
+      eth: '1 ETH | $' + this.ethData.current_price, 
+      ltc: '1 LTC | $' + this.litecoinData.current_price,
+      dash: '1 DASH | $' + this.dashData.current_price 
     }
     console.log('BTCDATA++',this.btcData)
 
@@ -557,14 +752,18 @@ export default {
     },
 
     checkKeyPress(event) {
-      if (event.keyCode !==13 && event.keyCode !==8) {
+      if (event.keyCode !==13) {
         this.calculateRates();
       }
     },
 
     async getNairaValues() {
+      this.nairaValues.dash = await this.getExchangeRate('DASH')
       this.nairaValues.btc = await this.getExchangeRate('BTC')
       this.nairaValues.eth = await this.getExchangeRate('ETH')
+      this.nairaValues.ltc = await this.getExchangeRate('LTC')
+
+      console.log('NAIRA VALUES', this.nairaValues)
     },
 
     async calculateRates () {
@@ -573,26 +772,36 @@ export default {
       let fromNairaValue = 0 
       let toNairaValue = 0
 
+      console.log('from: ', this.fromCurrency)
       if (this.fromCurrency === 'ETH'){
         fromNairaValue = this.nairaValues.eth
       } else if (this.fromCurrency === 'BTC') {
         fromNairaValue = this.nairaValues.btc
       } else if (this.fromCurrency === 'AFK') {
-        fromNairaValue = fromNairaValue.afk
+        fromNairaValue = this.nairaValues.afk
+      } else if (this.fromCurrency === 'LTC') {
+        fromNairaValue = this.nairaValues.ltc
+      } else if (this.fromCurrency === 'DASH') {
+        fromNairaValue = this.nairaValues.dash
       }
 
+      console.log('to: ', this.toCurrency)
       if (this.toCurrency === 'ETH'){
         toNairaValue = this.nairaValues.eth
       } else if (this.toCurrency === 'BTC') {
         toNairaValue = this.nairaValues.btc
       } else if (this.toCurrency === 'AFK') {
-        toNairaValue = fromNairaValue.afk
+        toNairaValue = this.nairaValues.afk
+      } else if (this.toCurrency === 'LTC') {
+        toNairaValue = this.nairaValues.ltc
+      } else if (this.toCurrency === 'DASH') {
+        toNairaValue = this.nairaValues.dash
       }
 
-      rate = (+fromNairaValue * +this.exchangeAmount) / toNairaValue
+      rate = (fromNairaValue * this.exchangeAmount) / toNairaValue
       this.exchangeValue = rate
       // this.calculatingRate = false
-      console.log(this.rate)
+      console.log(rate)
     },
 
     async getExchangeRate(currency) {
@@ -612,6 +821,7 @@ export default {
           payload,
           { headers }
         );
+        console.log(response)
         return response.data.rate
       } catch (e) {
         console.log(e.response);
@@ -749,6 +959,7 @@ a{
   width:100%;
   padding:15px;
   background-color: #0b1a4d;
+  z-index:999;
 }
 
 .dropdown-item {
@@ -787,6 +998,12 @@ input#exchange-btc {
 input#exchange-eth {
   border-color: #6d76bc;
 }
+input#exchange-dash {
+  border-color: #fff;
+}
+input#exchange-ltc {
+  border-color: #a5a5a5;
+}
 
 .c-yellow {
   color: #f8ae30;
@@ -809,5 +1026,9 @@ input#exchange-eth {
 .overlay i{
   color: #ffffffa7;
   margin-top: 50vh;
+}
+
+.exchange--breakdown {
+  z-index: 1;
 }
 </style>

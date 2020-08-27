@@ -10,7 +10,7 @@
         </div>
 
 
-        <div class="container">
+        <div class="container" v-if="!loadingTickets">
             <div class="row">
                 <div class="col-md-12">
                     <div class="ticket">
@@ -42,7 +42,7 @@
                 <div
                 v-for="response of selectedTicket.replies"
                 :key="response.id"
-                class="col-md-12"
+                class="col-md-12 mb-2"
                 >
                     <div class="response float-left" :class="[userDetails.username === response.creator.username ? 'from-user' : 'from-admin']">
                     <p v-if="userDetails.username === response.creator.username" class="warn">From You</p>
@@ -138,12 +138,14 @@ export default {
     return {
       baseUrl: process.env.baseUrl,
       processing: false,
-      selectedTicket: {}
+      selectedTicket: {},
+      response: "",
+      loadingTickets: false
     };
   },
   computed: {
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     },
     allTickets() {
       return this.$store.state.global.supportTickets;
@@ -153,6 +155,9 @@ export default {
     openModal(modalId) {
       $("#" + modalId).modal("show");
       $(".modal-backdrop").hide();
+    },
+    closeModal(modalId) {
+      $("#" + modalId).modal("hide");
     },
     formatDate(date) {
       var d = new Date(date),
@@ -167,12 +172,45 @@ export default {
     },
 
     loadTicket() {
-      this.allTickets.forEach((ticket) => {
-        if (ticket.id == this.$route.params.ticketId) {
-          console.log("selected ticket===> ", ticket);
-          this.selectedTicket = ticket;
-        }
-      });
+      // if(this.allTickets.length === 0){
+      //   this.getTickets()
+      // }else{
+        this.allTickets.forEach((ticket) => {
+          if (ticket.id == this.$route.params.ticketId) {
+            console.log("selected ticket===> ", ticket);
+            this.selectedTicket = ticket;
+          }
+        });
+      // }
+    },
+
+    async getTickets() {
+      this.loadingTickets = true;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: this.userDetails.token,
+      };
+
+      try {
+        const ticketsResponse = await this.$axios.$get(this.baseUrl + 'utilities/tickets/', { headers });
+        let tickets = ticketsResponse.results
+
+        tickets.forEach(ticket => {
+            let ticketBodyArray = ticket.content.split("|")
+            ticket.username = ticketBodyArray[0]
+            ticket.name = ticketBodyArray[1]
+            ticket.subject = ticketBodyArray[2]
+            ticket.body = ticketBodyArray[3]
+        });
+
+        await this.$store.commit('global/loadTickets',  tickets)
+        this.loadTicket()
+        this.loadingTickets = false;
+      } catch (e) {
+        this.$toast.error(e.response.data.detail);
+        console.log(e.response);
+        this.loadingTickets = false;
+      }
     },
 
     async sendResponse() {
@@ -198,6 +236,8 @@ export default {
         console.log("Ticket create response ==>", createResponse);
         this.$toast.success('Response sent successfully');
         this.processing = false;
+        this.closeModal('responseModal')
+        this.getTickets()
       } catch (e) {
         this.$toast.error(e.response);
         console.log(e.response);
@@ -214,7 +254,11 @@ export default {
     })
   },
   beforeMount() {
+    if(this.allTickets && this.allTickets.length === 0){
+      this.getTickets()
+    } else {
       this.loadTicket()
+    }
   }
 };
 </script>

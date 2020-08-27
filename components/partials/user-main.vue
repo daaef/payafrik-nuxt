@@ -97,11 +97,13 @@
                     </td>
                     <td>
                       <span class="c-afk"
-                        >{{ +userDetails.afk_balance | formatNumber }}AFK</span
+                        >{{
+                          +userDetails.afk_balance | formatNumberLong
+                        }}AFK</span
                       >
                     </td>
                   </tr>
-                  <tr  class="wallet-row" @click="goToWallet('btc')">
+                  <tr class="wallet-row" @click="goToWallet('btc')">
                     <td>
                       <span>
                         <img src="../../assets/img/bitcoin.png" alt="" />
@@ -135,11 +137,13 @@
                     </td>
                     <td>
                       <span class="c-btc"
-                        >{{ +userDetails.btc_balance | formatNumber }}BTC</span
+                        >{{
+                          +userDetails.btc_balance | formatNumberLong
+                        }}BTC</span
                       >
                     </td>
                   </tr>
-                  <tr  class="wallet-row" @click="goToWallet('eth')">
+                  <tr class="wallet-row" @click="goToWallet('eth')">
                     <td>
                       <span>
                         <img src="../../assets/img/eth.png" alt="" />
@@ -173,7 +177,89 @@
                     </td>
                     <td>
                       <span class="c-eth"
-                        >{{ +userDetails.eth_balance | formatNumber }}BTC</span
+                        >{{
+                          +userDetails.eth_balance | formatNumberLong
+                        }}ETH</span
+                      >
+                    </td>
+                  </tr>
+                  <tr class="wallet-row" @click="goToWallet('ltc')">
+                    <td>
+                      <span>
+                        <img src="../../assets/img/litecoin.png" alt="" style="width:35px" />
+                        <span class="ml-16 d-block">
+                          <span class="mb-4 d-block">Litecoin</span>
+                          <span class="muted">LTC</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td>${{ litecoinData.current_price | formatNumber }}</td>
+                    <td>
+                      <span
+                        :class="[
+                          litecoinData.market_cap_change_percentage_24h > 0
+                            ? 'c-success'
+                            : 'c-alert'
+                        ]"
+                        >{{ litecoinData.market_cap_change_percentage_24h }}%</span
+                      >
+                    </td>
+                    <td>${{ litecoinData.market_cap | formatNumber }}</td>
+                    <td class="trend">
+                      <!-- <canvas id="myChart2"></canvas> -->
+                      <trend
+                        :data="litecoinChartData"
+                        :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                        auto-draw
+                        smooth
+                      >
+                      </trend>
+                    </td>
+                    <td>
+                      <span class="c-eth"
+                        >{{
+                          +userDetails.litecoin_balance | formatNumberLong
+                        }}LTC</span
+                      >
+                    </td>
+                  </tr>
+                  <tr class="wallet-row" @click="goToWallet('dash')">
+                    <td>
+                      <span>
+                        <img src="../../assets/img/dash.png" alt="" style="width:35px" />
+                        <span class="ml-16 d-block">
+                          <span class="mb-4 d-block">Dash</span>
+                          <span class="muted">DASH</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td>${{ dashData.current_price | formatNumber }}</td>
+                    <td>
+                      <span
+                        :class="[
+                          dashData.market_cap_change_percentage_24h > 0
+                            ? 'c-success'
+                            : 'c-alert'
+                        ]"
+                        >{{ dashData.market_cap_change_percentage_24h }}%</span
+                      >
+                    </td>
+                    <td>${{ dashData.market_cap | formatNumber }}</td>
+                    <td class="trend">
+                      <!-- <canvas id="myChart2"></canvas> -->
+                      <trend
+                        :data="dashChartData"
+                        :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                        auto-draw
+                        smooth
+                      >
+                      </trend>
+                    </td>
+                    <td>
+                      <span class="c-eth"
+                        >{{
+                          +userDetails.dash_balance | formatNumberLong
+                        }}DASH</span
                       >
                     </td>
                   </tr>
@@ -185,7 +271,7 @@
             </div> -->
           </div>
           <div class="transactions">
-            <h3 class="c-white">TRANSACTIONS</h3>
+            <h3 class="c-white">LATEST TRANSACTIONS</h3>
             <table>
               <thead>
                 <tr>
@@ -195,10 +281,15 @@
                 </tr>
               </thead>
               <tbody v-if="userTransactions.length > 0">
-                <tr v-for="transaction of userTransactions" :key="transaction.id">
-                  <th class="text-left"><span>{{transaction.receiver}}</span></th>
-                  <th class="text-center">{{transaction.sent_via}}</th>
-                  <th>{{ + transaction.requested_amount}}</th>
+                <tr
+                  v-for="transaction of userTransactions"
+                  :key="transaction.id"
+                >
+                  <th class="text-left">
+                    <span>{{ transaction.receiver }}</span>
+                  </th>
+                  <th class="text-center">{{ transaction.sent_via }}</th>
+                  <th>{{ +transaction.requested_amount }}</th>
                 </tr>
               </tbody>
             </table>
@@ -208,34 +299,21 @@
           </div>
         </div>
 
-        <div class="wallets--and--transactions">
+        <!-- <div class="wallets--and--transactions">
           <div class="wallets">
             <h3 class="c-white">PAYAFRIK PLATFORMS</h3>
             <div class="table--holder">
               <table>
-                <!-- <thead>
-                  <tr>
-                    <th class="text-left"><span>ASSET NAME</span></th>
-                    <th>PRICE</th>
-                    <th>24H CHANGE</th>
-                    <th>MARKET CAP</th>
-                    <th class="trend text-center">30 DAY TREND</th>
-                    <th>BALANCE</th>
-                  </tr>
-                </thead> -->
                 <tbody>
                   <tr class="wallet-row">
                     <td>
                       <span>
-                        <!-- <img src="../../assets/img/bitcoin.png" alt="" /> -->
                         <i class="fas fa-power-off fa-3x c-yellow"></i>
                         <span class="ml-16 d-block">
                           <span class="mb-4 d-block">Payafrik Power</span>
                           <p class="muted">This is literally <strong>power in your hands</strong>. A novel solution by payafrik that gives you full control of your Power Metres in Nigeria. Shut off you rpower, disconnect appliances and reload your metres remotely with payafrik power. <br> <a>Checkout Payafrik FixIt!</a></p>
-
                         </span>
                       </span>
-                      
                     </td>
                     <td>
                     </td>
@@ -243,7 +321,6 @@
                   <tr class="wallet-row">
                     <td>
                       <span>
-                        <!-- <img src="../../assets/img/bitcoin.png" alt="" /> -->
                         <i class="fas fa-hammer fa-3x c-yellow"></i>
                         <span class="ml-16 d-block">
                           <span class="mb-4 d-block">Payafrik FixIt!</span>
@@ -255,12 +332,8 @@
                 </tbody>
               </table>
             </div>
-            <!-- <div class="add--more">
-              <button class="blueish-btn btn">+Add More</button>
-            </div> -->
           </div>
-           
-        </div>
+        </div> -->
       </div>
     </section>
   </span>
@@ -302,17 +375,16 @@ export default {
       ],
       userTransactions: [],
       fetchingTransactions: false,
-      loadingData: false,
+      loadingData: false
       // btcData: {},
       // btcChartData: [],
       // ethData: {},
       // ethChartData: [],
-
     };
   },
   computed: {
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     },
     btcData() {
       return this.$store.state.btcData;
@@ -323,9 +395,21 @@ export default {
     ethData() {
       return this.$store.state.ethData;
     },
+    litecoinData() {
+      return this.$store.state.litecoinData;
+    },
+    dashData() {
+      return this.$store.state.dashData;
+    },
     ethChartData() {
       return this.$store.state.ethChartData;
-    }
+    },
+    litecoinChartData() {
+      return this.$store.state.litecoinChartData;
+    },
+    dashChartData() {
+      return this.$store.state.dashChartData;
+    },
   },
   methods: {
     openModal(modalId) {
@@ -485,17 +569,17 @@ export default {
         for (let i = 0; i < 50; i++) {
           btcSparkline.push(this.btcData.sparkline_in_7d.price[i]);
         }
-        this.btcChartData = btcSparkline
+        this.btcChartData = btcSparkline;
 
         let ethSparkline = [];
         for (let i = 0; i < 50; i++) {
           ethSparkline.push(this.ethData.sparkline_in_7d.price[i]);
         }
-        this.ethChartData = ethSparkline
+        this.ethChartData = ethSparkline;
 
         //TODO: commit data to store here
-        this.commitBtc(this.btcData)
-        this.commitEth(this.ethData)
+        this.commitBtc(this.btcData);
+        this.commitEth(this.ethData);
 
         this.loadingData = false;
       } catch (e) {
@@ -508,8 +592,10 @@ export default {
       this.fetchingTransactions = true;
       const headers = {
         "Content-Type": "application/json",
-        Authorization: this.userDetails.token
+        Authorization: this.$cookies.get("userdetails").token
       };
+
+      console.log('headers for transaction', headers)
 
       try {
         const userTransactionsResponse = await this.$axios.$get(
@@ -517,19 +603,13 @@ export default {
           { headers }
         );
 
-        // if (userTransactionsResponse.results.length > 4) {
-        for (let i = 0; i < 10; i++) {
-          if(i < userTransactionsResponse.results.length) this.userTransactions.push(userTransactionsResponse.results[i]);
+        for (let i = 0; i < 20; i++) {
+          if (i < userTransactionsResponse.results.length)
+            this.userTransactions.push(userTransactionsResponse.results[i]);
         }
-        // } else {
-        //   this.userTransactions = userTransactionsResponse.results;
-        // }
-
-        console.log('USER-TRANSACTIONS', this.userTransactions)
-
         this.fetchingTransactions = false;
       } catch (e) {
-        this.$toast.error(e.response);
+        this.$toast.error(e.response.data.detail);
         console.log(e.response);
         this.userTransactions = false;
       }
@@ -543,16 +623,19 @@ export default {
       }
     },
 
-    goToWallet (wallet) {
-      this.$router.push({ name: 'user-area-wallet', query: { active: wallet }})
+    goToWallet(wallet) {
+      this.$router.push({
+        name: "user-area-wallet",
+        query: { active: wallet }
+      });
     }
   },
 
   beforeMount() {
-    this.getUserDetails();
+    // this.getUserDetails();
+    this.getUserTransactions();
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
@@ -566,33 +649,37 @@ a p {
   text-decoration: none;
 }
 
-th.trend, td.trend{
+th.trend,
+td.trend {
   max-width: 180px !important;
 }
 
-tr.wallet-row{
-  cursor:pointer;
+tr.wallet-row {
+  cursor: pointer;
 }
 
 .c-yellow {
-  color: #F8AE30;
+  color: #f8ae30;
 }
 
-a.tag-button{
+a.tag-button {
   /* display: inline-block; */
   padding: 3px 15px;
-  border-radius:50px;
-  background-color: #F8AE30;
-  color: #141F50 !important;
+  border-radius: 50px;
+  background-color: #f8ae30;
+  color: #141f50 !important;
   font-size: 0.9em;
   left: 170px;
   position: absolute;
   font-weight: 700;
 }
 
-a.tag-button:hover{
-  background-color: #141F50;
-  color: #F8AE30 !important;
+a.tag-button:hover {
+  background-color: #141f50;
+  color: #f8ae30 !important;
 }
 
+/* tr.wallet-row img{
+  width:50px;
+} */
 </style>

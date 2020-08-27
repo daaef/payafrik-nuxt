@@ -77,7 +77,7 @@ export default {
       return this.$store.state.global.tokenModalActive;
     },
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     }
   },
   methods: {
@@ -108,6 +108,7 @@ export default {
       try{
         const transferResponse = await this.$axios.$post(this.baseUrl+'transactions/transactions/send/', payload, {headers})
         this.$toast.success('Transfer successful!')
+        await this.$store.dispatch('getUserDetails')
         console.log('AFK TRansfer successfull...')
         this.transferringAfk = false
       } catch(e){

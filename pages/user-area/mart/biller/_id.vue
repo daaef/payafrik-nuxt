@@ -310,7 +310,8 @@ export default {
                     this.$toast.success('Successful')
                     this.paymentSuccess = true
 
-                    this.getUserDetails()
+                    // this.getUserDetails()
+                    this.$store.dispatch('getUserDetails')
                 }
 
             } catch(e){

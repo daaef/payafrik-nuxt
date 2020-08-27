@@ -124,7 +124,7 @@ export default {
       return this.$store.state.global.tokenWithdrawalModalActive;
     },
     userDetails() {
-      return this.$store.state.global.authenticatedUser;
+      return this.$store.state.authenticatedUser;
     }
   },
   methods: {

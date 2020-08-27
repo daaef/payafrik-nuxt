@@ -77,9 +77,12 @@
                               <span class="reset-color">Reset</span>
                         </p>
                       </nuxt-link>
+                       <p class="authhint text-center">
+                        Need to confirm your phone number? <nuxt-link to="confirmation">Click here</nuxt-link>
+                      </p>
                       <div class="text-center mt-20 sub--btn--holder">
                         <div class="sub-button mt-20">
-                          <button v-if="!processing" @click="signIn()" class="w-100">Log In</button>
+                          <button v-if="!processing" @click="signIn($event)" class="w-100">Log In</button>
                           <button v-if="processing" disabled class="w-100">Logging in...</button>
                         </div>
                       </div>
@@ -122,8 +125,9 @@ export default {
     toggleViewPassword() {
       this.viewPassword = !this.viewPassword;
     },
-    async signIn() {
-        console.log("signing in...")
+    async signIn(e) {
+      e.preventDefault();
+      console.log("signing in...")
       let payload = {
         username: this.username,
         password: this.password
@@ -136,19 +140,19 @@ export default {
         );
         console.log(signInResponse);
         const userDetails = {
-          username: signInResponse.user.username,
-          token: signInResponse.user.token,
-          email: signInResponse.user.email,
-          phone: signInResponse.user.phone,
-          balance: +signInResponse.user.balance,
-          id: signInResponse.user.id,
-          eos_wallet: signInResponse.user.eos_wallet,
-          btc_wallet: signInResponse.user.btc_wallet,
-          eth_wallet: signInResponse.user.eth_wallet,
-          kyc_doc_type: signInResponse.user.kyc_doc_type,
-          kyc_document_front: signInResponse.user.kyc_document_front,
-          kyc_selfie: signInResponse.user.kyc_selfie,
-          kyc_status: signInResponse.user.kyc_status
+          username: signInResponse.data.username,
+          token: signInResponse.data.token,
+          email: signInResponse.data.email,
+          phone: signInResponse.data.phone,
+          balance: +signInResponse.data.balance,
+          id: signInResponse.data.id,
+          eos_wallet: signInResponse.data.eos_wallet,
+          btc_wallet: signInResponse.data.btc_wallet,
+          eth_wallet: signInResponse.data.eth_wallet,
+          kyc_doc_type: signInResponse.data.kyc_doc_type,
+          kyc_document_front: signInResponse.data.kyc_document_front,
+          kyc_selfie: signInResponse.data.kyc_selfie,
+          kyc_status: signInResponse.data.kyc_status
         };
 
         this.$cookies.set("userdetails", userDetails, {
@@ -158,10 +162,16 @@ export default {
 
         // this.authenticate(signInResponse)
         this.$router.push("../user-area/dashboard");
-        this.processing = false;
-      } catch (e) {
-        this.$toast.error(JSON.stringify(e.response.data.error));
 
+        // if (signInResponse.user.email === ""){
+        //   this.$router.push("../update-info");
+        // } else {
+        //   this.$router.push("../user-area/dashboard");
+        // }
+        // this.processing = false;
+      } catch (e) {
+        // this.$toast.error(JSON.stringify(e.response.data.error));
+        this.$toast.error(e.response.data.msg);
         this.processing = false;
         console.log(e.response);
       }

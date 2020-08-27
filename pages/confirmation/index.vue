@@ -29,7 +29,7 @@
             </a> -->
         <!-- <div class="auth--content"> -->
         <div class="col-lg-5 ml-auto mr-auto text-center">
-          <div class="w-100">
+          <div v-if="!resendMode" class="w-100">
             <form class="w-100">
               <div class="w-100">
                 <div class="welcome-text">
@@ -111,6 +111,12 @@
                     <div class="exchange--dropdown"></div>
                   </div>
                 </div>
+                <a @click="resendMode=true"
+                    ><p class="authhint">
+                      Didnt get the OTP?
+                      <span class="reset-color">Click to resend</span>
+                    </p>
+                  </a>
 
                 <div class="text-center mt-20 sub--btn--holder">
                   <div class="sub-button mt-20">
@@ -123,6 +129,65 @@
                     </button>
                     <button v-if="processing" disabled class="w-100">
                       verifying...
+                    </button>
+                  </div>
+                </div>
+                <div class="text-center mt-20">
+                  <nuxt-link to="/signup"
+                    ><p class="authhint">
+                      New to PayAfrik?
+                      <span class="reset-color">Sign Up</span>
+                    </p>
+                  </nuxt-link>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div v-if="resendMode" class="w-100">
+            <form class="w-100">
+              <div class="w-100">
+                <div class="welcome-text">
+                  <div class="text-center">
+                    <p class="w-100 c-white">Resend your</p>
+                    <h1 class="w-100 c-white am-type mt-0 mb-50">
+                      OTP
+                    </h1>
+                  </div>
+                </div>
+
+                <div class="exchange centerdiv">
+                  <div>
+                    <img
+                      class="prefix-icon"
+                      src="../../assets/img/iphone.png"
+                      alt=""
+                    />
+                    <input
+                      v-model="phone"
+                      id="exchange-afk"
+                      type="text"
+                      placeholder="Enter Registered Phone Number"
+                    />
+                    <label for="exchange-afk">Phone Number</label>
+                    <div class="exchange--dropdown"></div>
+                  </div>
+                </div>
+                <p class="authhint">
+                  Please add your phone code (eg: +234)
+                </p>
+
+                <div class="text-center mt-20 sub--btn--holder">
+                  <div class="sub-button mt-20">
+                    <button
+                      v-if="!processing"
+                      @click="resendOTP($event)"
+                      class="w-100"
+                    >
+                      Resend OTP
+                    </button>
+                    <button v-if="processing" disabled class="w-100">
+                      resending...
                     </button>
                   </div>
                 </div>
@@ -155,6 +220,7 @@ export default {
   data() {
     return {
       password: "",
+      resendMode: false,
       baseUrl: process.env.baseUrl,
       phone: "",
       verificationCode: "",
@@ -201,8 +267,14 @@ export default {
         return;
       }
 
+      let phone = ""
+
+      if (this.phone.charAt(0) === '+') {
+        phone = this.phone.substring(1)
+      }
+
       let payload = {
-        username: this.phone,
+        username: phone,
         password: this.password,
         nonce: this.verificationCode
       };
@@ -210,7 +282,8 @@ export default {
 
       const headers = {
         "Content-Type": "application/json",
-        "X-PFK-DT": "B"
+        "X-PFK-DT": "B",
+        Authorization: this.$cookies.get('signuptoken')
       };
 
       try {
@@ -242,20 +315,66 @@ export default {
         });
 
         // this.authenticate(signInResponse)
-        this.$router.push("../user-area/dashboard");
+        this.$toast.success("Account activated successfully, you can now log in.");
+        this.$router.push("../login");
+        // this.processing = false;
+      } catch (e) {
+        console.log(JSON.stringify(e));
+        this.$toast.error(e.response.data.msg);
+        this.processing = false;
+      }
+    },
+    async resendOTP(event) {
+      event.preventDefault();
+      this.processing = true;
+
+       if (this.phone === "") {
+        this.formErrors.phoneError = true;
+        this.$toast.error("Please provide your username");
+        this.processing = false;
+        return;
+      } 
+      let phone = ""
+
+      if (this.phone.charAt(0) === '+') {
+        phone = this.phone.substring(1)
+      }
+      let payload = {
+        username: phone,
+      };
+      console.log(payload);
+
+      const headers = {
+        "Content-Type": "application/json",
+        "X-PFK-DT": "B"
+      };
+
+      try {
+        const resendResponse = await this.$axios.$post(
+          this.baseUrl + "auth/accounts/resend-otp/",
+          payload,
+          { headers }
+        );
+        this.$toast.success("Activation code resent, please try again");
+        this.resendMode = false
         this.processing = false;
       } catch (e) {
         console.log(JSON.stringify(e));
-        this.$toast.error(e.message);
+        this.$toast.error(e.response.data.msg);
         this.processing = false;
       }
-    }
+    },
+    
   }
 };
 </script>
 <style>
 .exchange {
   position: relative;
+}
+
+a{
+  cursor:pointer;
 }
 
 img.password-toggle-switch {

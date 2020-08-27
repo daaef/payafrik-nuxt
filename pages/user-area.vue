@@ -76,14 +76,17 @@ export default {
     authenticate(user) {
       this.$store.commit("global/authenticateUser", user);
     },
-    checkLoginStatus() {
+    async checkLoginStatus() {
       console.log(this.$cookies.get("userdetails"));
       if (!this.$cookies.get("userdetails")) {
         this.$cookies.removeAll();
-        this.$router.push("../login");
-      } else {
-        this.authenticate(this.$cookies.get("userdetails"));
-      }
+        this.$router.push("/login");
+      } 
+      // else {
+      //   // this.authenticate(this.$cookies.get("userdetails"));
+      //   await this.$store.dispatch('getUserDetails')
+
+      // }
     }
   },
   beforeMount() {
