@@ -62,10 +62,16 @@
                           />
                           <label for="pin">PIN</label>
                           <!-- <div class="exchange--dropdown "> -->
-                            <img
+                            <img v-if="!viewPassword"
                               @click="toggleViewPassword()"
                               class="suffix-icon suffix password-toggle-switch"
                               src="../assets/img/view.png"
+                              alt=""
+                            />
+                          <img v-if="viewPassword"
+                              @click="toggleViewPassword()"
+                              class="suffix-icon suffix password-toggle-switch"
+                              src="../assets/img/hide.png"
                               alt=""
                             />
                           <!-- </div> -->

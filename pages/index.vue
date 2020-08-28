@@ -6,18 +6,15 @@
               <img src="img/close.png" alt="" />
             </a> -->
             <!-- <div class="auth--content"> -->
-              <div class="col-lg-5 ml-auto mr-auto text-center">
+              <div class="col-lg-5 text-center">
                 <div class="w-100">
+                  <div class="welcome-text">
+                    <div class="text-center">
+                      <img src="~/assets/img/logo.png" alt="">
+                    </div>
+                  </div>
                   <form class="w-100">
                     <div class="w-100">
-                      <div class="welcome-text">
-                        <div class="text-center">
-                          <p class="w-100 c-white">log into</p>
-                          <h1 class="w-100 c-white am-type mt-0 mb-50">
-                            PayAfrik Dashboard
-                          </h1>
-                        </div>
-                      </div>
 
                       <div class="exchange centerdiv">
                         <div>
@@ -62,12 +59,18 @@
                           />
                           <label for="pin">PIN</label>
                           <!-- <div class="exchange--dropdown "> -->
-                            <img
-                              @click="toggleViewPassword()"
-                              class="suffix-icon suffix password-toggle-switch"
-                              src="../assets/img/view.png"
-                              alt=""
-                            />
+                          <img v-if="!viewPassword"
+                               @click="toggleViewPassword()"
+                               class="suffix-icon suffix password-toggle-switch"
+                               src="../assets/img/view.png"
+                               alt=""
+                          />
+                          <img v-if="viewPassword"
+                               @click="toggleViewPassword()"
+                               class="suffix-icon suffix password-toggle-switch"
+                               src="../assets/img/hide.png"
+                               alt=""
+                          />
                           <!-- </div> -->
                         </div>
                       </div>
@@ -80,13 +83,13 @@
                        <p class="authhint text-center">
                         Need to confirm your phone number? <nuxt-link to="confirmation">Click here</nuxt-link>
                       </p>
-                      <div class="text-center mt-20 sub--btn--holder">
-                        <div class="sub-button mt-20">
+                      <div class="text-center mt-8 sub--btn--holder">
+                        <div class="sub-button mt-8">
                           <button v-if="!processing" @click="signIn($event)" class="w-100">Log In</button>
                           <button v-if="processing" disabled class="w-100">Logging in...</button>
                         </div>
                       </div>
-                      <div class="text-center mt-20">
+                      <div class="text-center mt-12">
                         <nuxt-link to="/signup"
                           ><p class="authhint">
                             New to PayAfrik?
@@ -116,7 +119,7 @@ export default {
       username: "",
       password: "",
       processing: false,
-      baseUrl: process.env.baseUrl,
+      baseUrl: 'https://api.payafrik.io/',
       confirmationStatus: "false",
       viewPassword: false
     };
@@ -185,6 +188,7 @@ export default {
     })
   },
   mounted() {
+    console.log(process.env)
     this.confirmationStatus = this.$route.query.confirmation;
   }
 };
@@ -260,8 +264,16 @@ img.password-toggle-switch {
   z-index: 999;
 }
 
+.main-content main .dash-body > div{
+  height: unset;
+}
+
 .suffix{
   cursor: pointer;
+}
+
+.sub-button {
+  width: 100%;
 }
 
 .prefix-icon, .suffix-icon{
@@ -284,7 +296,12 @@ p{
 }
 
 .dash-body {
-  margin-left:5%;
+  width: 100%!important;
+  min-height: 100vh;
+  margin-left: 0!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {
