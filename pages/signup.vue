@@ -1,65 +1,7 @@
 <template>
-  <!-- <div class="section">
-        <div class="container animated fadeIn">
-            <div class="row">
-                <div class="col-md-5 ml-auto mr-auto">
-                    <div class="text-center">
-                        <a href="https://payafrik.io"><img class="logo" src="../assets/img/logo.png"></a>
-                        <div class="login-container shadowed-box">
-                            <h6 class="font-weight-bold">SIGNUP</h6>
-                            <input type="text" v-model="firstName" placeholder="Your first name" v-bind:class="formErrors.firstNameError === true ? 'has-error' : ''">
-                            <input type="text" v-model="lastName" placeholder="Your last name" v-bind:class="formErrors.lastNameError === true ? 'has-error' : ''">
-
-                            <div class="row">
-                                <div class="col-4" style="padding-right:0; border-top-right-radius:0px; border-bottom-right-radius:0px">
-                                    <select v-model="countryCode">
-                                        <option v-for="code in countryCodes" :value="code.code" :key="code.name">{{code.code}} - {{code.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-8" style="padding-left:0; border-top-left-radius:0px; border-bottom-left-radius:0px">
-                                    <input type="text" style="border-left:1px solid #e3e3e3" v-model="phone" placeholder="Your phone number" v-bind:class="formErrors.phoneError === true ? 'has-error' : ''">
-                                </div>
-                            </div>
-
-                            <div class="password-container">
-                                <input
-                                    v-if="!viewPassword"
-                                    v-model="password1"
-                                    type="password"
-                                    maxlength="4"
-                                    :class="formErrors.passwordError === true ? 'has-error' : ''"
-                                    placeholder="Create your 4 digit PIN"
-                                    @keydown="enforceNumbersOnly($event)"
-                                >
-                                <input
-                                    v-if="viewPassword"
-                                    v-model="password1"
-                                    type="text"
-                                    maxlength="4"
-                                    :class="formErrors.passwordError === true ? 'has-error' : ''"
-                                    placeholder="Create your 4 digit PIN"
-                                    @keydown="enforceNumbersOnly($event)"
-                                >
-                                <a class="password-toggle-switch" @click="toggleViewPassword()"><i :class="viewPassword === true ? 'far fa-lg fa-eye-slash' : 'far fa-lg fa-eye'" /></a>
-                            </div>
-
-                            <input type="password" @keydown="enforceNumbersOnly($event)" v-model="password2" maxlength="4" v-bind:class="{ 'has-error': formErrors.passwordError}" placeholder="Confirm your PIN">
-
-                            <p class="form-tip"> By clicking button below, you agree to Payafrik's <a>terms of acceptable use</a></p>
-                            <button class="login" v-if="!processing" @click="signUp()">Create yout payafrik account</button>
-                            <button class="login" v-if="processing" disabled><i class="fa fa-circle-notch fa-spin"></i></button>
-                        </div>
-                        <hr>
-                        <p>Aready have an account on Payafrik? <nuxt-link to="/login">Click here</nuxt-link> to login </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
   <section class="main-content">
     <main class="full">
-      <section class="dash-body">
+      <section class="auth__page dash-body">
         <!-- <a href="#" class="modal-close">
           <img src="../assets/img/close.png" alt="" />
         </a> -->
@@ -168,7 +110,7 @@
                     Need to confirm your phone number? <nuxt-link to="confirmation">Click here</nuxt-link>
                   </p>
                   </div>
-  
+
                   <p class="authhint text-center">
                     By clicking button below, you agree to Payafrik's <a>terms of acceptable use</a>
                   </p>
@@ -187,7 +129,7 @@
                     >
                   </div>
                 </div>
-                
+
              </form>
             </div>
 

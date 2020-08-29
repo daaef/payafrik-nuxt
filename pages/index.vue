@@ -1,7 +1,7 @@
 <template>
       <section class="main-content">
         <main class="full">
-          <section class="dash-body">
+          <section class="dash-body auth__page">
             <!-- <a href="#" class="modal-close">
               <img src="img/close.png" alt="" />
             </a> -->
@@ -194,69 +194,12 @@ export default {
 };
 </script>
 
-<style scoped>
-/* .section {
-  background-color: #1f3d74;
-  background: url("../assets/img/blockchain-bg.jpg") no-repeat center center;
-  background-size: cover;
-  padding: 35px;
-}
-img.logo {
-  width: 30%;
-  filter: brightness(0) invert(1) opacity(0.8);
-}
-.login-container {
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 35px;
-  padding-top: 50px;
-  width: 100%;
-  margin-top: 75px;
-}
-button.login {
-  color: #ffffffde;
-  background-color: #1fa545;
-}
-button.login:hover {
-  color: #ffffffde;
-  background-color: #13642a;
-}
-i.ti-check-box {
-  font-size: 1.5em;
-  padding: 5px;
-}
-p.confirm-success {
-  margin-bottom: 15px;
-  color: #1fa545;
-  font-size: 0.8em;
-}
-p > a {
-  font-size: 1em;
-}
-p {
-  margin: 0;
-}
-p,
-a {
-  font-size: 0.8em;
-  color: #ffffffd4;
-}
-a {
-  font-weight: 700;
-}
-a.hover {
-  color: #fffffffd;
-  text-decoration: none;
-}
-h6 {
-  font-size: 0.8em;
-}*/
-
-.exchange {
+<style>
+.auth__page .exchange {
   position: relative;
 }
 
-img.password-toggle-switch {
+.auth__page img.password-toggle-switch {
   position: absolute;
   top: 27px;
   left: 92%!important;
@@ -264,38 +207,38 @@ img.password-toggle-switch {
   z-index: 999;
 }
 
-.main-content main .dash-body > div{
+.main-content main .auth__page.dash-body > div{
   height: unset;
 }
 
-.suffix{
+.auth__page .suffix{
   cursor: pointer;
 }
 
-.sub-button {
+.auth__page .sub-button {
   width: 100%;
 }
 
-.prefix-icon, .suffix-icon{
+.auth__page .prefix-icon, .suffix-icon{
   width:30px;
   filter: invert();
 }
 
-.prefix-icon{
+.auth__page .prefix-icon{
   opacity: 0.5;
 }
 
-label {
+.auth__page label {
   color: #0000ff;
 }
 
-p{
+.auth__page p{
   color: #ffffffe5;
   margin-top: 15px;
   text-align: center;
 }
 
-.dash-body {
+.auth__page.dash-body {
   width: 100%!important;
   min-height: 100vh;
   margin-left: 0!important;
@@ -305,7 +248,7 @@ p{
 }
 
 @media (max-width: 768px) {
-  .dash-body{
+  .auth__page.dash-body{
     margin-left: 0;
   }
 }

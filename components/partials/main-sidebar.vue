@@ -3,7 +3,7 @@
     <aside>
       <div class="links--and--logo">
         <div class="logo">
-          <img src="../../assets/img/logo.png" alt="logo" />
+          <img src="../../assets/img/logo-.png" alt="logo" />
         </div>
         <ul>
           <!-- <li class="active"> -->
@@ -100,7 +100,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div class="divider">
               <div class="yellow-dash"></div>
               <div class="thin-line"></div>
@@ -111,7 +111,7 @@
                 {{+userDetails.balance}}
               </div>
             </div>
-    
+
             <div class="tokenbuttons">
               <nuxt-link to="token-purchase">
                 <div class="buttonIcon">
@@ -119,13 +119,13 @@
                   <p>Buy</p>
                 </div>
               </nuxt-link>
-     
+
               <div class="dropdown">
-                <a id="withdrawalButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                <a id="withdrawalButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="buttonIcon">
                   <img src="../../assets/img/icon-withdraw.png" alt="" />
                   <p>Withdraw</p>
-                </div>  
+                </div>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="withdrawalButton">
                     <a class="dropdown-item" @click="openModal('tokenWithdrawal')"><i class="ti-share mr-2"></i>To an account</a>
@@ -140,7 +140,7 @@
                 </div>
               </a>
             </div>
-         
+
             <div class="menubuttons">
               <div
                 class="menuHeader header-business"
@@ -214,7 +214,7 @@
       <nuxt-link to="/user-area/dashboard" active-class="active" class="navigation">Dashboard</nuxt-link>
       <nuxt-link to="/user-area/transactions" active-class="active" class="navigation">Transactions</nuxt-link>
       <nuxt-link to="/user-area/payouts" active-class="active" class="navigation">Payouts</nuxt-link>
-      <nuxt-link to="/user-area/wallet" active-class="active" class="navigation">Wallets</nuxt-link>      
+      <nuxt-link to="/user-area/wallet" active-class="active" class="navigation">Wallets</nuxt-link>
       <nuxt-link to="/user-area/chats" active-class="active" class="navigation">Chats</nuxt-link>
     </nav>
     <h6 class="sidebar-heading text-uppercase shadowed-box">Other Services</h6>

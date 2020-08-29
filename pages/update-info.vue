@@ -1,7 +1,7 @@
 <template>
       <section class="main-content">
         <main class="full">
-          <section class="dash-body">
+          <section class="auth__page dash-body">
             <!-- <a href="#" class="modal-close">
               <img src="img/close.png" alt="" />
             </a> -->

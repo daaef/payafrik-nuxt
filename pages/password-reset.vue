@@ -1,56 +1,7 @@
 <template>
-    <!-- <div class="section">
-        <div class="container animated fadeIn">
-            <div class="row">
-                <div class="col-md-5 ml-auto mr-auto">
-                    <div class="text-center">
-                       <a href="https://payafrik.io"> <img class="logo" src="../assets/img/logo.png"></a>
-                        <div class="login-container shadowed-box">
-                        
-                            <h6 class="font-weight-bold">RESET YOUR PASSWORD</h6>
-                            <p>Please provide your registered phone number. We will send you a code via SMS which you will use to create a new password</p>
-                            <input type="text" v-model='username' placeholder="Your registered phone number">
-                            <p class="form-tip">Please add your phone code (eg: +234)</p>
-
-                            <div v-if="codeSent">
-                                <input type="text" v-model='resetCode' placeholder="Code sent to your phone number">
-                                <div class="password-container">
-                                    <input
-                                        v-if="!viewPassword"
-                                        v-model="password"
-                                        type="password"
-                                        placeholder="Your password"
-                                    >
-                                    <input
-                                        v-if="viewPassword"
-                                        v-model="password"
-                                        type="text"
-                                        placeholder="Your password"
-                                    >
-                                    <a class="password-toggle-switch" @click="toggleViewPassword()"><i :class="viewPassword === true ? 'far fa-lg fa-eye-slash' : 'far fa-lg fa-eye'" /></a>
-                                </div>
-                            </div>
-
-                            <div v-if="!codeSent">
-                                <button class="login" v-if="!processing" @click="requestReset()">Request Password Reset</button>
-                                <button class="login" v-if="processing" disabled><i class="fa fa-circle-notch fa-spin"></i></button>
-                            </div>
-
-                            <div v-if="codeSent">
-                                <button class="login" v-if="!processing" @click="resetPassword()">Reset Password</button>
-                                <button class="login" v-if="processing" disabled><i class="fa fa-circle-notch fa-spin"></i></button>
-                            </div>
-                        </div>
-                        <hr>
-                        <p>New to Payafrik?  <nuxt-link to="/signup">Click here</nuxt-link> to signup </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <section class="main-content">
         <main class="full">
-          <section class="dash-body">
+          <section class="auth__page dash-body">
             <!-- <a href="#" class="modal-close">
               <img src="img/close.png" alt="" />
             </a> -->
@@ -102,7 +53,7 @@
                               id="reset-code"
                               placeholder="Code sent to your phone"
                           />
-                        
+
                           <label for="pin">Reset Code</label>
                         </div>
                       </div>
@@ -212,14 +163,14 @@ export default {
                 this.codeSent = true
             }catch(e){
                 this.$toast.error(JSON.stringify(e.response.data.detail))
-                
+
                 this.processing = false
                 console.log(e.response)
             }
         },
         async resetPassword() {
             let username = ''
-            
+
             if (this.username.charAt(0) === '+') {
                 username = this.username.substr(1)
             } else {
@@ -242,16 +193,16 @@ export default {
                 this.processing = false
             }catch(e){
                 this.$toast.error(JSON.stringify(e.response.data.error))
-                
+
                 this.processing = false
                 console.log(e.response)
             }
         },
 
-        enforceNumbersOnly (e) {  
+        enforceNumbersOnly (e) {
             var key   = e.keyCode ? e.keyCode : e.which;
             if (!( [8, 9, 13, 27, 46, 110, 190].indexOf(key) !== -1 ||
-                (key == 65 && ( e.ctrlKey || e.metaKey  ) ) || 
+                (key == 65 && ( e.ctrlKey || e.metaKey  ) ) ||
                 (key >= 35 && key <= 40) ||
                 (key >= 48 && key <= 57 && !(e.shiftKey || e.altKey)) ||
                 (key >= 96 && key <= 105)

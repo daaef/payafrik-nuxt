@@ -74,6 +74,9 @@
     width: 100%;
     z-index: 999980;
     background: #111649;
+    img {
+      height: 35px!important;
+    }
   }
 
   .appear-enter {

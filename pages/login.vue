@@ -1,23 +1,16 @@
 <template>
       <section class="main-content">
         <main class="full">
-          <section class="dash-body">
-            <!-- <a href="#" class="modal-close">
-              <img src="img/close.png" alt="" />
-            </a> -->
-            <!-- <div class="auth--content"> -->
-              <div class="col-lg-5 ml-auto mr-auto text-center">
+          <section class="auth__page dash-body">
+              <div class="col-lg-5 text-center">
                 <div class="w-100">
+                  <div class="welcome-text">
+                    <div class="text-center">
+                      <img src="~/assets/img/logo.png" alt="">
+                    </div>
+                  </div>
                   <form class="w-100">
                     <div class="w-100">
-                      <div class="welcome-text">
-                        <div class="text-center">
-                          <p class="w-100 c-white">log into</p>
-                          <h1 class="w-100 c-white am-type mt-0 mb-50">
-                            PayAfrik Dashboard
-                          </h1>
-                        </div>
-                      </div>
 
                       <div class="exchange centerdiv">
                         <div>
@@ -197,106 +190,62 @@ export default {
 </script>
 
 <style scoped>
-/* .section {
-  background-color: #1f3d74;
-  background: url("../assets/img/blockchain-bg.jpg") no-repeat center center;
-  background-size: cover;
-  padding: 35px;
-}
-img.logo {
-  width: 30%;
-  filter: brightness(0) invert(1) opacity(0.8);
-}
-.login-container {
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 35px;
-  padding-top: 50px;
-  width: 100%;
-  margin-top: 75px;
-}
-button.login {
-  color: #ffffffde;
-  background-color: #1fa545;
-}
-button.login:hover {
-  color: #ffffffde;
-  background-color: #13642a;
-}
-i.ti-check-box {
-  font-size: 1.5em;
-  padding: 5px;
-}
-p.confirm-success {
-  margin-bottom: 15px;
-  color: #1fa545;
-  font-size: 0.8em;
-}
-p > a {
-  font-size: 1em;
-}
-p {
-  margin: 0;
-}
-p,
-a {
-  font-size: 0.8em;
-  color: #ffffffd4;
-}
-a {
-  font-weight: 700;
-}
-a.hover {
-  color: #fffffffd;
-  text-decoration: none;
-}
-h6 {
-  font-size: 0.8em;
-}*/
-
-.exchange {
-  position: relative;
-}
-
-img.password-toggle-switch {
-  position: absolute;
-  top: 27px;
-  left: 92%!important;
-  color: #666;
-  z-index: 999;
-}
-
-.suffix{
-  cursor: pointer;
-}
-
-.prefix-icon, .suffix-icon{
-  width:30px;
-  filter: invert();
-}
-
-.prefix-icon{
-  opacity: 0.5;
-}
-
-label {
-  color: #0000ff;
-}
-
-p{
-  color: #ffffffe5;
-  margin-top: 15px;
-  text-align: center;
-}
-
-.dash-body {
-  margin-left:5%;
-}
-
-@media (max-width: 768px) {
-  .dash-body{
-    margin-left: 0;
+  .auth__page .exchange {
+    position: relative;
   }
-}
+
+  .auth__page img.password-toggle-switch {
+    position: absolute;
+    top: 27px;
+    left: 92% !important;
+    color: #666;
+    z-index: 999;
+  }
+
+  .main-content main .auth__page.dash-body > div {
+    height: unset;
+  }
+
+  .auth__page .suffix {
+    cursor: pointer;
+  }
+
+  .auth__page .sub-button {
+    width: 100%;
+  }
+
+  .auth__page .prefix-icon, .suffix-icon {
+    width: 30px;
+    filter: invert();
+  }
+
+  .auth__page .prefix-icon {
+    opacity: 0.5;
+  }
+
+  .auth__page label {
+    color: #0000ff;
+  }
+
+  .auth__page p {
+    color: #ffffffe5;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .auth__page.dash-body {
+    width: 100% !important;
+    min-height: 100vh;
+    margin-left: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .auth__page.dash-body {
+      margin-left: 0;
+    }
+  }
 
 </style>

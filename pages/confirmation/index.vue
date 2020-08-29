@@ -23,7 +23,7 @@
     </div> -->
   <section class="main-content">
     <main class="full">
-      <section class="dash-body">
+      <section class="auth__page dash-body">
         <!-- <a href="#" class="modal-close">
               <img src="img/close.png" alt="" />
             </a> -->
@@ -333,7 +333,7 @@ export default {
         this.$toast.error("Please provide your username");
         this.processing = false;
         return;
-      } 
+      }
       let phone = ""
 
       if (this.phone.charAt(0) === '+') {
@@ -364,58 +364,67 @@ export default {
         this.processing = false;
       }
     },
-    
+
   }
 };
 </script>
 <style>
-.exchange {
-  position: relative;
-}
-
-a{
-  cursor:pointer;
-}
-
-img.password-toggle-switch {
-  position: absolute;
-  top: 27px;
-  left: 92% !important;
-  color: #666;
-  z-index: 999;
-}
-
-.suffix {
-  cursor: pointer;
-}
-
-.prefix-icon,
-.suffix-icon {
-  width: 30px;
-  filter: invert();
-}
-
-.prefix-icon {
-  opacity: 0.5;
-}
-
-label {
-  color: #0000ff;
-}
-
-p {
-  color: #ffffffe5;
-  margin-top: 15px;
-  text-align: center;
-}
-
-.dash-body {
-  margin-left: 5%;
-}
-
-@media (max-width: 768px) {
-  .dash-body {
-    margin-left: 0;
+  .auth__page .exchange {
+    position: relative;
   }
-}
+
+  .auth__page img.password-toggle-switch {
+    position: absolute;
+    top: 27px;
+    left: 92% !important;
+    color: #666;
+    z-index: 999;
+  }
+
+  .main-content main .auth__page.dash-body > div {
+    height: unset;
+  }
+
+  .auth__page .suffix {
+    cursor: pointer;
+  }
+
+  .auth__page .sub-button {
+    width: 100%;
+  }
+
+  .auth__page .prefix-icon, .suffix-icon {
+    width: 30px;
+    filter: invert();
+  }
+
+  .auth__page .prefix-icon {
+    opacity: 0.5;
+  }
+
+  .auth__page label {
+    color: #0000ff;
+  }
+
+  .auth__page p {
+    color: #ffffffe5;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .auth__page.dash-body {
+    width: 100% !important;
+    min-height: 100vh;
+    margin-left: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .auth__page.dash-body {
+      margin-left: 0;
+    }
+  }
+
 </style>

@@ -81,7 +81,7 @@ export default {
       if (!this.$cookies.get("userdetails")) {
         this.$cookies.removeAll();
         this.$router.push("/login");
-      } 
+      }
       // else {
       //   // this.authenticate(this.$cookies.get("userdetails"));
       //   await this.$store.dispatch('getUserDetails')
@@ -121,7 +121,7 @@ export default {
   .for-mobile{
     display: inline-block !important;
   }
- 
+
   .not-for-mobile{
     display: none !important;
   }
