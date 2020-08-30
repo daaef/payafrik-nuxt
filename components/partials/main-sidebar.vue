@@ -3,7 +3,7 @@
     <aside>
       <div class="links--and--logo">
         <div class="logo">
-          <img src="../../assets/img/logo-.png" alt="logo" />
+          <img src="../../assets/img/logo.png" alt="logo" />
         </div>
         <ul>
           <!-- <li class="active"> -->
@@ -575,6 +575,10 @@ export default {
 </script>
 
 <style scoped>
+  .logo img{
+      height: 30px;
+  }
+
 ul li a{
   color:#fff !important;
   text-decoration: none !important;

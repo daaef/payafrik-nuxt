@@ -1043,6 +1043,11 @@ ul {
   .sub-button button {
     width: 100%
   }
+
+  .cash--crypto--btns > div .sub-button {
+    margin-bottom: 30px;
+  }
+
 }
 
 form div {
@@ -1332,7 +1337,8 @@ nav .nav-dropdown, .navigation .nav-dropdown {
   width: 100%;
   padding: 20px 40px;
   flex-wrap: wrap;
-  z-index: 34
+  z-index: 34;
+  min-height: calc((100vh - 50px));
 }
 
 nav .nav-dropdown .nav-links, .navigation .nav-dropdown .nav-links {
@@ -1343,7 +1349,7 @@ nav .nav-dropdown .nav-links, .navigation .nav-dropdown .nav-links {
 }
 
 nav .nav-dropdown .nav-links li, .navigation .nav-dropdown .nav-links li {
-  padding: 5px 0
+  padding: 8px 0
 }
 
 nav .nav-dropdown .nav-links li:first-child, .navigation .nav-dropdown .nav-links li:first-child {
@@ -1501,7 +1507,7 @@ nav__checkbox:checked ~ .nav-dropdown, .navigation__checkbox:checked ~ .nav-drop
 }
 
 .mobile-logo {
-  height: 25px;
+  height: 25px!important;
   display: none
 }
 
@@ -2638,7 +2644,6 @@ aside .links--and--logo:after {
 @media (max-width: 1174px) {
   .main-content main .dash-body > div {
     padding-bottom: 50px;
-    overflow-y: auto
   }
 }
 
@@ -2681,6 +2686,20 @@ aside .links--and--logo:after {
   .main-content main .dash-body > div .card-links .link-card {
     width: calc((100%) / 1 - 10px);
     margin-top: 30px
+  }
+
+  .wallet-content.w-afk .afk-wallet {
+    margin: 0;
+  }
+
+  .wallet-content > * {
+    width: 100%!important;
+  }
+
+  .wallet-content .normal-btn {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-right: 0!important;
   }
 }
 
@@ -3356,4 +3375,26 @@ input.normal--input[type=submit] {
 
 .auth__page input:focus ~ label, .auth__page input:hover ~ label {
   color: #f9921b;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0;
+}
+
+
+@media (max-width: 768px) {
+  .row {
+     margin-right: 0;
+     margin-left: 0;
+  }
+}
+
+.cash--crypto--btns > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;align-items: center;
+}
+
+.cash--crypto--btns > div .sub-button {
+  margin-bottom: 30px;
 }

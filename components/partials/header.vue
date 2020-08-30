@@ -2,7 +2,7 @@
   <header>
     <nav>
       <div class="balance">
-        <img src="../../assets/img/logo.png" class="mobile-logo" alt="logo" />
+        <img src="../../assets/img/logo.png" height="23" class="mobile-logo" alt="logo" />
         <span>AfriToken:</span>
         <h3>{{ +userDetails.balance | formatNumber }}</h3>
         <a class="tag-button" @click="openModal('cardRequestModal')"
@@ -310,14 +310,14 @@ export default {
     openSideBar() {
       this.$store.commit("global/toggleSidebar");
     },
-    
+
     openFunctionModal(modalActiveClass) {
       let data = {
         class: modalActiveClass
       };
       this.$store.commit("global/openFunctionModal", data);
     },
-    
+
     signOut() {
       this.$cookies.removeAll();
       this.$router.push("/login");

@@ -36,7 +36,7 @@
           </div>
           <div class="cash--crypto--btns">
             <div>
-              <div class="sub-button mr-50">
+              <div class="sub-button">
                 <button v-if="!processing" @click="generateTransaction()" type="submit">
                   BUY WITH CASH
                 </button>
@@ -45,7 +45,7 @@
                 </button>
               </div>
 
-              <div class="sub-button ml-56">
+              <div class="sub-button">
                 <button>
                   <a
                     @click="openModal('buyWithCryptoModal')"
@@ -187,35 +187,35 @@
 
                   <div class="dropdown coin-options">
                 <a v-if="fromCurrency === 'AFK'" class="coin-option afk dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 <img src="../../assets/img/Africoin.png" alt="" /> 
+                 <img src="../../assets/img/Africoin.png" alt="" />
                  <label for="exchange-afk"
                   >AFK <span class="c-white">Africoin</span>
                 </label>
                 <span class="rate">Balance: {{ userDetails.afk_balance | formatNumberLong  }}</span>
                 </a>
                 <a v-if="fromCurrency === 'BTC'" class="coin-option btc dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 <img src="../../assets/img/bitcoin.png" alt="" /> 
+                 <img src="../../assets/img/bitcoin.png" alt="" />
                  <label for="exchange-btc"
                   >BTC <span class="c-white">Bitcoin</span>
                 </label>
                 <span class="rate">Balance: {{ userDetails.btc_balance | formatNumberLong  }}</span>
                 </a>
                 <a v-if="fromCurrency === 'ETH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 <img src="../../assets/img/eth.png" alt="" /> 
+                 <img src="../../assets/img/eth.png" alt="" />
                  <label for="exchange-afk"
                   >ETH <span class="c-white">Ethereum</span>
                 </label>
                 <span class="rate">Balance: {{ userDetails.eth_balance | formatNumberLong  }}</span>
                 </a>
                 <a v-if="fromCurrency === 'LTC'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 <img src="../../assets/img/litecoin.png" style="width:35px" alt="" /> 
+                 <img src="../../assets/img/litecoin.png" style="width:35px" alt="" />
                  <label for="exchange-afk"
                   >LTC <span class="c-white">Litecoin</span>
                 </label>
                 <span class="rate">Balance: {{ userDetails.ltc_balance | formatNumberLong  }}</span>
                 </a>
                 <a v-if="fromCurrency === 'DASH'" class="coin-option eth dropdown-toggle w-100" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 <img src="../../assets/img/dash.png" style="width:35px" alt="" /> 
+                 <img src="../../assets/img/dash.png" style="width:35px" alt="" />
                  <label for="exchange-afk"
                   >Dash <span class="c-white">Dash</span>
                 </label>
@@ -223,27 +223,27 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a v-if="fromCurrency !== 'AFK'" class="dropdown-item afk" @click="fromCurrency = 'AFK'">
-                    <img src="../../assets/img/Africoin.png" alt="" /> 
+                    <img src="../../assets/img/Africoin.png" alt="" />
                     <label>AFK <span class="c-white">Africoin</span></label>
                     <span class="rate">Balance: {{ userDetails.afk_balance | formatNumberLong  }}</span>
                   </a>
                   <a v-if="fromCurrency !== 'BTC'" class="dropdown-item btc" @click="fromCurrency = 'BTC'">
-                    <img src="../../assets/img/bitcoin.png" alt="" /> 
+                    <img src="../../assets/img/bitcoin.png" alt="" />
                     <label for="exchange-afk">BTC <span class="c-white">Bitcoin</span></label>
                     <span class="rate">Balance: {{ userDetails.btc_balance | formatNumberLong  }}</span>
                   </a>
                   <a v-if="fromCurrency !== 'ETH'" class="dropdown-item eth" @click="fromCurrency = 'ETH'">
-                    <img src="../../assets/img/eth.png" alt="" /> 
+                    <img src="../../assets/img/eth.png" alt="" />
                     <label for="exchange-afk">ETH <span class="c-white">Ethereum</span></label>
                     <span class="rate">Balance: {{ userDetails.eth_balance | formatNumberLong  }}</span>
                   </a>
                   <a v-if="fromCurrency !== 'LTC'" class="dropdown-item eth" @click="fromCurrency = 'LTC'">
-                    <img src="../../assets/img/litecoin.png" style="width:35px" alt="" /> 
+                    <img src="../../assets/img/litecoin.png" style="width:35px" alt="" />
                     <label for="exchange-afk">LTC <span class="c-white">Litecoin</span></label>
                     <span class="rate">Balance: {{ userDetails.litecoin_balance | formatNumberLong  }}</span>
                   </a>
                   <a v-if="fromCurrency !== 'DASH'" class="dropdown-item eth" @click="fromCurrency = 'DASH'">
-                    <img src="../../assets/img/dash.png" style="width:35px" alt="" /> 
+                    <img src="../../assets/img/dash.png" style="width:35px" alt="" />
                     <label for="exchange-afk">DASH <span class="c-white">Dash</span></label>
                     <span class="rate">Balance: {{ userDetails.dash_balance | formatNumberLong }}</span>
                   </a>

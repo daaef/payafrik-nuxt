@@ -85,7 +85,7 @@
                     </select>
                     <label>Ticket Body</label>
                     <textarea v-model="newTicket.body" placeholder="What is the complaint?"></textarea>
-                                    
+
                 </div>
               </div>
             </div>
@@ -221,12 +221,12 @@ export default {
         Authorization: this.userDetails.token,
       };
 
-      const ticketContent = this.userDetails.username + '|' 
-        + this.userDetails.first_name + ' ' 
-        + this.userDetails.last_name + '|' 
-        + this.newTicket.title + '|' 
-        + this.newTicket.body 
-        
+      const ticketContent = this.userDetails.username + '|'
+        + this.userDetails.first_name + ' '
+        + this.userDetails.last_name + '|'
+        + this.newTicket.title + '|'
+        + this.newTicket.body
+
       const requestBody = {
         content: ticketContent,
         customer: this.newTicket.username
@@ -264,6 +264,12 @@ export default {
 <style scoped>
 button {
   width: unset;
+}
+
+@media (max-width: 767px) {
+  button {
+    width: 100%;
+  }
 }
 
 .md-title h6 {
@@ -408,7 +414,7 @@ a.ticket{
   transition: all 0.3s ease-in-out;
   margin-top:20px;
   display:block;
-  border: 2px solid transparent; 
+  border: 2px solid transparent;
 }
 
 a.ticket p{
@@ -418,7 +424,7 @@ a.ticket p{
 
 a.ticket:hover{
   background: #141B49;
-  border: 2px solid #0c0b3a; 
+  border: 2px solid #0c0b3a;
 
 }
 
