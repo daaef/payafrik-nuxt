@@ -3349,7 +3349,11 @@ input.normal--input[type=submit] {
   transition: all .3s;
 }
 
-.auth__page input:focus {
+.auth__page input:focus, .auth__page input:hover {
   border: solid 2px #f9921b;
   background: #100e3f
+}
+
+.auth__page input:focus ~ label, .auth__page input:hover ~ label {
+  color: #f9921b;
 }
