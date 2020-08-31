@@ -2861,7 +2861,7 @@ aside .links--and--logo:after {
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets table thead th:first-child {
   position: relative;
-  min-width: 160px;
+  min-width: 120px;
 }
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets table thead th:nth-child(5) {
