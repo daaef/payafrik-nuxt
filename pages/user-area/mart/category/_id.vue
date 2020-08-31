@@ -8,10 +8,10 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="w-100">
                 <ul class="card-links row">
-                <li v-for="biller of billers" v-bind:key="biller.billerid" class="col-md-6">
-                    <div class="link-card no-img mt-20 w-100">
+                <li v-for="biller of billers" v-bind:key="biller.billerid" class="link-card no-img">
+                    <div class="mt-20 w-100">
                     <i class="fas fa-angle-right c-white fa-2x"></i>
                     <a @click='setBillerAndNavigate(biller)'>
                         <p class="higlight">{{biller.billername}}</p>
@@ -60,7 +60,7 @@
                       </div>
                     </div>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@
             <p class="c-white">Loading billers...</p>
         </div>
     </div> -->
-    
+
 </template>
 
 <script>
@@ -119,9 +119,9 @@ export default {
             console.log('working here...')
             this.$router.push(
                 {
-                    name: 'user-area-mart-biller-id', 
-                    params: { 
-                        id: biller.billerid 
+                    name: 'user-area-mart-biller-id',
+                    params: {
+                        id: biller.billerid
                     }
                 }
             )

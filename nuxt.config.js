@@ -6,6 +6,10 @@ export default {
     interswitchBaseUrl: 'https://payafrik.immanuel.com.ng/v1/api/interswitch/'
     // interswitchBaseUrl: 'http://localhost:5000/v1/api/interswitch/'
   },
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
   /*
   ** Headers of the page
   */

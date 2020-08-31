@@ -1,7 +1,4 @@
 <template>
-  <span>
-    <!-- <div class="main"> -->
-
     <section v-if="!loadingData" class="dash-body">
       <div>
         <div class="welcome-text">
@@ -336,7 +333,6 @@
         </div> -->
       </div>
     </section>
-  </span>
 </template>
 <script src="../../assets/js/vendor/modernizr-3.8.0.min.js"></script>
 <script src="../../assets/js/plugins.js"></script>

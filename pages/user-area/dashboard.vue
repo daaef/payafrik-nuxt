@@ -30,15 +30,13 @@ export default {
     beforeMount() {
         this.closeSideBar()
     }
-    
+
 }
 </script>
 
 <style scoped>
     section{
         width:100%;
-        min-height:100vh;
-        height:inherit;
     }
     .no-padding{
         padding:0!important;

@@ -106,10 +106,10 @@
         </a>
       </div>
 
-      <div class="container" v-if="moreLoaded">
-        <ul class="card-links row">
-          <li v-for="category of billerCategories" :key="category.categoryId" class="col-md-6">
-            <div class="link-card no-img mt-20 w-100">
+      <div class="w-100 mt-40" v-if="moreLoaded">
+        <ul class="card-links">
+          <li v-for="category of billerCategories" :key="category.categoryId" class="link-card no-img ">
+            <div class="mt-20 w-100">
               <i class="fas fa-angle-right c-white fa-2x"></i>
               <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: category.categoryid }}">
                 <p class="higlight">{{category.categoryname}}</p>
@@ -179,7 +179,7 @@
                                 {{category.categorydescription}}
                                 </p>
                                 <nuxt-link :to="{ name: 'user-area-mart-category-id', params: { id: category.categoryid }}">See Billers</nuxt-link>
-                                
+
                             </div>
                         </div>
                     </div>
