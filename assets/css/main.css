@@ -2787,7 +2787,7 @@ aside .links--and--logo:after {
 }
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets table {
-  font-size: .7rem;
+  font-size: 1rem;
   color: #fffdef;
   width: 100%;
   text-align: right;
@@ -2816,7 +2816,8 @@ aside .links--and--logo:after {
 }
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets table thead th:first-child {
-  position: relative
+  position: relative;
+  min-width: 160px;
 }
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets table thead th:first-child > * {
@@ -2828,7 +2829,8 @@ aside .links--and--logo:after {
   padding: 10px;
   border-bottom: 5px solid transparent;
   box-sizing: content-box;
-  background: #0f0a3b
+  background: #0f0a3b;
+  font-size: .7rem;
 }
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets table td {
