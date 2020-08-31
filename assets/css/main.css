@@ -78,6 +78,50 @@ ul {
   }
 }
 
+body ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+}
+
+body ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
+
+body ::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-transition: color .2s ease;
+  transition: color .2s ease;
+}
+
+body ::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 135, 139, 0.8);
+}
+
+body .ui.inverted::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body .ui.inverted::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+body .ui.inverted::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+body .ui.inverted::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+
 .mt-0 {
   margin-top: 0px !important
 }
@@ -1335,7 +1379,7 @@ nav .nav-dropdown, .navigation .nav-dropdown {
   background: #0c0a3c;
   color: #fff;
   width: 100%;
-  padding: 20px 40px;
+  padding: 30px 40px;
   flex-wrap: wrap;
   z-index: 34;
   min-height: calc((100vh - 50px));
@@ -2817,6 +2861,10 @@ aside .links--and--logo:after {
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets table thead th:first-child {
   position: relative;
+  min-width: 160px;
+}
+
+.main-content main .dash-body > div .wallets--and--transactions .wallets table thead th:nth-child(5) {
   min-width: 160px;
 }
 
