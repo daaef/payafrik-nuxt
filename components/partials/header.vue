@@ -123,24 +123,24 @@
             </nuxt-link>
           </li>
           <li>
-            <a href="" class=" mt-8">
+            <nuxt-link to="/user-area/transactions" class="mt-8" active-class="active-link">
               <img  src="../../assets/img/mart.png" alt="" />
               Transactions
-            </a>
+            </nuxt-link>
           <li>
-            <a href="" class=" mt-8">
+          <nuxt-link to="/user-area/buy-crypto" class="mt-8" active-class="active-link">
               <img  src="../../assets/img/side-wallet.png" alt="" />
               Buy Crypto
-            </a>
+          </nuxt-link>
           </li>
           <li class="divider">
             <hr>
           </li>
           <li>
-            <a href="" class=" mt-8">
+            <nuxt-link to="/user-area/support" class="mt-8" active-class="active-link">
               <img  src="../../assets/img/headset-solid.svg" alt="" />
               Support
-            </a>
+            </nuxt-link>
           </li>
           <li>
             <a @click="signOut()" class=" mt-8">
