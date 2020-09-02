@@ -1349,7 +1349,10 @@ nav .nav-links li a, .navigation .nav-links li a {
 }
 
 nav .nav-links img, .navigation .nav-links img {
-  height: 23px
+  height: 23px;
+  width: 28px;
+  object-fit: contain;
+  object-position: left;
 }
 
 nav .nav-links li:nth-child(2) img, .navigation .nav-links li:nth-child(2) img {
@@ -1372,17 +1375,21 @@ nav .user-account a span, .navigation .user-account a span {
 }
 
 nav .nav-dropdown, .navigation .nav-dropdown {
-  display: none;
+  display: block;
   position: absolute;
   top: 50px;
   left: 0;
   background: #0c0a3c;
   color: #fff;
-  width: 100%;
-  padding: 30px 40px;
+  width: 80%;
+  padding: 10px 20px;
   flex-wrap: wrap;
   z-index: 34;
-  min-height: calc((100vh - 50px));
+  height: calc((100vh - 50px));
+  transform: translateX(-100%);
+  transition: all .4s ease-in-out;
+  overflow-y: auto;
+  flex-direction: column;
 }
 
 nav .nav-dropdown .nav-links, .navigation .nav-dropdown .nav-links {
@@ -1395,10 +1402,10 @@ nav .nav-dropdown .nav-links, .navigation .nav-dropdown .nav-links {
 nav .nav-dropdown .nav-links li, .navigation .nav-dropdown .nav-links li {
   padding: 8px 0
 }
-
+/*
 nav .nav-dropdown .nav-links li:first-child, .navigation .nav-dropdown .nav-links li:first-child {
   padding-top: 20px
-}
+}*/
 
 nav .nav-dropdown .nav-links li:last-child, .navigation .nav-dropdown .nav-links li:last-child {
   padding-bottom: 20px
@@ -1441,7 +1448,7 @@ nav__button, .navigation__button {
   top: 5px;
   right: 10px;
   border-radius: 50%;
-  z-index: 2000;
+  z-index: 200;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, .1);
   text-align: center;
   cursor: pointer;
@@ -1547,7 +1554,7 @@ nav__checkbox:checked + nav__button nav__icon::after, nav__checkbox:checked + na
 }
 
 nav__checkbox:checked ~ .nav-dropdown, .navigation__checkbox:checked ~ .nav-dropdown {
-  display: flex
+  transform: translateX(0);
 }
 
 .mobile-logo {
@@ -1635,7 +1642,7 @@ aside .links--and--logo:after {
 .wallet--modals .modal-content, .withdraw--modal .modal-content, .buy--token--modal .modal-content, .transfer--modal .modal-content, .profile--modal .modal-content {
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1898,7 +1905,8 @@ aside .links--and--logo:after {
 .profile--modal .main-modal .u-info {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .profile--modal .main-modal .u-info .u-image {
@@ -1932,6 +1940,7 @@ aside .links--and--logo:after {
 
 .profile--modal .main-modal .u-info .u-main--content .row .kyc--content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px
@@ -2810,7 +2819,7 @@ aside .links--and--logo:after {
 }
 
 .main-content main .dash-body > div .wallets--and--transactions .wallets {
-  width: 75%;
+  width: 100%;
   padding-bottom: 20px
 }
 
@@ -2916,7 +2925,7 @@ aside .links--and--logo:after {
 }
 
 .main-content main .dash-body > div .wallets--and--transactions .transactions {
-  width: 25%;
+  width: 100%;
   padding-left: 20px;
   padding-bottom: 20px
 }
@@ -3469,4 +3478,77 @@ input.normal--input[type=submit] {
 
 .main-content main .dash-body > div .card-links .link-card.no-img > .mt-20 {
   margin-top: 0!important;
+}
+
+.divider {
+  width: 100%;
+}
+
+.divider hr {
+  background: rgba(255, 255, 255, 0.56);
+  height: 1px;
+  width: 100%;
+  border-top: none;
+  transform: scaleY(.2);
+  margin: 5px 0 0;
+}
+
+.break {
+  display: block;
+  width: 100%;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-body {
+  padding: 0;
+}
+
+.modal {
+  z-index: 123856;
+  background: #131d4b;
+}
+
+@media (max-width: 1024px) {
+  .u-info {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile--modal .main-modal .u-info .u-main--content {
+    width: 100%!important;
+    padding-bottom: 50px;
+  }
+
+  .u-image {
+    width: 200px!important;
+    height: auto;
+    margin: 0 auto;
+  }
+
+}
+
+
+@media (max-width: 577px) {
+  .profile--modal .main-modal .u-info .u-main--content .row .kyc--content .text-cont {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .profile--modal .main-modal .u-info .u-main--content .row .kyc--content > div {
+    width: calc((25%) - (20px));
+  }
+
+  .profile--modal .main-modal .u-info .u-main--content .row > div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 382px) {
+  .profile--modal .main-modal .u-info .u-main--content .row .kyc--content > div {
+    width: calc((25%) - (10px));
+  }
 }

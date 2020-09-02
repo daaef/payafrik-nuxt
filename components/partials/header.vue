@@ -48,94 +48,107 @@
         <span class="navigation__icon">&nbsp;</span>
       </label>
       <div class="nav-dropdown">
-        <div class="balance">
+        <div class="balance mb-12">
           <span>AfriToken:</span>
           <h3>{{ +userDetails.balance }}</h3>
         </div>
-        <ul class="nav-links">
-          <li>
-            <a @click="openFunctionModal('buy-token-active')">
-              <img class="mr-8" src="../../assets/img/plus.png" alt="plus" />
-              BUY TOKEN
-            </a>
-          </li>
-          <li>
-            <a @click="openFunctionModal('withdraw-active')">
-              <img
-                class="mr-8"
-                src="../../assets/img/wallet.png"
-                alt="wallet"
-              />
-              WITHDRAW
-            </a>
-          </li>
-          <li>
-            <a @click="openFunctionModal('transfer-token-active')">
-              <img
-                class="mr-8"
-                src="../../assets/img/transfer.png"
-                alt="transfer"
-              />
-              TRANSFER AFRITOKEN
-            </a>
-          </li>
-          <li class="active">
-            <nuxt-link to="/user-area/dashboard" class=" mt-8">
-              <img class="mr-8" src="../../assets/img/home.png" alt="" />
-              HOME
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/user-area/wallet" class=" mt-8">
-              <img class="mr-8" src="../../assets/img/side-wallet.png" alt="" />
-              WALLET
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/user-area/mart" class=" mt-8">
-              <img class="mr-8" src="../../assets/img/mart.png" alt="" />
-              MART
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/user-area/exchange" class=" mt-8">
-              <img
-                class="mr-8"
-                src="../../assets/img/side-exchange.png"
-                alt=""
-              />
-              EXCHANGE
-            </nuxt-link>
-          </li>
-          <li>
-            <a href="" class=" mt-8">
-              <img class="mr-8" src="../../assets/img/chat.png" alt="" />
-              CHAT
-            </a>
-          </li>
-          <li>
-            <a href="" class=" mt-8">
-              <img class="mr-8" src="../../assets/img/setting.png" alt="" />
-              SETTING
-            </a>
-          </li>
-          <li>
-            <a @click="signOut()" class=" mt-8">
-              <img class="mr-8" src="../../assets/img/exit.png" alt="" />
-              EXIT
-            </a>
-          </li>
-        </ul>
         <div class="user-account">
-          <a href="#">
+          <a href="#" @click="openFunctionModal('profile--active')">
             <img
               class="mr-12"
               src="../../assets/img/user.png"
               alt="user icon"
             />
-            <span>{{ userDetails.username }}</span>
+            <span class="break">{{ userDetails.first_name }} {{ userDetails.last_name }}</span>
           </a>
         </div>
+        <div class="divider mb-12 mt-12">
+          <hr>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a @click="openFunctionModal('buy-token-active')">
+              <img  src="../../assets/img/plus.png" alt="plus" />
+              Buy Token
+            </a>
+          </li>
+          <li>
+            <a @click="openFunctionModal('withdraw-active')">
+              <img
+
+                src="../../assets/img/wallet.png"
+                alt="wallet"
+              />
+              Withdraw
+            </a>
+          </li>
+          <li>
+            <a @click="openFunctionModal('transfer-token-active')">
+              <img
+                src="../../assets/img/transfer.png"
+                alt="transfer"
+              />
+              Transfer Afritoken
+            </a>
+          </li>
+          <li class="divider">
+            <hr>
+          </li>
+          <li class="active">
+            <nuxt-link to="/user-area/dashboard" class=" mt-8">
+              <img  src="../../assets/img/home.png" alt="" />
+              Home
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/user-area/wallet" class=" mt-8">
+              <img  src="../../assets/img/side-wallet.png" alt="" />
+              Wallet
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/user-area/mart" class=" mt-8">
+              <img  src="../../assets/img/mart.png" alt="" />
+              Mart
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/user-area/exchange" class=" mt-8">
+              <img
+
+                src="../../assets/img/side-exchange.png"
+                alt=""
+              />
+              Exchange
+            </nuxt-link>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img  src="../../assets/img/mart.png" alt="" />
+              Transactions
+            </a>
+          <li>
+            <a href="" class=" mt-8">
+              <img  src="../../assets/img/side-wallet.png" alt="" />
+              Buy Crypto
+            </a>
+          </li>
+          <li class="divider">
+            <hr>
+          </li>
+          <li>
+            <a href="" class=" mt-8">
+              <img  src="../../assets/img/headset-solid.svg" alt="" />
+              Support
+            </a>
+          </li>
+          <li>
+            <a @click="signOut()" class=" mt-8">
+              <img  src="../../assets/img/exit.png" alt="" />
+              Sign Out
+            </a>
+          </li>
+        </ul>
       </div>
     </nav>
 
@@ -164,7 +177,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="container ml-3">
+            <div>
               <div class="row">
                 <div class="col-md-12">
                   <p>
@@ -181,7 +194,7 @@
                     Please note, 2000 Tokens will be debited from your account
                   </p>
                   <label>Select card type</label>
-                  <div class="row mb-2">
+                  <div class="row card__imgs mb-2">
                     <div class="col-3">
                       <a
                         class="card-option"
@@ -236,15 +249,14 @@
             </div>
           </div>
           <div class="modal-footer">
-            <div class="container">
+            <div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                   <button type="button" class="cancel" data-dismiss="modal">
                     Cancel
                   </button>
                 </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-7">
+                <div class="col-md-12">
                   <button
                     class="success-btn"
                     v-if="!processing"
@@ -462,7 +474,6 @@ select {
   background-color: #131c4b;
   border: dashed 1px #4451ff;
   box-shadow: 25px 25px 100px #00000044;
-  padding: 0;
   color: #fff;
 }
 
@@ -500,9 +511,6 @@ select {
 }
 
 #cardRequestModal .modal-header h5 {
-  position: absolute;
-  top: 10px;
-  left: 10px;
   font-size: 1.2em;
 }
 
@@ -517,6 +525,8 @@ select {
   padding: 10px 40px;
   border-radius: 25px;
   cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
 }
 
 #cardRequestModal .modal-footer button.cancel {
@@ -546,13 +556,18 @@ input {
   width: 100%;
 }
 
-a.card-option {
-  padding: 10px;
-}
-
 a.card-option.bordered {
   border-radius: 5px;
   border: 2px solid #f8ae30;
   display: block;
 }
+
+  .card__imgs img {
+    height: 60px;
+    width: 60px;
+  }
+
+  .card__imgs {
+    justify-content: center;
+  }
 </style>
