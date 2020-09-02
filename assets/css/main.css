@@ -1092,6 +1092,9 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
     margin-bottom: 30px;
   }
 
+  nav .nav-links img, .navigation .nav-links img {
+    width: 50px!important;
+  }
 }
 
 form div {
@@ -3528,7 +3531,6 @@ input.normal--input[type=submit] {
     height: auto;
     margin: 0 auto;
   }
-
 }
 
 
