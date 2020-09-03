@@ -113,11 +113,17 @@
               CHAT
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="" class=" mt-8">
               <img class="mr-8" src="../../assets/img/setting.png" alt="" />
               SETTING
             </a>
+          </li> -->
+          <li>
+            <nuxt-link to="/user-area/support" class="mt-8">
+              <img class="mr-20" src="../../assets/img/headset-solid.svg" style="width:28px;" alt="" />
+              Support
+            </nuxt-link>
           </li>
           <li>
             <a @click="signOut()" class=" mt-8">
@@ -127,7 +133,7 @@
           </li>
         </ul>
         <div class="user-account">
-          <a href="#">
+          <a @click="openFunctionModal('profile--active')" data-link-class="profile--active">
             <img
               class="mr-12"
               src="../../assets/img/user.png"
@@ -312,6 +318,7 @@ export default {
     },
     
     openFunctionModal(modalActiveClass) {
+      this.$store.commit("global/toggleSidebar");
       let data = {
         class: modalActiveClass
       };
