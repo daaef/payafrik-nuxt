@@ -74,7 +74,7 @@
         <li>
           <a @click="signOut()">
             <img class="mr-20" src="../../assets/img/exit.png" alt="" />
-            Exit
+            Sign Out
           </a>
         </li>
       </ul>

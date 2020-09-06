@@ -3531,6 +3531,18 @@ input.normal--input[type=submit] {
     height: auto;
     margin: 0 auto;
   }
+
+  .transfer--info {
+    padding: 0!important;
+  }
+
+  .transfer--info form {
+    width: 100%;
+  }
+
+  .plain--input input {
+    width: 100%;
+  }
 }
 
 

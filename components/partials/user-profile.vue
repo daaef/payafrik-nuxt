@@ -1,6 +1,6 @@
 <template>
   <div class="profile--modal">
-    <a @click="closeFunctionModal()" class="modal-close">
+    <a @click="closeFunctionModal()" class="modal-close mt-5">
       <img src="../../assets/img/close.png" alt="" />
     </a>
     <div class="modal-content">
