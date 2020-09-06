@@ -2690,6 +2690,7 @@ aside .links--and--logo:after {
   width: 100%;
   padding: 10px 30px 0;
   overflow-y: auto;
+  min-width: 100%;
 }
 
 @media (max-width: 1174px) {
@@ -3521,8 +3522,21 @@ input.normal--input[type=submit] {
 }
 
 @media (max-width: 767px) {
+  .w-afk[data-v-2c21b8b2], .w-eth[data-v-2c21b8b2], .w-btc[data-v-2c21b8b2], .w-ltc[data-v-2c21b8b2], .w-dash .wallet-chart[data-v-2c21b8b2] {
+    min-width: 80vw;
+    padding: 0;
+  }
+
+  .wallet-content > div {
+    min-width: 80vw;
+  }
+
   .profile--modal .main-modal .u-info .u-main--content {
     width: 100%!important;
+    padding-bottom: 50px;
+  }
+
+  .main-content main .dash-body > div {
     padding-bottom: 50px;
   }
 

@@ -33,7 +33,7 @@
                     <span class="muted w-100 text-right d-block">0 ETH</span>
                   </a>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@
               >
             </p>
           </div>
-          <div class="afk-wallet">
+          <div class="afk-wallet w-100">
             <div class="w-100">
               <div class="w-100 text-center">
                 <img height="40" src="../../assets/img/Africoin.png" alt="" />
@@ -145,7 +145,13 @@
                 </p>
                 <h2 class="light c-white">$1.00</h2>
                 <p class="small-text muted">1 AFK</p>
-                <canvas id="myChart"></canvas>
+                <trend
+                  :data="[0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]"
+                  :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                  auto-draw
+                  smooth
+                >
+                </trend>
               </div>
             </div>
           </div>
@@ -207,7 +213,13 @@
                 </p>
                 <h2 class="light c-white">${{ +btcData.current_price | formatNumber}}</h2>
                 <p class="small-text muted">1 BTC</p>
-                <canvas id="myChart"></canvas>
+                <trend
+                  :data="btcChartData"
+                  :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                  auto-draw
+                  smooth
+                >
+                </trend>
               </div>
             </div>
           </div>
@@ -269,7 +281,13 @@
                 </p>
                 <h2 class="light c-white">${{ethData.current_price | formatNumber}}.00</h2>
                 <p class="small-text muted">1 ETH</p>
-                <canvas id="myChart"></canvas>
+                <trend
+                  :data="ethChartData"
+                  :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                  auto-draw
+                  smooth
+                >
+                </trend>
               </div>
             </div>
           </div>
@@ -288,7 +306,7 @@
             </p>
           </div>
 
-          <div class="ltc-wallet">
+          <div class="ltc-wallet w-100">
             <div class="w-100">
               <div class="w-100 text-center">
                 <img height="40" src="../../assets/img/litecoin.png" style="width:35px" alt="" />
@@ -330,7 +348,13 @@
                 </p>
                 <h2 class="light c-white">${{litecoinData.current_price | formatNumber}}.00</h2>
                 <p class="small-text muted">1 LTC</p>
-                <canvas id="myChart"></canvas>
+                <trend
+                  :data="litecoinChartData"
+                  :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                  auto-draw
+                  smooth
+                >
+                </trend>
               </div>
             </div>
           </div>
@@ -392,7 +416,13 @@
                 </p>
                 <h2 class="light c-white">${{dashData.current_price | formatNumber}}.00</h2>
                 <p class="small-text muted">1 DASH</p>
-                <canvas id="myChart"></canvas>
+                <trend
+                  :data="dashChartData"
+                  :gradient="['#6fa8dc', '#42b983', '#2c3e50']"
+                  auto-draw
+                  smooth
+                >
+                </trend>
               </div>
             </div>
           </div>
@@ -502,6 +532,9 @@ export default {
     btcData() {
       return this.$store.state.btcData;
     },
+    btcChartData() {
+      return this.$store.state.btcChartData;
+    },
     ethData() {
       return this.$store.state.ethData;
     },
@@ -510,9 +543,17 @@ export default {
     },
     dashData() {
       return this.$store.state.dashData;
-    }
+    },
+    ethChartData() {
+      return this.$store.state.ethChartData;
+    },
+    litecoinChartData() {
+      return this.$store.state.litecoinChartData;
+    },
+    dashChartData() {
+      return this.$store.state.dashChartData;
+    },
   },
-  
   methods: {
     openModal(modalId) {
       $("#" + modalId).modal("show");
@@ -648,11 +689,11 @@ export default {
   },
   beforeMount() {},
   mounted() {
-    this.loadChart()
+    // this.loadChart()
     console.log('BTCDATA ======', this.btcData)
     if (this.$route.query.active){
       // console.log('theres a query')
-      this.changeWallet(this.$route.query.active) 
+      this.changeWallet(this.$route.query.active)
     }
 
   },
