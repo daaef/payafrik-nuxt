@@ -66,6 +66,7 @@ export default {
   ** Global CSS
   */
   css: [
+    'iview/dist/styles/iview.css',
     '~/assets/css/main.css',
     '~/assets/css/normalize.css',
     '~/assets/css/themify-icons.css',
@@ -76,6 +77,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/vue-datepicker', ssr: false },
+    { src: '~/plugins/iview', ssr: false },
     { src: '~/plugins/numeral' },
     { src: '~/plugins/vue-trend' },
 

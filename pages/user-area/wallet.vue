@@ -154,6 +154,9 @@
                 </trend>
               </div>
             </div>
+            <div class="w-100 mt-50 mb-50 overflow-auto">
+              <Table class="w-100" border :columns="columns5" :data="data5"></Table>
+            </div>
           </div>
         </div>
 
@@ -221,6 +224,9 @@
                 >
                 </trend>
               </div>
+            </div>
+            <div class="w-100 mt-50 mb-50 overflow-auto">
+              <Table class="w-100" border :columns="columns5" :data="data5"></Table>
             </div>
           </div>
         </div>
@@ -290,6 +296,9 @@
                 </trend>
               </div>
             </div>
+            <div class="w-100 mt-50 mb-50 overflow-auto">
+              <Table class="w-100" border :columns="columns5" :data="data5"></Table>
+            </div>
           </div>
         </div>
 
@@ -356,6 +365,9 @@
                 >
                 </trend>
               </div>
+            </div>
+            <div class="w-100 mt-50 mb-50 overflow-auto">
+              <Table class="w-100" border :columns="columns5" :data="data5"></Table>
             </div>
           </div>
         </div>
@@ -424,6 +436,9 @@
                 >
                 </trend>
               </div>
+            </div>
+            <div class="w-100 mt-50 mb-50 overflow-auto">
+              <Table class="w-100" border :columns="columns5" :data="data5"></Table>
             </div>
           </div>
         </div>
@@ -522,7 +537,77 @@ export default {
       activeWallet: "afk",
       processing: false,
       amount: 0,
-      cryptoToReceive: ''
+      cryptoToReceive: '',
+      columns5: [
+        {
+          title: 'Sender',
+          key: 'sender'
+        },
+        {
+          title: 'Recipient',
+          key: 'recipient'
+        },
+        {
+          title: 'Date',
+          key: 'date',
+          sortable: true
+        },
+        {
+          title: 'Amount',
+          key: 'amount',
+          sortable: true
+        },
+        {
+          title: 'Fee',
+          key: 'fee'
+        },
+        {
+          title: 'Status',
+          key: 'status'
+        }
+      ],
+      data5: [
+        {
+          sender: '6636648895225118227A',
+          recipient: '5122649909528953260A',
+          date: '12 Sep 2020, 07:52:31 PM',
+          amount: '41,963.75551266 AFK',
+          fee: '0.1 AFK',
+          status: 'pending',
+        },
+        {
+          sender: '8121279739113519378A',
+          recipient: '16293716040102736949A',
+          date: '12 Sep 2020, 08:02:17 PM',
+          amount: '66.75916143 AFK',
+          fee: '0.1 AFK',
+          status: 'pending',
+        },
+        {
+          sender: '6024558328335565503A',
+          recipient: '6687808873757044786A',
+          date: '01 Sep 2020, 11:59:23 PM',
+          amount: '66.7105674 AFK',
+          fee: '0.1 AFK',
+          status: 'pending',
+        },
+        {
+          sender: '15610359283786884938A',
+          recipient: '4323687997019448151A',
+          date: '01 Sep 2020, 11:53:41 PM',
+          amount: '41,963.75551266 AFK',
+          fee: '0.1 AFK',
+          status: 'pending',
+        },
+        {
+          sender: '6636648895225118227A',
+          recipient: '5122649909528953260A',
+          date: '12 Sep 2020, 07:52:31 PM',
+          amount: '2,614.7384 AFK',
+          fee: '0.1 AFK',
+          status: 'pending',
+        },
+      ]
     };
   },
   computed: {
@@ -784,6 +869,7 @@ select {
 #buyCryptoModal .modal-footer {
   border: none !important;
 }
+
 
 #buyCryptoModal .modal-footer button {
   background: #11154b;
