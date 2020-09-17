@@ -7,7 +7,7 @@
         </a> -->
 
         <div class="auth--content">
-          <div class="col-lg-6 ml-auto mr-auto">
+          <div class="col-lg-5 ml-auto mr-auto">
             <div class="w-100">
               <form class="w-100">
                 <div class="w-100">

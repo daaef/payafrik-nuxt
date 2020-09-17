@@ -375,8 +375,9 @@ export default {
 
   .auth__page img.password-toggle-switch {
     position: absolute;
-    top: 27px;
-    left: 92% !important;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
     color: #666;
     z-index: 999;
   }

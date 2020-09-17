@@ -17,24 +17,30 @@
                     <div class="w-100">
 
                       <div class="exchange centerdiv">
-                        <div>
-                          <img
+                        <div class="text-left phoneNum">
+                          <!--<img
                             class="prefix-icon"
                             src="../assets/img/iphone.png"
                             alt=""
-                          />
+                          />-->
+                          <vue-country-code
+                            class="prefix-icon"
+                            @onSelect="onSelect"
+                          :preferredCountries="['ng', 'us', 'gb']">
+                          </vue-country-code>
                           <input
                               v-model='username'
                               id="exchange-afk"
                               type="text"
-                              placeholder="Enter Registered Phone Number"
+                              placeholder="Phone Number"
                           />
+                          <div class="prefixNum">{{prefixNum}}</div>
                           <label for="exchange-afk">Phone Number</label>
                           <div class="exchange--dropdown"></div>
                         </div>
                       </div>
                       <p class="authhint">
-                        Please add your phone code (eg: +234)
+                        Please choose country from flag
                       </p>
                       <div class="exchange centerdiv">
                         <div>
@@ -121,7 +127,8 @@ export default {
       processing: false,
       baseUrl: 'https://api.payafrik.io/',
       confirmationStatus: "false",
-      viewPassword: false
+      viewPassword: false,
+      prefixNum: null
     };
   },
   methods: {
@@ -132,7 +139,7 @@ export default {
       e.preventDefault();
       console.log("signing in...")
       let payload = {
-        username: this.username,
+        username: `${this.prefixNum}${this.username[0] === "0" ? this.username.slice(1) : this.username}`,
         password: this.password
       };
       this.processing = true;
@@ -179,7 +186,10 @@ export default {
         console.log(e.response);
       }
     },
-
+    onSelect({name, iso2, dialCode}) {
+      console.log(`${dialCode}`);
+      this.prefixNum = dialCode
+    },
     authenticate(user) {
       this.$store.commit("global/authenticateUser", user);
     },

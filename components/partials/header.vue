@@ -121,7 +121,7 @@
           </li> -->
           <li>
             <nuxt-link to="/user-area/support" class="mt-8">
-              <img class="mr-20" src="../../assets/img/headset-solid.svg" style="width:28px;" alt="" />
+              <img class="mr-1" src="../../assets/img/headset-solid.svg" style="width:28px;" alt="" />
               Support
             </nuxt-link>
           </li>
@@ -316,7 +316,7 @@ export default {
     openSideBar() {
       this.$store.commit("global/toggleSidebar");
     },
-    
+
     openFunctionModal(modalActiveClass) {
       this.$store.commit("global/toggleSidebar");
       let data = {
@@ -324,7 +324,7 @@ export default {
       };
       this.$store.commit("global/openFunctionModal", data);
     },
-    
+
     signOut() {
       this.$cookies.removeAll();
       this.$router.push("/login");

@@ -1117,12 +1117,13 @@ form div input::placeholder {
   vertical-align: bottom
 }
 
-form div img {
+form div .prefix-icon {
   position: absolute;
   left: 25px;
   top: 30px;
   transform: translate(-50%, -50%);
-  height: 30px
+  height: 30px;
+  z-index: 20;
 }
 
 form div label {
@@ -2056,7 +2057,9 @@ aside .links--and--logo:after {
 .row {
   display: flex;
   flex-wrap: wrap;
-  width: 100%
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .col-offset-0 {
@@ -2690,7 +2693,6 @@ aside .links--and--logo:after {
   width: 100%;
   padding: 10px 30px 0;
   overflow-y: auto;
-  min-width: 100%;
 }
 
 @media (max-width: 1174px) {
@@ -3227,7 +3229,8 @@ aside .links--and--logo:after {
 
 @media (min-width: 1366px) {
   .wallet-chart {
-    margin-top: 100px !important
+    margin-top: 100px !important;
+    padding-right: 40px;
   }
 
   .wallet-chart > canvas {
@@ -3591,7 +3594,7 @@ input.normal--input[type=submit] {
 
 .ivu-table-wrapper {
   border: none;
-  min-width: 600px;
+  min-width: 900px;
 }
 
 .ivu-table:before, .ivu-table:after {
@@ -3600,6 +3603,7 @@ input.normal--input[type=submit] {
 
 .ivu-table th {
   border-bottom: none;
+  color: #f9921b;
 }
 
 tbody tr:last-child td {
@@ -3612,4 +3616,58 @@ tbody tr:last-child td {
 
 tr.ivu-table-row-hover td {
   background: rgba(11, 14, 59, 0.31);
+}
+
+img.empty-state {
+  height: 200px;
+}
+
+div.prefix-icon {
+  z-index: 30!important;
+  opacity: 1!important;
+  border: none!important;
+  filter: none!important;
+}
+
+.vue-country-select .dropdown.open {
+  background-color: transparent!important;
+}
+
+.vue-country-select .dropdown-list {
+  background-color: #131a4a!important;
+  border: none;
+  color: #ffffff;
+}
+
+.dropdown-item {
+  color: #ffffff;
+}
+
+.highlighted.dropdown-item {
+  color: #131a4a;
+}
+
+.vue-country-select:focus-within {
+  box-shadow: none!important;
+  border-color: #66afe9;
+}
+
+.vue-country-select .dropdown:hover {
+  background-color: transparent!important;
+}
+
+.prefixNum {
+  padding-left: 52px;
+  position: absolute;
+  bottom: 6.5px;
+  font-family: "Avenir Medium", sans-serif;
+  font-weight: 600;
+  color: #f9921b;
+  font-size: .9rem;
+}
+
+.phoneNum input {
+  padding-left: 80px;
+  font-size: .9rem;
+  font-weight: 600;
 }
