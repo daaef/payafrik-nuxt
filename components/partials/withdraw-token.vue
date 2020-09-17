@@ -27,20 +27,23 @@
             <form>
               <div>
                 <img src="../../assets/img/bank.png" alt="" />
-                <input
-                  id="bank"
-                  type="text"
-                  placeholder="The bank you are transferring to"
-                />
+                <Select id="bank" v-model="bank" style="width: 100%" placeholder="The bank you are transferring to">
+                  <Option v-for="bank of banks" :key="bank.id" value="com">{{ bank.name }}</Option>
+                </Select>
                 <label for="bank">Bank</label>
               </div>
-              <div class="mt-20">
-                <img src="../../assets/img/recipient.png" alt="" />
+              <div class="mt-20 text-left phoneNum">
+                <vue-country-code
+                  class="prefix-icon"
+                  @onSelect="onSelect"
+                  :preferredCountries="['ng', 'us', 'gb']">
+                </vue-country-code>
                 <input
                   id="recipient"
                   type="text"
                   placeholder="The phone number of the user you are transferring to"
                 />
+                <div class="prefixNum">{{prefixNum}}</div>
                 <label for="recipient"
                   >Recipients <span class="c-white">Phone number</span></label
                 >
@@ -117,7 +120,10 @@ import { mapMutations } from "vuex";
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      bank: '',
+      prefixNum: ''
+    };
   },
   computed: {
     tokenWithdrawalModalActive() {
@@ -125,9 +131,16 @@ export default {
     },
     userDetails() {
       return this.$store.state.authenticatedUser;
+    },
+    banks() {
+      return this.$store.state.banks
     }
   },
   methods: {
+    onSelect({name, iso2, dialCode}) {
+      console.log(`${dialCode}`);
+      this.prefixNum = dialCode
+    },
     signOut() {},
     openMenu() {
       let sidebar = document.querySelector(".sidebar_bg");

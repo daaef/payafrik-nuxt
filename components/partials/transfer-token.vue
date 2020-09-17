@@ -16,25 +16,29 @@
             </div>
             <div class="transfer--info flex flex-center">
               <form class="text-center">
-                <div class="mt-20">
-                  <img src="../../assets/img/recipient.png" alt="" />
+                <div class="mt-20 text-left phoneNum">
+                  <vue-country-code
+                    class="prefix-icon"
+                    @onSelect="onSelect"
+                    :preferredCountries="['ng', 'us', 'gb']">
+                  </vue-country-code>
                   <input
-                    id="rec-phone"
+                    id="recipient"
                     type="text"
-                     v-model="userTransferAfk"
-                    placeholder="The phone number of the user you are transferring"
+                    placeholder="The phone number of the user you are transferring to"
                   />
-                  <label for="rec-phone"
-                    >Recipients <span class="c-white">Phone number</span></label
+                  <div class="prefixNum">{{prefixNum}}</div>
+                  <label for="recipient"
+                  >Recipients <span class="c-white">Phone number</span></label
                   >
                 </div>
                 <p class="authhint text-right">
-                  Please add country code eg: +234
+                  Please select the necessary flag to progress
                 </p>
                 <div class="mt-20">
                   <img src="../../assets/img/tokenam.png" alt="" />
                   <input
-                    v-model="afkAmountToTransfer" type="number" 
+                    v-model="afkAmountToTransfer" type="number"
                     id="token-am"
                     placeholder="How much you want to transfer"
                   />
@@ -70,6 +74,7 @@ export default {
       transferringAfk: false,
       userTransferAfk: '',
       afkAmountToTransfer: 0,
+      prefixNum: ''
     };
   },
   computed: {
@@ -81,6 +86,10 @@ export default {
     }
   },
   methods: {
+    onSelect({name, iso2, dialCode}) {
+      console.log(`${dialCode}`);
+      this.prefixNum = dialCode
+    },
     callback: function(response) {
       console.log(response);
     },
